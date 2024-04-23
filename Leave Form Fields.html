@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Filing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo_header">
+      <img src="mapecon_logo.png" alt="MAPECON Logo">
+    </div>
+    <div class="profile-dropdown">
+      <img src="profile_icon.png" alt="Profile">
+      <div class="dropdown-content">
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </header>
+  <h2 class="h2_field">New Leave Application</h2>
+  <div class="leave-application">
+    <form>
+        <label for="leave-type">Leave Type:</label>
+      <div class="leave-type">
+        <select name="leave-type" id="leave-type">
+          <option value="">Select</option>
+          <option value="casual">Casual Leave</option>
+          <option value="compensatory">Compensatory Off</option>
+          <option value="unpaid">Leave Without Pay</option>
+          <option value="privilege">Privilege Leave</option>
+          <option value="sick">Sick Leave</option>
+          <option value="vacation">Vacation Leave</option>
+        </select>
+      </div>
+      <label for="from-date">From Date:</label>
+      <div class="from-date-date-range">
+        <div class="from-date">
+          <input type="date" name="from-date" id="from-date">
+        </div>
+      </div>
+      <label for="to-date">To Date:</label>
+      <div class="to-date-date-range">
+    <div class="to-date">
+        <input type="date" name="to-date" id="to-date">
+      </div>
+    </div>
+    <label for="reason">Reason:</label>
+      <div class="reason">
+        
+        <textarea name="reason" id="reason" cols="30" rows="10"></textarea>
+      </div>
+      <div class="buttons">
+        <button type="button">Cancel</button>
+        <button type="submit" id="pdf-btn">Save as PDF</button>
+        <button type="submit"id="submit-btn">Submit to HR</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
