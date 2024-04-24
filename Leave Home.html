@@ -4,25 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leave Filing</title>
-  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="logo">
+    <div class="logo_header">
       <img src="mapecon_logo.png" alt="MAPECON Logo">
     </div>
+    <div class="profile-dropdown">
     <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
     <label for="profile-dropdown-toggle" class="profile-dropdown">
       <img src="profile.png" alt="Profile">
       <div class="dropdown-content">
+        <a href="#">Profile</a>
         <a href="#">Logout</a>
       </div>
-    </label>
+    </div>
   </header>
-  <div class="file-leave-container">
+  <div class="leave-container">
     <h2>Leave Filing</h2>
     <p>Filing a leave made easy! Just click the button to create a leave document.</p>
-    <button>File a Leave</button>
+    <button type="submit" id="leave-btn">File a Leave</button>
   </div>
 </body>
 </html>

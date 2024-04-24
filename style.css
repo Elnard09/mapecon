@@ -51,7 +51,9 @@ body {
   background-color: #B40000;
 }
 
+input[type="text"],
 input[type="email"],
+input[type="tel"],
 input[type="password"] {
   width: 100%;
   padding: 5px 0 5px 0;
@@ -61,9 +63,9 @@ input[type="password"] {
 .logo {
   width: 200px;
   align-self: center;
-  margin-bottom: 20px;
 }
 
+/* Text Styles */
 h2 {
   text-align: center;
   margin-bottom: 10px;
@@ -75,10 +77,10 @@ p {
   margin-bottom: 20px;
 }
 
-
+/* Link Styles */
 .forgot-password {
   margin-top: -15px;
-  display: block;  /* Change display to block */
+  display: block;  
   text-decoration: none;
   font-size: 13px;
   color: #333;
@@ -102,49 +104,14 @@ p {
   text-decoration: underline; /* Underline link on hover */
 }
 
-.google-signin {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #242222; /* Google blue color */
-  color: white;
-  padding: 10px 15px; /* Reduced padding for shorter button */
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: fit-content; /* Reduce width to fit content */
-  font-weight: bold;
-  margin-top: 30px; /* Increased margin-top */
-  text-decoration: none;
-}
-
-.google-signin:hover {
-  background-color: #3e8e41;
-}
-
-.google-logo {
-  width: 20px; /* Adjust width based on your logo size */
-  height: 20px; /* Adjust height based on your logo size */
-  margin-right: 10px;
-}
-
-/* Media queries for responsive design */
-
-@media (max-width: 768px) {
-  .login-form {
-    width: 80%;
-  }
-}
-
-
 /* For Header */
 
 header {
   background-color: #303033;
   border-bottom: 4px solid #B40000;
+  margin-bottom: 50px;
   color: #fff;
-  padding: 20px 20px; 
+  padding: 10px 20px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -185,27 +152,6 @@ header {
 
 .dropdown-content a:hover {
   background-color: #ddd;
-}
-
-
-/* Media query for responsiveness */
-@media only screen and (max-width: 600px) {
-  header {
-    padding: 20px 20px; 
-  }
-  .logo_header img{
-    width: 100px;
-    margin-left: 10px;
-  }
-
-  .profile-dropdown img {
-    width: 30px;
-    height: 30px;
-  }
-
-  .file-leave-container {
-    padding: 10px;
-  }
 }
 
 /* Form Fields */
@@ -308,7 +254,8 @@ label {
   resize: none; /* Added this line */
 }
 
-/* Style the buttons */
+/* BUTTONS */
+
 .buttons {
   width: 100%;
   display: flex;
@@ -328,7 +275,7 @@ label {
   background-color: #F0F0F0;
 }
 
-/* Style the submit button */
+/* Style the submit buttons */
 
 #pdf-btn{
   background-color: transparent; /* Remove background color */
@@ -342,9 +289,117 @@ label {
   color: #fff;
 }
 
+#leave-btn {
+  background-color: #B40000;
+  color: #fff;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/* END BUTTONS */
+
+
+/* Style for hover buttons */
+.buttons button[type="button"]:hover {
+  background-color: lightgrey; 
+}
+#pdf-btn:hover {
+  background-color: red; 
+  color: white; 
+}
+#submit-btn:hover {
+  background-color: #fa2020;
+}
+
+#leave-btn:hover {
+  background-color: #fa2020;
+}
+/* End Style for hover buttons */
+
+/* PROFILE DROPDOWN */
+/* Style for the profile dropdown */
+.profile-dropdown-toggle {
+  display: none; /* Hide the checkbox input */
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-dropdown img {
+  width: 40px; /* Adjust the width of the profile image */
+  height: 40px; /* Adjust the height of the profile image */
+  border-radius: 50%; /* Make the profile image circular */
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  right: 0; /* Adjust the right position of the dropdown content */
+  background-color: #f9f9f9;
+  min-width: 120px; /* Set the minimum width of the dropdown content */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow to the dropdown content */
+  z-index: 1;
+  display: none; /* Hide the dropdown content by default */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1; /* Change background color on hover */
+}
+
+/* Show dropdown content when checkbox is checked */
+.profile-dropdown-toggle:checked + .profile-dropdown .dropdown-content {
+  display: block;
+}
+
+/* END PROFILE DROPDOWN */
+
+/* Leave Home CSS Style */
+.leave-container {
+  text-align: center;
+  position: relative; /* Relative positioning for the overlay */
+  padding: 200px;
+}
+
+.leave-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('leave_background.jpg'); 
+  background-size: contain; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  opacity: 0.5; 
+  z-index: -1; 
+}
+
+.leave-container h1,
+.leave-container p {
+  color: #2D3648; 
+  position: relative;  
+  z-index: 1; 
+}
+/* End Leave Home CSS Style */
+
 
 /* Make the form responsive on phone and tablet breakpoints */
 @media only screen and (max-width: 768px) {
+  .login-form {
+    width: 80%;
+  }
 
   .h2_field {
     margin-top: 30px;
@@ -358,4 +413,63 @@ label {
   .date-range {
     width: 100%;
   }
+  
 }
+
+/* Media query for responsiveness */
+@media only screen and (max-width: 600px) {
+  header {
+    padding: 20px 20px; 
+  }
+  .logo_header img{
+    width: 100px;
+    margin-left: 10px;
+  }
+
+  .profile-dropdown img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .file-leave-container {
+    padding: 10px;
+  }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+
+  .leave-container {
+    padding: 20% 10%;
+  }
+
+  .leave-container h1 {
+    font-size: 1.2em; 
+  }
+
+  .leave-container p {
+    font-size: 1em; 
+  }
+
+}
+
+@media (max-width: 300px) {
+
+  .leave-container {
+    padding: 30% 10%;  
+  }
+
+  .leave-container h1 {
+    font-size: 1em; 
+  }
+
+  .leave-container p {
+    font-size: 0.8em;  /* Adjust as needed */
+  }
+  
+}
+
+
+
+
+
