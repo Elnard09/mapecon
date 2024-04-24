@@ -157,6 +157,8 @@ header {
 /* Form Fields */
 
 /* Style the leave application form */
+.profile-edit,
+.change-password,
 .leave-application {
   margin: 20px auto;
   width: 40%;
@@ -172,7 +174,7 @@ label {
 
 /* Style the heading */
 .h2_field {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 /* Style the form */
@@ -183,6 +185,7 @@ label {
 }
 
 /* Style the leave type label and select */
+.department,
 .leave-type {
   width: 100%; /* Increased width here */
   margin-bottom: 20px;
@@ -193,6 +196,7 @@ label {
   resize: none; /* Added this line */
 }
 
+.department select,
 .leave-type select {
   width: 100%;
   padding: 10px;
@@ -237,6 +241,11 @@ label {
 }
 
 /* Style the reason label and textarea */
+#fname,
+#lname,
+#contact,
+#email,
+#password,
 .reason {
   width: 100%;
   margin-bottom: 20px;
@@ -252,6 +261,45 @@ label {
   border-radius: 3px;
   height: 100px;
   resize: none; /* Added this line */
+}
+
+/* Style the profile container */
+.profile-container {
+  margin: 20px auto;
+  width: 40%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Style the heading */
+.h2_field {
+  margin-top: 40px;
+}
+
+/* Style the form */
+.profile-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Style the input fields */
+.profile-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="tel"],
+.profile-form input[type="email"],
+.profile-form input[type="password"] {
+  width: calc(50% - 10px); /* Adjusted width to fit two inputs in a row with margin */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 /* BUTTONS */
