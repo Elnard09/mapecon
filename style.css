@@ -16,7 +16,6 @@ body {
   padding-top: 0; /* Remove padding from the top of the body */
 }
 
-
 .background-image {
   position: absolute;
   top: 0;
@@ -28,6 +27,7 @@ body {
   filter: blur(2px);
 }
 
+/* LOGIN AND SIGN UP */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ body {
   background-color: red;
   color: white;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 15px; 
   border: none; 
   border-radius: 5px;
@@ -62,7 +62,6 @@ input[type="tel"],
 input[type="password"] {
   width: 100%;
   padding: 5px 0 5px 0;
-  margin-bottom: 20px;
 }
 
 .logo {
@@ -96,7 +95,7 @@ p {
 }
 
 .sign-up-link {
-  margin-top: 15px; /* Add space above the link */
+  margin-top: 10px; /* Add space above the link */
   text-align: center; /* Center text alignment */
 }
 
@@ -108,9 +107,9 @@ p {
 .sign-up-link a:hover {
   text-decoration: underline; /* Underline link on hover */
 }
+/* END LOGIN AND SIGN UP */
 
-/* Form Fields */
-
+/* FORM FIELDS */
 /* Style the leave application form */
 .profile-edit,
 .change-password,
@@ -129,7 +128,7 @@ label {
 
 /* Style the heading */
 .h2_field {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Style the form */
@@ -140,18 +139,17 @@ label {
 }
 
 /* Style the leave type label and select */
-.department,
+.department-edit,
 .leave-type {
   width: 100%; /* Increased width here */
   margin-bottom: 20px;
-  padding: 10px; /* Added padding to this class */
   border: 1px solid #ccc; /* Added border to this class*/
   border-radius: 3px;
-    box-sizing: border-box; /* Added this line */
+  box-sizing: border-box; /* Added this line */
   resize: none; /* Added this line */
 }
 
-.department select,
+.department-edit select,
 .leave-type select {
   width: 100%;
   padding: 10px;
@@ -280,13 +278,12 @@ label {
   background-color: #F0F0F0;
 }
 
-/* Style the submit buttons */
-
+/* Style the save and submit buttons */
 #pdf-btn{
-  background-color: transparent; /* Remove background color */
-  border: 2px solid red; /* Set red border with desired thickness */
-  color: red; /* Set text color to red */
-  cursor: pointer; /* Indicate clickable behavior */
+  background-color: transparent;
+  border: 2px solid red; 
+  color: red; 
+  cursor: pointer; 
 }
 
 #submit-btn{
@@ -303,7 +300,6 @@ label {
   cursor: pointer;
   border-radius: 5px;
 }
-/* END BUTTONS */
 
 /* Style for hover buttons */
 .buttons button[type="button"]:hover {
@@ -321,11 +317,13 @@ label {
   background-color: #fa2020;
 }
 /* End Style for hover buttons */
+/* END BUTTONS */
 
 /* Leave Home CSS Style */
 .leave-container {
+  margin-top: 40px;
   text-align: center;
-  position: relative; /* Relative positioning for the overlay */
+  position: relative; 
   padding: 200px;
 }
 
@@ -351,6 +349,58 @@ label {
   z-index: 1; 
 }
 /* End Leave Home CSS Style */
+
+/* CARD STYLE */
+.card-container {
+  display: flex;
+  justify-content: center; 
+  flex-wrap: wrap; 
+  margin: 20px;
+}
+
+.card {
+  position: relative; /* Positioning for the background overlay */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 300px; /* Set width for all cards */
+  margin: 10px; /* Add some margin between cards */
+  text-align: center;
+  font-family: arial;
+  border-radius: 10px; /* Add border-radius for rounded corners */
+  overflow: hidden; /* Hide overflow from background overlay */
+}
+
+.card-content {
+  position: relative; 
+}
+
+.card h1 {
+  margin-top: 50px; 
+}
+
+.card p
+{
+  margin-bottom: 40px;
+}
+
+.card button {
+  border: none;
+  border-radius: 10px;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 80%;
+  font-size: 18px;
+  margin-bottom: 10px; 
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+/* END CARD STYLE */
+
 
 /* Make the form responsive on phone and tablet breakpoints */
 @media only screen and (max-width: 768px) {

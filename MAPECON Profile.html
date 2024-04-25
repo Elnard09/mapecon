@@ -8,21 +8,7 @@
   
 </head>
 <body>
-  <header>
-    <div class="logo_header">
-      <img src="mapecon_logo.png" alt="MAPECON Logo">
-    </div>
-    <div class="profile-dropdown">
-      <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
-      <label for="profile-dropdown-toggle" class="profile-dropdown">
-        <img src="profile.png" alt="Profile">
-        <div class="dropdown-content">
-          <a href="MAPECON Profile.html">Profile </a>
-          <a href="MAPECON Change Password.html">Change Password</a>
-          <a href="MAPECON Log in.html">Logout</a>
-        </div>
-      </div>
-  </header>
+  <special-header></special-header>
   <div class="profile-edit">
     <h2 class="h2_field">Edit Profile</h2>
     <form>
@@ -36,16 +22,24 @@
       <input type="tel" id="contact" name="contact" required>
 
       <label for="department">Department:</label>
-      <div class="department">
-        <select name="department" id="department">
+      <div class="department-edit">
+        <select name="department" id="department-edit" required>
           <option value="">Select</option>
-          <option value="HR">HR</option>
           <option value="Accounting">Accounting</option>
-          <option value="Marketing">Marketing</option>
+          <option value="Admin">Admin and Shared Services</option>
           <option value="Ads">Ads and Promo</option>
-          <option value="EVP">EVP</option>
-          <option value="IT">IT</option>
-          <!-- Add more options as needed -->
+          <option value="Business">Business Development Group</option>
+          <option value="Chem Room">Chem Room</option>
+          <option value="Clinic">Clinic</option>
+          <option value="Collection">Collection</option>
+          <option value="EVP">EVP Office</option>
+          <option value="Greenovations-Floor">Greenovations (1st and 2nd Floor)</option>
+          <option value="Greenovations-Table">Greenovations (MGCPI Table)</option>
+          <option value="Operator-HR">Operator and HR</option>
+          <option value="OTD">OTD</option>
+          <option value="Research">Research and Development</option>
+          <option value="Sales">Sales</option>
+          <option value="Service">Service</option>
         </select>
       </div>
 
@@ -60,4 +54,5 @@
   </div>
   
 </body>
+<script src="./headerManager.js"></script>
 </html>
