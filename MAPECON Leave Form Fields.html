@@ -17,8 +17,9 @@
       <label for="profile-dropdown-toggle" class="profile-dropdown">
         <img src="profile.png" alt="Profile">
         <div class="dropdown-content">
-          <a href="#">Profile</a>
-          <a href="#">Logout</a>
+          <a href="MAPECON Profile.html">Profile </a>
+          <a href="MAPECON Change Password.html">Change Password</a>
+          <a href="MAPECON Log in.html">Logout</a>
         </div>
       </div>
   </header>
@@ -35,8 +36,11 @@
           <option value="privilege">Privilege Leave</option>
           <option value="sick">Sick Leave</option>
           <option value="vacation">Vacation Leave</option>
+          <option value="vacation">Others</option>
         </select>
       </div>
+      <label for="others">Others:</label>
+      <input type="text" id="others" name="others" >
       <label for="from-date">From Date:</label>
       <div class="from-date-date-range">
         <div class="from-date">
@@ -49,9 +53,10 @@
         <input type="date" name="to-date" id="to-date">
       </div>
     </div>
+    <label for="numofDays">Number of working days covered:</label>
+      <input type="text" id="numofDays" name="others" >
     <label for="reason">Reason:</label>
       <div class="reason">
-        
         <textarea name="reason" id="reason" cols="30" rows="10"></textarea>
       </div>
       <div class="buttons">

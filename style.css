@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
+  padding-top: 60px;
 }
 
 .container {
@@ -109,12 +110,15 @@ p {
 header {
   background-color: #303033;
   border-bottom: 4px solid #B40000;
-  margin-bottom: 50px;
   color: #fff;
   padding: 10px 20px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0; 
+  width: 100%; 
+  z-index: 1000; 
 }
 
 .logo_header img{
@@ -124,7 +128,9 @@ header {
 }
 
 .profile-dropdown {
-  position: relative;
+  position: absolute; 
+  top: 100%;
+  right: 20px; 
 }
 
 .profile-dropdown img {
@@ -138,20 +144,31 @@ header {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 120px;
+  width: max-content; /* Set the width to expand as wide as necessary */
+  white-space: nowrap; /* Prevent line breaks */
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  border-radius: 10px; /* Adjust the value to change the amount of rounding */
+  padding: 8px; /* Adjust the padding to create space around the dropdown content */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+.dropdown-content:hover {
+  padding: 12px; /* Increase padding on hover to create space */
 }
 
 .dropdown-content a {
-  color: #333;
-  padding: 12px 16px;
+  color: #fff;
+  padding: 8px 16px; /* Adjust padding for each dropdown item */
   text-decoration: none;
   display: block;
+  width: 100%; /* Ensure each item takes full width */
+  box-sizing: border-box; /* Include padding and border in the width */
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  border-radius: 10px;
+  color: #B40000; /* White font color on hover */
 }
 
 /* Form Fields */
@@ -246,6 +263,8 @@ label {
 #contact,
 #email,
 #password,
+#others,
+#numofDays,
 .reason {
   width: 100%;
   margin-bottom: 20px;
