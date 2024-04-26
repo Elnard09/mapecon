@@ -77,6 +77,7 @@ class SpecialHeader extends HTMLElement {
         /* Adjust the padding to create space around the dropdown content */
         transition: all 0.3s ease;
         /* Smooth transition on hover */
+        margin-right: 30px;
         }
 
         .dropdown-content:hover {

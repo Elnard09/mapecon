@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Declined Leaves</title>
+<title>Approved Leaves</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="H:/mapecon/mapecon/style3.css">
 </head>
 
 
@@ -17,25 +17,33 @@
  <!-- Content -->
  <div class="content" id="content">
 <div class="container_report_report">
+
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="#" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="#"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="#"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
-    <a href="#" id="active"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
+    <a href="#" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="#"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
   
     <div class="leave-report-header">
-      <h2>Declined Leaves</h2>
+      <h2>Approved Leaves</h2>
+      <div class="dropdown">
+        <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Compiled PDF</a></li>
+          <li><a href="#">Excel Format</a></li>
+        </ul>
+      </div>
     </div>
     
     <div class="filters">
       <table>
-        <tr class="filter-row">
+        <tr class="filter-row-approved">
           <th class="entries">Show <input type="number" value="10"> entries</th>
           <th><input type="text" placeholder="Name"></th>
           <th><input type="date" id="dateInput"></th>
@@ -64,7 +72,7 @@
       <td class="td">04/23/2024</td>
       <td class="td">-</td>
       <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
+      
     </tr>
     <tr>
       <td class="td"><input type="checkbox"></td>
@@ -75,7 +83,6 @@
       <td class="td">04/23/2025</td>
       <td class="td">-</td>
       <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
     <tr>
       <td class="td"><input type="checkbox"></td>
@@ -86,7 +93,6 @@
       <td class="td">04/23/2025</td>
       <td class="td">-</td>
       <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
     <tr>
       <td class="td"><input type="checkbox"></td>
@@ -97,7 +103,6 @@
       <td class="td">04/23/2024</td>
       <td class="td">-</td>
       <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
   </table>
 </div>
@@ -105,7 +110,7 @@
 </div>
 </body>
 
-<script src="./headerManager.js"></script>
+<script src="H:/mapecon/mapecon/headerManager.js"></script>
 
 <script>
 

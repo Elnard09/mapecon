@@ -3,47 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leave History</title>
+<title>Declined Leaves</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="H:/mapecon/mapecon/style3.css">
 </head>
 
 
 <body>
 <special-header></special-header>
 
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
 
  <!-- Content -->
  <div class="content" id="content">
 <div class="container_report_report">
-  
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="#" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
-    <span class="leave-label">NAVIGATE</span>
-    <a href="#"><i class="fa fa-file-text-o"></i>Leave Application</a>
-    <a href="#" id="active"><i class="fa fa-file-word-o"></i> Leave History</a>
+    <span class="leave-label">LEAVE REPORTS</span>
+    <a href="#"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+    <a href="#"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="#" id="active"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
   
     <div class="leave-report-header">
-      <h2>Leave History</h2>
-      <div class="dropdown">
-        <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Compiled PDF</a></li>
-          <li><a href="#">Excel Format</a></li>
-        </ul>
-      </div>
+      <h2>Declined Leaves</h2>
     </div>
     
     <div class="filters">
       <table>
-        <tr class="filter-row-approved">
+        <tr class="filter-row">
           <th class="entries">Show <input type="number" value="10"> entries</th>
+          <th><input type="text" placeholder="Name"></th>
           <th><input type="date" id="dateInput"></th>
         </tr>
       </table>
@@ -52,50 +46,58 @@
 <div>
   <table>
     <tr>
-      <th class="th-history"><input type="checkbox"></th>
-      <th class="th-history">Type of Leave</th>
-      <th class="th-history">Date Filed</th>
-      <th class="th-history">Date Requested</th>
-      <th class="th-history">Leave Until</th>
-      <th class="th-history"></th>
-      <th class="th-history">Status</th>
+      <th class="th"><input type="checkbox"></th>
+      <th class="th">Full Name</th>
+      <th class="th">Type of Leave</th>
+      <th class="th">Date Filed</th>
+      <th class="th">Date Requested</th>
+      <th class="th">Leave Until</th>
+      <th class="th"></th>
+      <th class="th" colspan="2">Actions</th>
     </tr>
     <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">-</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      
+      <td class="td"><input type="checkbox"></td>
+      <td class="td">TANTOY, JASMINE</td>
+      <td class="td">Leave with Pay</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">-</td>
+      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
     <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2025</td>
-      <td class="td-history">-</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
+      <td class="td"><input type="checkbox"></td>
+      <td class="td">DANQUE, PAULO</td>
+      <td class="td">Leave with Pay</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2025</td>
+      <td class="td">-</td>
+      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
     <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2025</td>
-      <td class="td-history">-</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
+      <td class="td"><input type="checkbox"></td>
+      <td class="td">VALLEJO, ELNARD</td>
+      <td class="td">Leave with Pay</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2025</td>
+      <td class="td">-</td>
+      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
     <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">-</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
+      <td class="td"><input type="checkbox"></td>
+      <td class="td">TANTOY, JASMINE</td>
+      <td class="td">Leave with Pay</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">04/23/2024</td>
+      <td class="td">-</td>
+      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="actions trash tooltip"><i class="fa fa-trash"></i><span class="tooltiptext-delete">Delete Document</span></td>
     </tr>
   </table>
 </div>
@@ -103,7 +105,7 @@
 </div>
 </body>
 
-<script src="./headerManager.js"></script>
+<script src="H:/mapecon/mapecon/headerManager.js"></script>
 
 <script>
 
@@ -132,7 +134,6 @@
   
     if (window.innerWidth <= 768) { // Mobile and tablet breakpoint
       overlay.style.display = "block"; // Display overlay
-      content.style.marginLeft = "0";
     } else {
       content.style.marginLeft = "250px"; // Move content to the right
     }

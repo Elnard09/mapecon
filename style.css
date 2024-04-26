@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Calibri;
+  font-family: "Oxygen", Arial, sans-serif;
 }
 
 .container-sign {
@@ -121,7 +121,6 @@ p {
   padding: 20px;
   border-radius: 5px;
 }
-
 
 label {
   display: block;
@@ -358,8 +357,6 @@ label {
   max-height: 50px; 
 }
 /* END CARD STYLE */
-
-
 
 /* Make the form responsive on phone and tablet breakpoints */
 @media only screen and (max-width: 768px) {
