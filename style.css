@@ -1,7 +1,6 @@
 body {
   margin: 0;
-  font-family: sans-serif;
-  padding-top: 80px;  
+  font-family: Calibri;
 }
 
 .container-sign {
@@ -13,7 +12,7 @@ body {
 }
 
 .no-header-padding {
-  padding-top: 0; /* Remove padding from the top of the body */
+  padding-top: 0; 
 }
 
 .background-image {
@@ -23,7 +22,7 @@ body {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-image: url("Mapecon_BG-Img.jpg");
+  background-image: url("H:/mapecon/mapecon/Pictures/Mapecon_BG-Img.jpg");
   filter: blur(2px);
 }
 
@@ -95,17 +94,17 @@ p {
 }
 
 .sign-up-link {
-  margin-top: 10px; /* Add space above the link */
-  text-align: center; /* Center text alignment */
+  margin-top: 10px;
+  text-align: center;
 }
 
 .sign-up-link a {
-  color: #333; /* Set link color */
-  text-decoration: none; /* Remove underline from link */
+  color: #333; 
+  text-decoration: none; 
 }
 
 .sign-up-link a:hover {
-  text-decoration: underline; /* Underline link on hover */
+  text-decoration: underline;
 }
 /* END LOGIN AND SIGN UP */
 
@@ -114,21 +113,19 @@ p {
 .profile-edit,
 .change-password,
 .leave-application {
-  margin: 20px auto;
+  margin: 140px auto;
+  justify-content: center;
+  align-items: center;
   width: 40%;
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 5px;
 }
 
+
 label {
   display: block;
   margin-bottom: 5px;
-}
-
-/* Style the heading */
-.h2_field {
-  margin-top: 10px;
 }
 
 /* Style the form */
@@ -141,54 +138,54 @@ label {
 /* Style the leave type label and select */
 .department-edit,
 .leave-type {
-  width: 100%; /* Increased width here */
+  width: 100%; 
   margin-bottom: 20px;
-  border: 1px solid #ccc; /* Added border to this class*/
+  border: 1px solid #ccc; 
   border-radius: 3px;
-  box-sizing: border-box; /* Added this line */
-  resize: none; /* Added this line */
+  box-sizing: border-box; 
+  resize: none; 
 }
 
 .department-edit select,
 .leave-type select {
   width: 100%;
   padding: 10px;
-  border: none; /* Removed border here to avoid double borders*/
+  border: none; 
   border-radius: 3px;
 }
 
 /* Style the date range labels and inputs */
 .from-date-date-range {
-  width: 100%; /* Decreased width here */
+  width: 100%; 
   margin-bottom: 20px;
-  padding: 10px; /* Added padding to this class */
-  border: 1px solid #ccc; /* Added border to this class*/
+  padding: 10px; 
+  border: 1px solid #ccc; 
   border-radius: 3px;
-    box-sizing: border-box; /* Added this line */
-  resize: none; /* Added this line */
+  box-sizing: border-box; 
+  resize: none; 
 }
 
 .from-date-date-range input[type="date"] {
   width: 100%;
   padding: 5px 0 5px 0;
-  border: none; /* Removed border here to avoid double borders*/
+  border: none; 
   border-radius: 3px;
 }
 
 .to-date-date-range {
-  width: 100%; /* Decreased width here */
+  width: 100%; 
   margin-bottom: 20px;
-  padding: 10px; /* Added padding to this class */
-  border: 1px solid #ccc; /* Added border to this class*/
+  padding: 10px; 
+  border: 1px solid #ccc; 
   border-radius: 3px;
-    box-sizing: border-box; /* Added this line */
-  resize: none; /* Added this line */
+    box-sizing: border-box; 
+  resize: none; 
 }
 
 .to-date-date-range input[type="date"] {
   width: 100%;
   padding: 5px 0 5px 0;
-  border: none; /* Removed border here to avoid double borders*/
+  border: none; 
   border-radius: 3px;
 }
 
@@ -204,18 +201,18 @@ label {
 .reason {
   width: 100%;
   margin-bottom: 20px;
-  padding: 10px; /* Added padding to this class */
-  border: 1px solid #ccc; /* Added border to this class*/
+  padding: 10px; 
+  border: 1px solid #ccc; 
   border-radius: 3px;
-    box-sizing: border-box; /* Added this line */
+    box-sizing: border-box; 
 }
 
 .reason textarea {
   width: 100%;
-  border: none; /* Removed border here to avoid double borders*/
+  border: none;
   border-radius: 3px;
   height: 100px;
-  resize: none; /* Added this line */
+  resize: none; 
 }
 
 /* Style the profile container */
@@ -319,87 +316,49 @@ label {
 /* End Style for hover buttons */
 /* END BUTTONS */
 
-/* Leave Home CSS Style */
-.leave-container {
-  margin-top: 40px;
-  text-align: center;
-  position: relative; 
-  padding: 200px;
-}
-
-.leave-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('leave_background.jpg'); 
-  background-size: contain; 
-  background-position: center; 
-  background-repeat: no-repeat; 
-  opacity: 0.5; 
-  z-index: -1; 
-}
-
-.leave-container h1,
-.leave-container p {
-  color: #2D3648; 
-  position: relative;  
-  z-index: 1; 
-}
-/* End Leave Home CSS Style */
-
 /* CARD STYLE */
 .card-container {
   display: flex;
   justify-content: center; 
   flex-wrap: wrap; 
   margin: 20px;
+  margin-top: 120px;
+}
+
+.card-container-wrapper {
+  text-align: center;
 }
 
 .card {
-  position: relative; /* Positioning for the background overlay */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 300px; /* Set width for all cards */
-  margin: 10px; /* Add some margin between cards */
+  position: relative; 
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); 
+  width: 120px;
+  height: 120px; 
+  margin: 20px; 
   text-align: center;
   font-family: arial;
-  border-radius: 10px; /* Add border-radius for rounded corners */
-  overflow: hidden; /* Hide overflow from background overlay */
+  border-radius: 10px; 
+  overflow: hidden; 
 }
 
 .card-content {
-  position: relative; 
+  position: relative;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
 }
 
-.card h1 {
-  margin-top: 50px; 
+.card p {
+  margin-bottom: 20px;
 }
 
-.card p
-{
-  margin-bottom: 40px;
-}
-
-.card button {
-  border: none;
-  border-radius: 10px;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 80%;
-  font-size: 18px;
-  margin-bottom: 10px; 
-}
-
-.card button:hover {
-  opacity: 0.7;
+.card img {
+  max-width: 50px; 
+  max-height: 50px; 
 }
 /* END CARD STYLE */
+
 
 
 /* Make the form responsive on phone and tablet breakpoints */

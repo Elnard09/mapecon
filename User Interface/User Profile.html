@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAPECON Leave Simulation System</title>
-  <link rel="stylesheet" href="style.css">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="H:/mapecon/mapecon/style.css">
+  
 </head>
+<body>
+  <special-header></special-header>
+  <div class="profile-edit">
+    <h2>Edit Profile</h2>
+    <form>
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" name="fname" required>
 
-<body class="no-header-padding">
-  <div class="background-image">
-  </div>
-  <div class="container-sign">
-    <div class="login-form">
-      <img src="MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Sign Up</h2>
-      <form action="#" method="post">
-        <label for="fname">First Name:</label>
-        <input type="text" id="fname" name="fname" required>
-        <label for="lname">Last Name:</label>
-        <input type="text" id="lname" name="lname" required>
-        <label for="contact">Contact:</label>
-        <input type="tel" id="contact" name="contact" >
-        <label for="department">Department:</label>
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" name="lname" required>
+
+      <label for="contact">Contact:</label>
+      <input type="tel" id="contact" name="contact" required>
+
+      <label for="department">Department:</label>
       <div class="department-edit">
         <select name="department" id="department-edit" required>
           <option value="">Select</option>
@@ -42,17 +42,17 @@
           <option value="Service">Service</option>
         </select>
       </div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit" class="login-btn">Register</button>  
-      </form>
-      <div class="sign-up-link">
-        Have an account? <a href="MAPECON Log in.html">Login</a>
-      </div>
-    </div>
-  </div>
-</body>
 
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <div class="buttons">
+        <button type="button" onclick="window.location.href='H:/mapecon/mapecon/User Interface/User Leave Home.html';">Cancel</button>
+        <button type="submit" id="submit-btn">Save</button>
+      </div>
+    </form>
+  </div>
+  
+</body>
+<script src="H:/mapecon/mapecon/headerManager.js"></script>
 </html>

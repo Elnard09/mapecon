@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leave Filing</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Leave Form</title>
+  <link rel="stylesheet" href="H:/mapecon/mapecon/style.css">
   
 </head>
 <body>
   <special-header></special-header>
-  <h2 class="h2_field">New Leave Application</h2>
   <div class="leave-application">
+    <h2>New Leave Application</h2>
     <form>
         <label for="leave-type">Leave Type:</label>
       <div class="leave-type">
@@ -40,18 +40,18 @@
       </div>
     </div>
     <label for="numofDays">Number of working days covered:</label>
-      <input type="text" id="numofDays" name="others" >
+      <input type="text" id="numofDays" name="numofDays" >
     <label for="reason">Reason:</label>
       <div class="reason">
         <textarea name="reason" id="reason" cols="30" rows="10"></textarea>
       </div>
       <div class="buttons">
-        <button type="button">Cancel</button>
+        <button type="button" onclick="window.location.href='H:/mapecon/mapecon/User Interface/User Leave Home.html';">Cancel</button>
         <button type="submit" id="pdf-btn">Save as PDF</button>
         <button type="submit"id="submit-btn">Submit to HR</button>
       </div>
     </form>
   </div>
 </body>
-<script src="./headerManager.js"></script>
+<script src="H:/mapecon/mapecon/headerManager.js"></script>
 </html>

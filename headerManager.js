@@ -3,16 +3,16 @@ class SpecialHeader extends HTMLElement {
         this.innerHTML = `
         <header>
         <div class="logo_header">
-        <img src="mapecon_logo.png" alt="MAPECON Logo">
+        <img src="H:/mapecon/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
       </div>
       <div class="profile-dropdown">
         <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
         <label for="profile-dropdown-toggle" class="profile-dropdown">
-          <img src="profile.png" alt="Profile">
+          <img src="H:/mapecon/mapecon/Pictures/profile.png" alt="Profile">
           <div class="dropdown-content">
-            <a href="MAPECON Profile.html">Profile </a>
-            <a href="MAPECON Change Password.html">Change Password</a>
-            <a href="MAPECON Log in.html">Logout</a>
+            <a href="H:/mapecon/mapecon/User Interface/User Profile.html">Profile </a>
+            <a href="H:/mapecon/mapecon/User Interface/User Change Password.html">Change Password</a>
+            <a href="H:/mapecon/mapecon/User Interface/User Log in.html">Logout</a>
           </div>
         </label>
       </div>
@@ -57,6 +57,8 @@ class SpecialHeader extends HTMLElement {
         height: 40px;
         border-radius: 50%;
         cursor: pointer;
+        margin-right: 30px;
+
         }
 
         .dropdown-content {
@@ -101,74 +103,74 @@ class SpecialHeader extends HTMLElement {
         }
 
         /* PROFILE DROPDOWN */
-    /* Style for the profile dropdown */
-    .profile-dropdown-toggle {
-        display: none; /* Hide the checkbox input */
-    }
-    
-    .profile-dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .profile-dropdown img {
-        width: 40px; /* Adjust the width of the profile image */
-        height: 40px; /* Adjust the height of the profile image */
-        border-radius: 50%; /* Make the profile image circular */
-        cursor: pointer;
-    }
-    
-    .dropdown-content {
-        position: absolute;
-        right: 0; /* Adjust the right position of the dropdown content */
-        background-color: #f9f9f9;
-        min-width: 120px; /* Set the minimum width of the dropdown content */
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow to the dropdown content */
-        z-index: 1;
-        display: none; /* Hide the dropdown content by default */
-    }
-    
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    
-    .dropdown-content a:hover {
-        background-color: #f1f1f1; /* Change background color on hover */
-    }
-    
-    /* Show dropdown content when checkbox is checked */
-    .profile-dropdown-toggle:checked + .profile-dropdown .dropdown-content {
-        display: block;
-    }
-    
-    /* END PROFILE DROPDOWN */
-
-        /* Media query for responsiveness */
-        @media only screen and (max-width: 600px) {
-        header {
-            padding: 20px 20px;
+        /* Style for the profile dropdown */
+        .profile-dropdown-toggle {
+            display: none; /* Hide the checkbox input */
         }
-
-        .logo_header img {
-            width: 100px;
-            margin-left: 10px;
+        
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
         }
-
+        
         .profile-dropdown img {
-            width: 30px;
-            height: 30px;
+            width: 40px; /* Adjust the width of the profile image */
+            height: 40px; /* Adjust the height of the profile image */
+            border-radius: 50%; /* Make the profile image circular */
+            cursor: pointer;
         }
+        
+        .dropdown-content {
+            position: absolute;
+            right: 0; /* Adjust the right position of the dropdown content */
+            background-color: #f9f9f9;
+            min-width: 120px; /* Set the minimum width of the dropdown content */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Add shadow to the dropdown content */
+            z-index: 1;
+            display: none; /* Hide the dropdown content by default */
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1; /* Change background color on hover */
+        }
+        
+        /* Show dropdown content when checkbox is checked */
+        .profile-dropdown-toggle:checked + .profile-dropdown .dropdown-content {
+            display: block;
+        }
+        
+        /* END PROFILE DROPDOWN */
 
-        .file-leave-container {
-            padding: 10px;
+            /* Media query for responsiveness */
+            @media only screen and (max-width: 600px) {
+                header {
+                    padding: 20px 20px;
+                }
+
+                .logo_header img {
+                    width: 100px;
+                    margin-left: 10px;
+                }
+
+                .profile-dropdown img {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .file-leave-container {
+                    padding: 10px;
+                }
+            }
+            `;
+            this.appendChild(style);
         }
-        }
-        `;
-        this.appendChild(style);
     }
-}
 
 customElements.define('special-header', SpecialHeader)
