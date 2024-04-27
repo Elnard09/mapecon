@@ -53,6 +53,7 @@ body {
 
 .login-btn:hover {
   background-color: #B40000;
+ 
 }
 
 input[type="text"],
@@ -60,7 +61,19 @@ input[type="email"],
 input[type="tel"],
 input[type="password"] {
   width: 100%;
-  padding: 5px 0 5px 0;
+  padding: 10px 0 10px 0;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="tel"]:hover,
+input[type="password"]:hover,
+input[type="date"]:hover,
+input[type="number"]:hover,
+textarea:hover {
+  border: 2px solid black;
 }
 
 .logo {
@@ -68,10 +81,27 @@ input[type="password"] {
   align-self: center;
 }
 
+/* Style the form group for name fields */
+.name-fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Style the individual form group */
+.form-group {
+  flex-basis: calc(50% - 5px); /* Adjust as needed */
+}
+
+/* Style the labels and inputs */
+.form-group label,
+.form-group input {
+  width: 100%;
+}
+
 /* Text Styles */
 h2 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 p {
@@ -82,7 +112,8 @@ p {
 
 /* Link Styles */
 .forgot-password {
-  margin-top: -15px;
+  margin-top: -10px;
+  margin-bottom: 15px;
   display: block;  
   text-decoration: none;
   font-size: 13px;
@@ -110,10 +141,10 @@ p {
 
 /* FORM FIELDS */
 /* Style the leave application form */
-.profile-edit,
-.change-password,
-.leave-application {
-  margin: 140px auto;
+
+.change-password {
+  margin: 0 auto;
+  margin-top: 40px;
   justify-content: center;
   align-items: center;
   width: 40%;
@@ -122,10 +153,33 @@ p {
   border-radius: 5px;
 }
 
+.profile-edit{
+  margin: 0 auto;
+  margin-top: -20px;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.leave-application{
+  margin: 0 auto;
+  margin-top: -20px;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
+
 
 /* Style the form */
 .leave-application form {
@@ -136,7 +190,8 @@ label {
 
 /* Style the leave type label and select */
 .department-edit,
-.leave-type {
+.leave-type,
+#others {
   width: 100%; 
   margin-bottom: 20px;
   border: 1px solid #ccc; 
@@ -153,65 +208,70 @@ label {
   border-radius: 3px;
 }
 
-/* Style the date range labels and inputs */
-.from-date-date-range {
-  width: 100%; 
-  margin-bottom: 20px;
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  border-radius: 3px;
-  box-sizing: border-box; 
-  resize: none; 
-}
-
-.from-date-date-range input[type="date"] {
+#others {
   width: 100%;
-  padding: 5px 0 5px 0;
-  border: none; 
+  padding: 10px;
   border-radius: 3px;
 }
 
-.to-date-date-range {
-  width: 100%; 
-  margin-bottom: 20px;
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  border-radius: 3px;
-    box-sizing: border-box; 
-  resize: none; 
-}
-
-.to-date-date-range input[type="date"] {
+/* Style the date range container */
+.date-range {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  padding: 5px 0 5px 0;
-  border: none; 
+}
+
+/* Style the from-date and to-date containers */
+.from-date,
+.to-date,
+.num-of-days {
+  margin-top: 5px;
+  width: 31%; /* Adjust as needed */
   border-radius: 3px;
 }
 
-/* Style the form's field */
-#fname,
-#lname,
-#contact,
-#email,
-#password,
-#department,
-#others,
-#numofDays,
+
+/* Style the date inputs */
+.from-date input[type="date"],
+.to-date input[type="date"],
+.num-of-days input[type="number"] {
+  width: 100%;
+  padding: 5px 0;
+  border: 1px solid #ccc;; 
+  border-radius: 3px;
+}
+
+#others:hover,
+#leave-type:hover,
+.from-date input[type="date"]:hover,
+.to-date input[type="date"]:hover,
+.num-of-days input[type="number"]:hover,
+.reason textarea:hover {
+
+  border: 2px solid black; 
+}
+/* Style the reason field container */
+
+.reason-label{
+  margin-top: 20px;
+}
+
 .reason {
-  width: 100%;
+  width: 100%; /* Set width to 100% to match other field containers */
   margin-bottom: 20px;
-  padding: 10px; 
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   border-radius: 3px;
-    box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
+/* Style the reason textarea */
 .reason textarea {
-  width: 100%;
-  border: none;
-  border-radius: 3px;
-  height: 100px;
+  width: calc(100% - 22px); /* Adjusted width to account for border and padding */
+  padding: 11px; /* Added padding to match other fields */
+  border: none; /* Removed border to ensure consistency */
+  border-radius: 3px; /* Removed border radius to ensure consistency */
   resize: none; 
+  height: 80px;
 }
 
 /* Style the profile container */
@@ -316,7 +376,7 @@ label {
 /* END BUTTONS */
 
 /* CARD STYLE */
-.card-container {
+.card-container, .card-container-admin {
   display: flex;
   justify-content: center; 
   flex-wrap: wrap; 
@@ -340,6 +400,12 @@ label {
   overflow: hidden; 
 }
 
+.card:hover {
+  padding: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4); 
+  transition: all 0.3s ease;
+}
+
 .card-content {
   position: relative;
   display: flex; 
@@ -358,8 +424,23 @@ label {
 }
 /* END CARD STYLE */
 
+@media only screen and (max-width: 768px) {
+  .card-container-admin{
+     margin-top: 75px;
+  }
+}
+
 /* Make the form responsive on phone and tablet breakpoints */
 @media only screen and (max-width: 768px) {
+
+  button{
+    font-size: 10px;
+  }
+
+  label{
+    font-size: 10px;
+  }
+
   .login-form {
     width: 80%;
   }
@@ -370,11 +451,16 @@ label {
 
   .leave-application {
     width: 70%;
+    margin-top: 0px;
   }
   
   .leave-type,
   .date-range {
     width: 100%;
+  }
+
+  .change-password, .profile-edit, .leave-application{
+    width: 75%;
   }
   
 }
@@ -414,6 +500,10 @@ label {
     font-size: 1em; 
   }
 
+  .profile-edit{
+    margin-top: 0px;
+  }
+
 }
 
 @media (max-width: 300px) {
@@ -430,6 +520,128 @@ label {
     font-size: 0.8em;  /* Adjust as needed */
   }
   
+}
+
+/* Styling the Sidebar */
+
+.sidebar {
+  height: 100%;
+  visibility: hidden;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  margin-top: 160px;
+}
+
+/* The sidebar links */
+.sidebar a {
+  color: black;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-left: 20% ;
+  width: 60%;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Vertically center items */
+  justify-content: flex-start; /* Align items to the start (left) */
+  transition: 0.3s;
+}
+
+.leave-label{
+  margin-left: 20% ;
+  font-size: small;
+}
+
+.home-sidebar{
+  margin-bottom: 20px;
+}
+
+#active{
+  color: white;
+  background-color: #b40000;
+}
+
+/* Style the sidebar icons */
+.sidebar a i {
+  margin-right: 10px; /* Add margin between icon and text */
+}
+
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: white;
+  background-color: #b40000;
+  transition: none;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style the content */
+.content {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+.leave-report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.openbtn {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu {
+  font-size: 23px;
+  font-weight: bolder;
+  margin-left: 50px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+.sidebar{
+  margin-top: 0%;
+  z-index: 1002;
+}
+
+.sidebar a{
+  width: 80%;
+  margin-left: 3.5%;
+}
+
+.leave-label{
+  margin-left: 5% ;
+}
+
+.overlay {
+  display: none;
+  position: fixed; 
+  width: 100%; 
+  height: 100%; 
+  top: 0; 
+  left: 0;
+  background-color: rgba(0,0,0,0.5); /* Semi-transparent black */
+  z-index: 1001; /* Ensure it's above everything else */
+}
 }
 
 
