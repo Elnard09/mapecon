@@ -22,7 +22,7 @@ body {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-image: url("H:/mapecon/mapecon/Pictures/Mapecon_BG-Img.jpg");
+  background-image: url("/mapecon/Pictures/Mapecon_BG-Img.jpg");
   filter: blur(2px);
 }
 

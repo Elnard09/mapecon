@@ -3,16 +3,16 @@ class SpecialHeader extends HTMLElement {
         this.innerHTML = `
         <header>
         <div class="logo_header">
-        <img src="D:/Portfolio/MAPECON/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+        <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
       </div>
       <div class="profile-dropdown">
         <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
         <label for="profile-dropdown-toggle" class="profile-dropdown">
-          <img src="D:/Portfolio/MAPECON/Pictures/profile.png" alt="Profile">
+          <img src="/mapecon/Pictures/profile.png" alt="Profile">
           <div class="dropdown-content">
-            <a href="H:/mapecon/mapecon/User Interface/User Profile.html">Profile </a>
-            <a href="H:/mapecon/mapecon/User Interface/User Change Password.html">Change Password</a>
-            <a href="H:/mapecon/mapecon/User Interface/User Log in.html">Logout</a>
+            <a href="/mapecon/User Interface/User Profile.html">Profile </a>
+            <a href="/mapecon/User Interface/User Change Password.html">Change Password</a>
+            <a href="/mapecon/Log in Page/User Log in.html">Logout</a>
           </div>
         </label>
       </div>
