@@ -1,3 +1,4 @@
+
 class SpecialHeader extends HTMLElement {
     connectedCallback(){
         this.innerHTML = `
@@ -10,9 +11,9 @@ class SpecialHeader extends HTMLElement {
         <label for="profile-dropdown-toggle" class="profile-dropdown">
           <img src="/mapecon/Pictures/profile.png" alt="Profile">
           <div class="dropdown-content">
-            <a href="/mapecon/User Interface/User Profile.html">Profile </a>
-            <a href="/mapecon/User Interface/User Change Password.html">Change Password</a>
-            <a href="/mapecon/Log in Page/User Log in.html">Logout</a>
+            <a href="../User Interface/User Profile.php">Profile </a>
+            <a href="../User Interface/User Change Password.php">Change Password</a>
+            <a href="../sql/logout.php">Logout</a>
           </div>
         </label>
       </div>

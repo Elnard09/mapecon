@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+    include("../sql/config.php");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

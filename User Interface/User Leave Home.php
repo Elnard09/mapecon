@@ -1,16 +1,22 @@
+<?php
+session_start();
+
+    include("../sql/config.php");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Profile</title>
+  <title>User Leave Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/mapecon/style.css">
-  
 </head>
 <body>
   <special-header></special-header>
-
   <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
   
   <!-- Content -->
@@ -18,60 +24,33 @@
 
    <!-- Sidebar -->
    <div class="sidebar" id="sidebar">
-    <a href="/mapecon/User Interface/User Leave Home.html" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="/mapecon/User Interface/User Leave Home.php" class="home-sidebar" id="active"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">NAVIGATE</span>
     <a href="/mapecon/User Interface/User Leave Form.php"><i class="fa fa-file-text-o"></i>Leave Application</a>
-    <a href="/mapecon/User Interface/User Leave History.html"><i class="fa fa-file-word-o"></i> Leave History</a>
+    <a href="/mapecon/User Interface/User Leave History.php"><i class="fa fa-file-word-o"></i> Leave History</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
-
-  <div class="profile-edit">
-    <h2>Edit Profile</h2>
-    <form>
-      <label for="fname">First Name:</label>
-      <input type="text" id="fname" name="fname" required>
-
-      <label for="lname">Last Name:</label>
-      <input type="text" id="lname" name="lname" required>
-
-      <label for="contact">Contact:</label>
-      <input type="tel" id="contact" name="contact" required>
-
-      <label for="department">Department:</label>
-      <div class="department-edit">
-        <select name="department" id="department-edit" required>
-          <option value="">Select</option>
-          <option value="Accounting">Accounting</option>
-          <option value="Admin">Admin and Shared Services</option>
-          <option value="Ads">Ads and Promo</option>
-          <option value="Business">Business Development Group</option>
-          <option value="Chem Room">Chem Room</option>
-          <option value="Clinic">Clinic</option>
-          <option value="Collection">Collection</option>
-          <option value="EVP">EVP Office</option>
-          <option value="Greenovations-Floor">Greenovations (1st and 2nd Floor)</option>
-          <option value="Greenovations-Table">Greenovations (MGCPI Table)</option>
-          <option value="Operator-HR">Operator and HR</option>
-          <option value="OTD">OTD</option>
-          <option value="Research">Research and Development</option>
-          <option value="Sales">Sales</option>
-          <option value="Service">Service</option>
-        </select>
+  <div class="card-container">
+    <div class="card-container-wrapper">
+      <div class="card" onclick="location.href='User Leave Form.php';" style="cursor: pointer;">
+        <div class="card-content">
+          <img src="/mapecon/Pictures/calendar_icon.png" alt="Leave Filing Icon">
+        </div>
       </div>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <div class="buttons">
-        <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.html';">Cancel</button>
-        <button type="submit" id="submit-btn">Save</button>
+      <p class="phrase">Leave Application</p>
+    </div>
+    <div class="card-container-wrapper">
+      <div class="card" onclick="location.href='User Leave History.php';" style="cursor: pointer;">
+        <div class="card-content">
+          <img src="/mapecon/Pictures/history_icon.png" alt="Leave History Icon">
+        </div>
       </div>
-    </form>
+      <p class="phrase">Leave History</p>
+    </div>
   </div>
-
-  </div>
+</div>
   
 </body>
 <script src="/mapecon/headerManager.js"></script>

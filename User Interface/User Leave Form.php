@@ -120,10 +120,10 @@
 
    <!-- Sidebar -->
    <div class="sidebar" id="sidebar">
-    <a href="/mapecon/User Interface/User Leave Home.html" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="/mapecon/User Interface/User Leave Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">NAVIGATE</span>
     <a href="/mapecon/User Interface/User Leave Form.php" id="active"><i class="fa fa-file-text-o"></i>Leave Application</a>
-    <a href="/mapecon/User Interface/User Leave History.html"><i class="fa fa-file-word-o"></i> Leave History</a>
+    <a href="/mapecon/User Interface/User Leave History.php"><i class="fa fa-file-word-o"></i> Leave History</a>
   </div>
 
   <!-- Overlay -->
@@ -167,7 +167,7 @@
             <textarea name="reason" id="reason" cols="30" rows="10"></textarea>
         </div>
         <div class="buttons">
-            <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.html';">Cancel</button>
+            <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.php';">Cancel</button>
             <button type="submit" name="pdf-btn" id="pdf-btn">Save as PDF</button>
             <button type="submit" id="submit-btn">Submit to HR</button>
         </div>

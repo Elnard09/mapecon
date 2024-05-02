@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+    include("../sql/config.php");
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +27,10 @@
   
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="/mapecon/User Interface/User Leave Home.html" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="/mapecon/User Interface/User Leave Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">NAVIGATE</span>
     <a href="/mapecon/User Interface/User Leave Form.php"><i class="fa fa-file-text-o"></i>Leave Application</a>
-    <a href="/mapecon/User Interface/User Leave History.html" id="active"><i class="fa fa-file-word-o"></i> Leave History</a>
+    <a href="/mapecon/User Interface/User Leave History.php" id="active"><i class="fa fa-file-word-o"></i> Leave History</a>
   </div>
 
   <!-- Overlay -->
