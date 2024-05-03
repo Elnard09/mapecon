@@ -72,7 +72,7 @@ INSERT INTO `users` (`id`, `user_id`, `user_status`, `firstname`, `lastname`, `c
 --
 ALTER TABLE `users`
   MODIFY COLUMN `id` bigint(50) NOT NULL AUTO_INCREMENT,
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`);
 --
 -- AUTO_INCREMENT for table `leave_applications`
 --
