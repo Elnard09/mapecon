@@ -28,7 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `leave_applications` (
+  `id` bigint(50) NOT NULL,
   `application_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `date` date NOT NULL,
   `leave_type` enum('Casual Leave','Compensatory Off','Leave Without Pay','Privilege Leave','Sick Leave','Vacation Leave','Others') NOT NULL,
   `from_date` date NOT NULL,
@@ -44,7 +46,7 @@ CREATE TABLE `leave_applications` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint(100) NOT NULL,
+  `id` bigint(50) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `user_status` varchar(100) NOT NULL,
   `firstname` varchar(50) NOT NULL,
@@ -66,30 +68,17 @@ INSERT INTO `users` (`id`, `user_id`, `user_status`, `firstname`, `lastname`, `c
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `leave_applications`
---
-ALTER TABLE `leave_applications`
-  ADD PRIMARY KEY (`application_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  MODIFY COLUMN `id` bigint(100) NOT NULL AUTO_INCREMENT,
+  MODIFY COLUMN `id` bigint(50) NOT NULL AUTO_INCREMENT,
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
 --
 -- AUTO_INCREMENT for table `leave_applications`
 --
 ALTER TABLE `leave_applications`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT;
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` bigint(50) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
