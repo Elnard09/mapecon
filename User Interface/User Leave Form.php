@@ -134,7 +134,22 @@ include("../sql/config.php");
   <link rel="stylesheet" href="/mapecon/style.css">
 </head>
 <body>
-  <special-header></special-header>
+<header>
+    <div class="logo_header">
+    <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+  </div>
+  <div class="profile-dropdown">
+    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
+    <label for="profile-dropdown-toggle" class="profile-dropdown">
+      <img src="/mapecon/Pictures/profile.png" alt="Profile">
+      <div class="dropdown-content">
+        <a href="../User Interface/User Profile.php">Profile </a>
+        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="../sql/logout.php">Logout</a>
+      </div>
+    </label>
+  </div>
+  </header>
 
   <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
   
@@ -200,7 +215,7 @@ include("../sql/config.php");
   
 </div>
 </body>
-<script src="/mapecon/headerManager.js"></script>
+
 <script>
     document.getElementById('leave-type').addEventListener('change', function() {
         var othersContainer = document.getElementById('others-container');

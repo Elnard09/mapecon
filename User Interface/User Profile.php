@@ -1,9 +1,48 @@
 <?php
 session_start();
 
-    include("../sql/config.php");
+include("../sql/config.php");
+include("../sql/function.php");
 
+$update_msg = ""; // Initialize the update message
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $contact = $_POST['contact'];
+    $department = $_POST['department'];
+
+    $query = "UPDATE users 
+              SET firstname = '$fname', lastname = '$lname', contactnumber = '$contact', department = '$department' 
+              WHERE user_id = " . $_SESSION['user_id'];
+
+    if (mysqli_query($connection, $query)) {
+        $update_msg = "Profile updated successfully!";
+    } else {
+        $update_msg = "Error updating profile: " . mysqli_error($connection);
+    }
+
+    // Fetch user's current profile data
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT * FROM users WHERE user_id = $user_id";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_assoc($result);
+    if($result){
+      ?>
+      <script type="text/javascript">
+      alert('Profile updated successfully!');
+      window.location.href='User Profile.php';
+      </script>
+      <?php
+      die;
+      } else {
+        ?><script type="text/javascript">
+        alert('Error updating profile! Please try again');
+        window.location.href='User Profile.php';
+        </script>
+        <?php
+      }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +56,22 @@ session_start();
   
 </head>
 <body>
-  <special-header></special-header>
+<header>
+    <div class="logo_header">
+    <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+  </div>
+  <div class="profile-dropdown">
+    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
+    <label for="profile-dropdown-toggle" class="profile-dropdown">
+      <img src="/mapecon/Pictures/profile.png" alt="Profile">
+      <div class="dropdown-content">
+        <a href="../User Interface/User Profile.php">Profile </a>
+        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="../sql/logout.php">Logout</a>
+      </div>
+    </label>
+  </div>
+  </header>
 
   <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
   
@@ -37,7 +91,7 @@ session_start();
 
   <div class="profile-edit">
     <h2>Edit Profile</h2>
-    <form>
+    <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
       <label for="fname">First Name:</label>
       <input type="text" id="fname" name="fname" required>
 
@@ -69,8 +123,8 @@ session_start();
         </select>
       </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+      <!--<label for="email">Email:</label>
+      <input type="email" id="email" name="email" required> -->
 
       <div class="buttons">
         <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.php';">Cancel</button>
@@ -78,11 +132,8 @@ session_start();
       </div>
     </form>
   </div>
-
-  </div>
-  
 </body>
-<script src="/mapecon/headerManager.js"></script>
+
 <script>
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");

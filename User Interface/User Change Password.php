@@ -1,8 +1,44 @@
 <?php
-session_start();
+  session_start();
+  include("../sql/config.php");
+  include("../sql/function.php");
+  
+  // Check if user is logged in
+  $user_data = check_login($connection);
 
-    include("../sql/config.php");
+  // Handle form submission
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $current_password = $_POST['current-password'];
+      $new_password = $_POST['new-password'];
+      $confirm_password = $_POST['confirm-new-password'];
 
+      // Verify if the current password is correct
+      $hashed_password = $user_data['password'];
+      if (password_verify($current_password, $hashed_password)) {
+          // Check if new password matches the confirmation
+          if ($new_password === $confirm_password) {
+              // Update the password in the database
+              $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+              $id = $user_data['id'];
+              $query = "UPDATE users SET password='$hashed_new_password' WHERE id='$id'";
+              $result = mysqli_query($connection, $query);
+              if ($result) {
+                  // Password updated successfully
+                  echo '<script>alert("Password updated successfully!");</script>';
+              } else {
+                  // Error updating password
+                  echo '<script>alert("Error updating password!");</script>';
+              }
+          } else {
+              // New password and confirmation do not match
+              echo '<script>alert("New password and confirmation do not match!");</script>';
+          }
+      } else {
+          // Current password is incorrect
+          echo '<script>alert("Current password is incorrect!");</script>';
+      }
+}
+?>
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +52,22 @@ session_start();
   
 </head>
 <body>
-  <special-header></special-header>
+<header>
+    <div class="logo_header">
+    <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+  </div>
+  <div class="profile-dropdown">
+    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
+    <label for="profile-dropdown-toggle" class="profile-dropdown">
+      <img src="/mapecon/Pictures/profile.png" alt="Profile">
+      <div class="dropdown-content">
+        <a href="../User Interface/User Profile.php">Profile </a>
+        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="../sql/logout.php">Logout</a>
+      </div>
+    </label>
+  </div>
+  </header>
 
   <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
   
@@ -37,7 +88,7 @@ session_start();
   <!-- Change Password Form -->
   <div class="change-password" >
     <h2>Change Password</h2>
-    <form>
+    <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
       <label for="current-password">Current Password:</label>
       <input type="password" id="password" name="current-password" required>
 
@@ -55,7 +106,6 @@ session_start();
   </div>
 </div>
 </body>
-<script src="/mapecon/headerManager.js"></script>
 
 <script>
   function toggleNav() {
