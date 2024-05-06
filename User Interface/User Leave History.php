@@ -80,7 +80,8 @@ session_start();
       <th class="th-history">Date Requested</th>
       <th class="th-history">Leave Until</th>
       <th class="th-history">Status</th>
-      <th class="th-history">Action</th>
+      <th class="th-history"></th>
+      <th class="th-history" colspan="3">Action</th>
     </tr>
     <tr>
       <td class="td-history"><input type="checkbox"></td>
@@ -89,20 +90,10 @@ session_start();
       <td class="td-history">04/23/2024</td>
       <td class="td-history">04/23/2024</td>
       <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Cancel Leave</span></td>   
-    </tr>
-    <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2025</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Cancel Leave</span></td>
+      <td class="td-history"> -</td>
+      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Download as PDF</span></td>
+      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>   
     </tr>
     <tr>
       <td class="td-history"><input type="checkbox"></td>
@@ -111,9 +102,22 @@ session_start();
       <td class="td-history">04/23/2024</td>
       <td class="td-history">04/23/2025</td>
       <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Cancel Leave</span></td>
+      <td class="td-history"> -</td>
+      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
+      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
+    </tr>
+    <tr>
+      <td class="td-history"><input type="checkbox"></td>
+      <td class="td-history">Leave with Pay</td>
+      <td class="td-history">04/23/2024</td>
+      <td class="td-history">04/23/2024</td>
+      <td class="td-history">04/23/2025</td>
+      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
+      <td class="td-history"> -</td>
+      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
+      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
     </tr>
     <tr>
       <td class="td-history"><input type="checkbox"></td>
@@ -122,9 +126,10 @@ session_start();
       <td class="td-history">04/23/2024</td>
       <td class="td-history">04/23/2024</td>
       <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Cancel Leave</span></td>
+      <td class="td-history"> -</td>
+      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
+      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
+      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
     </tr>
   </table>
 </div>

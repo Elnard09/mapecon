@@ -184,11 +184,16 @@ header {
 .th-history:nth-child(3), .td-history:nth-child(3), 
 .th-history:nth-child(4), .td-history:nth-child(4), 
 .th-history:nth-child(5), .td-history:nth-child(5){
-  width: 230px;
+  width: 150px;
 }
 
 .th-history:nth-child(6), .td-history:nth-child(6){
-  width: 200px;
+  width: 150px;
+  text-align: center;
+}
+
+.th-history:nth-child(7), .td-history:nth-child(7){
+  width: 300px;
   text-align: right;
 }
 
@@ -242,7 +247,8 @@ header {
  
   .th-history:nth-child(4), .td-history:nth-child(4), 
   .th-history:nth-child(5), .td-history:nth-child(5),
-  .th-history:nth-child(6), .td-history:nth-child(6){
+  .th-history:nth-child(6), .td-history:nth-child(6),
+  .th-history:nth-child(7), .td-history:nth-child(7){
     display: none;
   }
 
@@ -385,6 +391,20 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   padding: 5px 7px; /* Optional: Add padding to adjust the space between the icon and the border */
 }
 
+.floppy i{
+  color: green;
+  cursor: pointer;
+  border: 1px solid green; /* Add border */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+  padding: 5px 7px;
+}
+
+.floppy i:hover{
+  color: #08ac6c;
+  border: 1px solid #08ac6c;
+  transition: all 0.3s ease;
+  padding: 7px 9px;
+}
 
 
 .eye i:hover {
@@ -400,6 +420,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   transition: all 0.3s ease;
   padding: 7px 9px;
 }
+
 
 .trash i:hover {
   color: red;
