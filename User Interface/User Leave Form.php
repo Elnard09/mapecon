@@ -118,7 +118,8 @@ include("../sql/config.php");
    
         // Output the PDF (uncomment one option)
         // $pdf->Output('leave_form.pdf', 'D'); // Download
-        $pdf->Output(); // Display in browser for preview
+        $pdf->Output('filename.pdf', 'S'); // Display in browser for preview
+        header("Location: User Leave History.php");
         exit; // Stop further execution
     }
 
@@ -206,7 +207,7 @@ include("../sql/config.php");
         </div>
         <div class="buttons">
             <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.php';">Cancel</button>
-            <button type="submit" name="pdf-btn" id="pdf-btn">Save as PDF</button>
+            <!--<button type="submit" name="pdf-btn" id="pdf-btn">Save as PDF</button> -->
             <button type="submit" id="submit-btn">Submit to HR</button>
         </div>
         <input type="hidden" id="date_filed" name="date_filed" value="<?php echo date('Y-m-d'); ?>">

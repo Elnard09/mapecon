@@ -1,8 +1,22 @@
 <?php
 session_start();
 
-    include("../sql/config.php");
+include("../sql/config.php");
 
+// Connect to database
+$conn = mysqli_connect("localhost","root","","mapecon");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch leave history data
+$sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
+        FROM leave_applications AS l 
+        INNER JOIN users AS u ON l.user_id = u.user_id
+        ORDER BY l.id DESC";
+$result = $conn->query($sql);
 
 ?>
 <!DOCTYPE html>
@@ -83,54 +97,26 @@ session_start();
       <th class="th-history"></th>
       <th class="th-history" colspan="3">Action</th>
     </tr>
-    <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="td-history"> -</td>
-      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Download as PDF</span></td>
-      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>   
-    </tr>
-    <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2025</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="td-history"> -</td>
-      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
-    </tr>
-    <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2025</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="td-history"> -</td>
-      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
-    </tr>
-    <tr>
-      <td class="td-history"><input type="checkbox"></td>
-      <td class="td-history">Leave with Pay</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history">04/23/2024</td>
-      <td class="td-history"><span class="pending-leave">Pending</span><span class="approved-leave">Approved</span><span class="rejected-leave">Rejected</span></td>
-      <td class="td-history"> -</td>
-      <td class="actions eye tooltip td-history"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions floppy tooltip td-history"><i class="fa fa-floppy-o"></i><span class="tooltiptext-approve">Send to HR</span></td>
-      <td class="td actions close tooltip td-history"><i class="fa fa-trash"></i><span class="tooltiptext-reject">Cancel Request</span></td>
-    </tr>
+    <?php
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td class='td-history'><input type='checkbox'></td>";
+            echo "<td class='td-history'>" . $row["leave_type"] . "</td>";
+            echo "<td class='td-history'>" . $row["date_filed"] . "</td>";
+            echo "<td class='td-history'>" . $row["from_date"] . "</td>";
+            echo "<td class='td-history'>" . $row["to_date"] . "</td>";
+            echo "<td class='td-history'><span class='pending-leave'>Pending</span><span class='approved-leave'>Approved</span><span class='rejected-leave'>Rejected</span></td>";
+echo "<td class='td-history'> -</td>";
+echo "<td class='actions eye tooltip td-history'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></td>";
+echo "<td class='td actions floppy tooltip td-history'><i class='fa fa-floppy-o'></i><span class='tooltiptext-approve'>Send to HR</span></td>";
+echo "<td class='td actions close tooltip td-history'><i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span></td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='10'>No data found</td></tr>";
+    }
+    ?>
   </table>
 </div>
 </div>
@@ -206,3 +192,7 @@ session_start();
   });
 </script>
 </html>
+<?php
+// Close database connection
+$conn->close();
+?>
