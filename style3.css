@@ -180,6 +180,10 @@ header {
   border-bottom: 1px solid #ddd;
 }
 
+.th-history:nth-child(1), td-history:nth-child(1){
+  width: 85px;
+}
+
 .th-history:nth-child(2), .td-history:nth-child(2), 
 .th-history:nth-child(3), .td-history:nth-child(3), 
 .th-history:nth-child(4), .td-history:nth-child(4), 
@@ -193,7 +197,7 @@ header {
 }
 
 .th-history:nth-child(7), .td-history:nth-child(7){
-  width: 300px;
+  width: 180px;
   text-align: right;
 }
 
@@ -510,6 +514,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   list-style: none;
   padding: 0;
   position: absolute;
+  margin-top: 1px;
   right: 0%; /* Adjust left positioning as needed */
 }
 
