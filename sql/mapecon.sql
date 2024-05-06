@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `leave_applications` (
   `id` bigint(50) NOT NULL,
-  `application_id` int(11) NOT NULL,
+  `application_id` int(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `date` date NOT NULL,
-  `leave_type` enum('Casual Leave','Compensatory Off','Leave Without Pay','Privilege Leave','Sick Leave','Vacation Leave','Others') NOT NULL,
+  `date_filed` date NOT NULL,
+  `leave_type` varchar(255) NOT NULL,
   `from_date` date NOT NULL,
   `to_date` date NOT NULL,
   `working_days_covered` int(11) NOT NULL,

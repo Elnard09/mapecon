@@ -39,7 +39,28 @@ session_start();
         if($password == $conpassword)
         {
           //save to database
-          $user_id = random_num(5);
+
+          // Function to generate a random 5-digit number
+          function generate5DigitNumber() {
+          return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+          }
+
+          // Function to check if the generated number exists in the database
+          function numberExistsInDatabase($number, $connection) {
+            $query = "SELECT COUNT(*) AS count FROM users WHERE user_id = ?";
+            $statement = $connection->prepare($query);
+            $statement->bind_param("s", $number);
+            $statement->execute();
+            $result = $statement->get_result();
+            $row = $result->fetch_assoc();
+            return $row['count'] > 0;
+          }
+          $user_id = generate5DigitNumber();
+          // Check if the generated number exists in the database
+          while (numberExistsInDatabase($user_id, $connection)) {
+              $user_id = generate5DigitNumber();
+          }
+
           //encrypt password
           $passhash = $password;
           $hashed_password = password_hash($passhash, PASSWORD_DEFAULT);

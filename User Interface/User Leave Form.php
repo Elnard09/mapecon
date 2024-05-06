@@ -1,4 +1,7 @@
 <?php
+session_start();
+include("../sql/config.php");
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get form data
         $date_filed = $_POST['date_filed'];
@@ -6,17 +9,52 @@
         $leave_to = $_POST['to-date'];
         $leave_type = $_POST['leave-type'];
         $leave_type_others= $_POST['others'];
+        $working_days_covered= $_POST['numofDays'];
         $reason = $_POST['reason'];
 
-        /*$date_filed = $_POST['date_filed'];;
-        $department = $_POST['department'];
-        $name = $_POST['name'];
-        $contact_number = $_POST['contact_number'];
-        $leave_from = $_POST['from-date'];
-        $leave_to = $_POST['to-date'];
-        $working_days_covered = $_POST['others'];
-        $leave_type = $_POST['leave-type'];
-        $reason = $_POST['reason'];*/
+
+        // Get user information from the database
+        $user_id = $_SESSION['user_id'];
+        $user_query = "SELECT firstname, lastname, contactnumber, department FROM users WHERE user_id = '$user_id'";
+        $user_result = mysqli_query($connection, $user_query);
+        if (!$user_result) {
+            die('Error: ' . mysqli_error($connection));
+        }
+        $user_data = mysqli_fetch_assoc($user_result);
+        
+
+        // Insert leave application data into the database
+        //$user_id = $_SESSION['user_id'];
+        // Function to generate a random 5-digit number
+        function generate5DigitNumber() {
+            return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            }
+        // Function to check if the generated number exists in the database
+        function numberExistsInDatabase($number, $connection) {
+            $query = "SELECT COUNT(*) AS count FROM leave_applications WHERE application_id = ?";
+            $statement = $connection->prepare($query);
+            $statement->bind_param("s", $number);
+            $statement->execute();
+            $result = $statement->get_result();
+            $row = $result->fetch_assoc();
+            return $row['count'] > 0;
+          }
+          $application_id = generate5DigitNumber();
+          // Check if the generated number exists in the database
+          while (numberExistsInDatabase($application_id, $connection)) {
+              $application_id = generate5DigitNumber();
+          }
+
+          if ($_POST['leave-type'] == "Others"){
+            $leave_type_report = "Others: " . $_POST['others'];
+            } else {
+            $leave_type_report = $_POST['leave-type'];
+            }
+        $query = "INSERT INTO leave_applications (application_id, user_id, date_filed, leave_type, from_date, to_date, working_days_covered, reason) VALUES ('$application_id', '$user_id', '$date_filed', '$leave_type_report', '$leave_from', '$leave_to', '$working_days_covered', '$reason')";
+        $result = mysqli_query($connection, $query);
+            if (!$result) {
+                die('Error: ' . mysqli_error($connection));
+            }
 
         // Include the FPDF library (you need to download and include it in your project)
         require("/xampp/htdocs/mapecon/fpdf/fpdf.php");
@@ -53,45 +91,30 @@
 
         // Output form 
         
-        // $pdf->Cell(0, 15, '', 0, 1);
-        // $pdf->Cell(35, 10, '', 0, 0);
-        // $pdf->Cell(91, 15, /*'DATE FILED: ' .*/ $date_filed, 0, 0);
-          //$pdf->Cell(0, 15, /*'DEPARTMENT: ' .*/ $department, 0, 1);
-        // $pdf->Cell(20, 10, '', 0, 0);
-          //$pdf->Cell(0, 1, /*'NAME: ' .*/ $name, 0, 1);
-        // $pdf->Cell(96, 10, '', 0, 0);
-          //$pdf->Cell(0, 15, /*'CONTACT NUMBER WHILE ON LEAVE: ' .*/ $contact_number, 0, 1);
-        // $pdf->Cell(21, 10, '', 0, 0);
-        // $pdf->Cell(81, 16, /*'DATE/S OF REQUESTED LEAVE: FROM ' .*/ $leave_from, 0, 0);
-        // $pdf->Cell(0, 16, $leave_to, 0, 1);
-        // $pdf->Cell(102, 10, '', 0, 0);
-        // $pdf->Cell(0, 1, /*'NUMBER OF WORKING DAYS COVERED: ' .*/ $working_days_covered, 0, 1);
-        // $pdf->Cell(46, 10, '', 0, 0);
-        // $pdf->Cell(0, 14, /*'TYPE OF LEAVE: ' .*/ $leave_type, 0, 1);
-        // $pdf->Cell(3, 10, '', 0, 0);
-        // $pdf->Cell(0, 44, /*'REASON FOR LEAVE: ' .*/ $reason, 0, 1);
-
-
         $pdf->Cell(0, 15, '', 0, 1);
         $pdf->Cell(35, 10, '', 0, 0);
-        $pdf->Cell(91, 15, $date_filed, 0, 0);
+        $pdf->Cell(91, 15, /*'DATE FILED: ' .*/ $date_filed, 0, 0);
+        $pdf->Cell(0, 15, /*'DEPARTMENT: ' .*/ $user_data['department'], 0, 1);
         $pdf->Cell(20, 10, '', 0, 0);
+        $pdf->Cell(0, 1, /*'NAME: ' .*/ $user_data['firstname'] . ' ' . $user_data['lastname'], 0, 1);
         $pdf->Cell(96, 10, '', 0, 0);
+        $pdf->Cell(0, 15, /*'CONTACT NUMBER WHILE ON LEAVE: ' .*/ $user_data['contactnumber'], 0, 1);
         $pdf->Cell(21, 10, '', 0, 0);
-        $pdf->Cell(81, 16, $leave_from, 0, 0);
+        $pdf->Cell(81, 16, /*'DATE/S OF REQUESTED LEAVE: FROM ' .*/ $leave_from, 0, 0);
         $pdf->Cell(0, 16, $leave_to, 0, 1);
         $pdf->Cell(102, 10, '', 0, 0);
-        $pdf->Cell(0, 1, $leave_type_others, 0, 1);
-        // Concatenate the "Others" option with the user input if selected
-        //if ($leave_type == "Others") {
-            // $pdf->Cell(0, 14, "Others: " . $_POST['others'], 0, 1);
-        // } else {
-            // $pdf->Cell(0, 14, $leave_type, 0, 1);
-        // }
+        $pdf->Cell(0, 1, /*'NUMBER OF WORKING DAYS COVERED: ' .*/ $working_days_covered, 0, 1);
         $pdf->Cell(46, 10, '', 0, 0);
-        $pdf->Cell(0, 14, $leave_type, 0, 1);
+        if ($leave_type == "Others") {
+            $pdf->Cell(0, 14, "Others ", 0, 1);
+            $pdf->Cell(57, 0, '', 0, 0);
+            $pdf->Cell(0, 1, /*"Others: " */ $leave_type_others, 0, 1);
+        } else {
+            $pdf->Cell(0, 14, $leave_type, 0, 1);
+        }
         $pdf->Cell(3, 10, '', 0, 0);
-        $pdf->Cell(0, 44, $reason, 0, 1);
+        $pdf->Cell(0, 42, /*'REASON FOR LEAVE: ' .*/ $reason, 0, 1);
+
    
         // Output the PDF (uncomment one option)
         // $pdf->Output('leave_form.pdf', 'D'); // Download
@@ -135,18 +158,18 @@
         <div class="leave-type">
             <select name="leave-type" id="leave-type">
                 <option value="">Select</option>
-                <option value="Casual">Casual Leave</option>
-                <option value="Compensatory">Compensatory Off</option>
-                <option value="Unpaid">Leave Without Pay</option>
-                <option value="Privilege">Privilege Leave</option>
-                <option value="Sick">Sick Leave</option>
-                <option value="Vacation">Vacation Leave</option>
+                <option value="Casual Leave">Casual Leave</option>
+                <option value="Compensatory Off">Compensatory Off</option>
+                <option value="Leave Without Pay">Leave Without Pay</option>
+                <option value="Privilege Leave">Privilege Leave</option>
+                <option value="Sick Leave">Sick Leave</option>
+                <option value="Vacation Leave">Vacation Leave</option>
                 <option value="Others">Others</option>
             </select>
         </div>
         <div id="others-container" style="display: none;">
             <label for="others">Others:</label>
-            <input type="text" id="others" name="others">
+            <input type="others" id="others" name="others">
         </div>
         <div class="date-range">
             <div class="from-date">
@@ -171,7 +194,7 @@
             <button type="submit" name="pdf-btn" id="pdf-btn">Save as PDF</button>
             <button type="submit" id="submit-btn">Submit to HR</button>
         </div>
-        <input type="hidden" id="date_filed" name="date_filed" value="<?php echo date('m-d-Y'); ?>">
+        <input type="hidden" id="date_filed" name="date_filed" value="<?php echo date('Y-m-d'); ?>">
     </form>
 </div>
   
