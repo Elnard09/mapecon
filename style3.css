@@ -213,7 +213,7 @@ header {
 }
 
 .approved-leave{
-  display: none;
+  display: block;
   background-color: green;
   font-weight: bold;
   color:white;
@@ -224,7 +224,7 @@ header {
 }
 
 .rejected-leave{
-  display: none;
+  display: block;
   background-color: red;
   font-weight: bold;
   color:white;

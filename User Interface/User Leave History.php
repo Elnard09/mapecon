@@ -4,17 +4,34 @@ session_start();
 include("../sql/config.php");
 
 // Connect to database
-$conn = mysqli_connect("localhost","root","","mapecon");
+$conn = mysqli_connect("localhost", "root", "", "mapecon");
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch leave history data
+// Check if cancel request button is clicked
+if (isset($_POST['cancel_request'])) {
+    $id_to_delete = $_POST['id_to_delete'];
+    
+    // Delete the record from the database
+    $sql_delete = "DELETE FROM leave_applications WHERE id = $id_to_delete";
+    if ($conn->query($sql_delete) === TRUE) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+}
+
+// Get the user ID from the session
+$user_id = $_SESSION['user_id'];
+
+// Fetch leave history data specific to the logged-in user
 $sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
         FROM leave_applications AS l 
         INNER JOIN users AS u ON l.user_id = u.user_id
+        WHERE l.user_id = $user_id
         ORDER BY l.id DESC";
 $result = $conn->query($sql);
 
@@ -106,11 +123,40 @@ $result = $conn->query($sql);
             echo "<td class='td-history'>" . $row["date_filed"] . "</td>";
             echo "<td class='td-history'>" . $row["from_date"] . "</td>";
             echo "<td class='td-history'>" . $row["to_date"] . "</td>";
-            echo "<td class='td-history'><span class='pending-leave'>Pending</span><span class='approved-leave'>Approved</span><span class='rejected-leave'>Rejected</span></td>";
-echo "<td class='td-history'> -</td>";
-echo "<td class='actions eye tooltip td-history'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></td>";
-echo "<td class='td actions floppy tooltip td-history'><i class='fa fa-floppy-o'></i><span class='tooltiptext-approve'>Send to HR</span></td>";
-echo "<td class='td actions close tooltip td-history'><i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span></td>";
+            echo "<td class='td-history'>";
+            switch ($row["status"]) {
+                case 'Pending':
+                    echo "<span class='pending-leave'>Pending</span>";
+                    break;
+                case 'Approved':
+                    echo "<span class='approved-leave'>Approved</span>";
+                    break;
+                case 'Rejected':
+                    echo "<span class='rejected-leave'>Rejected</span>";
+                    break;
+                default:
+                    echo "-";
+            }
+            echo "</td>";
+            echo "<td class='td-history'> -</td>";
+            echo "<td class='actions eye tooltip td-history'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
+            echo "<td class='td actions floppy tooltip td-history'><i class='fa fa-floppy-o'></i><span class='tooltiptext-approve'>Send to HR</span></td>";
+            echo "<td class='td actions close tooltip td-history'>";
+            echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
+            echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
+            // Check if the status is "Pending"
+            if ($row["status"] == "Pending") {
+                echo "<button type='submit' name='cancel_request'>";
+                echo "<i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span>";
+                echo "</button>";
+            } else {
+                // If the status is not "Pending", display a disabled button
+                echo "<button type='button' disabled>";
+                echo "<i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span>";
+                echo "</button>";
+            }
+            echo "</form>";
+            echo "</td>";
             echo "</tr>";
         }
     } else {

@@ -39,18 +39,18 @@ session_start();
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="#" class="home-sidebar" id="active"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php" class="home-sidebar" id="active"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
-    <a href="#"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="#"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
-    <a href="#"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
+    <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+    <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
   <div class="card-container-admin">
     <div class="card-container-wrapper">
-      <div class="card" onclick="location.href='/mapecon/Admin Interface/Pending Leaves.html';" style="cursor: pointer;">
+      <div class="card" onclick="location.href='/mapecon/Admin Interface/Pending Leaves.php';" style="cursor: pointer;">
         <div class="card-content">
           <img src="/mapecon/Pictures/pending.png" alt="Pending">
         </div>
@@ -58,7 +58,7 @@ session_start();
       <p class="phrase">Pending</p>
     </div>
     <div class="card-container-wrapper">
-        <div class="card" onclick="location.href='/mapecon/Admin Interface/Approved Leaves.html';" style="cursor: pointer;">
+        <div class="card" onclick="location.href='/mapecon/Admin Interface/Approved Leaves.php';" style="cursor: pointer;">
           <div class="card-content">
             <img src="/mapecon/Pictures/approved.png" alt="Approved">
           </div>
@@ -66,7 +66,7 @@ session_start();
         <p class="phrase">Approved</p>
       </div>
     <div class="card-container-wrapper">
-      <div class="card" onclick="location.href='/mapecon/Admin Interface/Declined Leaves.html';" style="cursor: pointer;">
+      <div class="card" onclick="location.href='/mapecon/Admin Interface/Declined Leaves.php';" style="cursor: pointer;">
         <div class="card-content">
           <img src="/mapecon/Pictures/declined.png" alt="Declined">
         </div>

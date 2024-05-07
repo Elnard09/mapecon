@@ -1,9 +1,29 @@
+<?php
+session_start();
+
+include("../sql/config.php");
+
+// Connect to database
+$conn = mysqli_connect("localhost", "root", "", "mapecon");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
+        FROM leave_applications AS l 
+        INNER JOIN users AS u ON l.user_id = u.user_id
+        ORDER BY l.id DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pending Leaves</title>
+<title>Declined Leaves</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/mapecon/style3.css">
 </head>
@@ -34,23 +54,23 @@
 <div class="container_report_report">
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="#" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
-    <a href="#" id="active"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="#"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
-    <a href="#"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
+    <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+    <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="Declined Leaves.php" class="home-sidebar" id="active"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
   
     <div class="leave-report-header">
-      <h2>Pending Leaves</h2>
+      <h2>Declined Leaves</h2>
     </div>
     
     <div class="filters">
       <table>
-        <tr class="filter-row-pending">
+        <tr class="filter-row">
           <th class="entries">Show <input type="number" value="10"> entries</th>
           <th><input type="text" placeholder="Name"></th>
           <th><input type="date" id="dateInput"></th>
@@ -68,55 +88,30 @@
       <th class="th">Date Requested</th>
       <th class="th">Leave Until</th>
       <th class="th"></th>
-      <th class="th" colspan="3">Actions</th>
+      <th class="th" colspan="2">Actions</th>
     </tr>
-    <tr>
-      <td class="td"><input type="checkbox"></td>
-      <td class="td">TANTOY, JASMINE</td>
-      <td class="td">Leave with Pay</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">-</td>
-      <td class="td actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Approve Leave</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Decline Leave</span></td>    
-    </tr>
-    <tr>
-      <td class="td"><input type="checkbox"></td>
-      <td class="td">DANQUE, PAULO</td>
-      <td class="td">Leave with Pay</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">-</td>
-      <td class="td actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Approve Leave</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Decline Leave</span></td>  
-    <tr>
-      <td class="td"><input type="checkbox"></td>
-      <td class="td">VALLEJO, ELNARD</td>
-      <td class="td">Leave with Pay</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">-</td>
-      <td class="td actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Approve Leave</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Decline Leave</span></td>   
-    </tr>
-    <tr>
-      <td class="td"><input type="checkbox"></td>
-      <td class="td">TANTOY, JASMINE</td>
-      <td class="td">Leave with Pay</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">04/23/2024</td>
-      <td class="td">-</td>
-      <td class="td actions eye tooltip"><i class="fa fa-eye"></i><span class="tooltiptext-eye">View Leave Document</span></td>
-      <td class="td actions check tooltip"><i class="fa fa-check"></i><span class="tooltiptext-approve">Approve Leave</span></td>
-      <td class="td actions close tooltip"><i class="fa fa-close"></i><span class="tooltiptext-reject">Decline Leave</span></td>  
-     </tr>
+    <?php
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            if($row["status"] === "Declined") {
+                echo "<tr>";
+                echo "<td class='td'><input type='checkbox'></td>";
+                echo "<td class='td'>" . $row["full_name"] . "</td>";
+                echo "<td class='td'>" . $row["leave_type"] . "</td>";
+                echo "<td class='td'>" . $row["date_filed"] . "</td>";
+                echo "<td class='td'>" . $row["from_date"] . "</td>";
+                echo "<td class='td'>" . $row["to_date"] . "</td>";
+                echo "<td class='td'>-</td>";
+                echo "<td class='td actions eye tooltip'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></td>";
+                echo "<td class='td actions check tooltip'><i class='fa fa-check'></i><span class='tooltiptext-approve'>Approve Leave</span></td>";
+                echo "<td class='td actions close tooltip'><i class='fa fa-close'></i><span class='tooltiptext-reject'>Decline Leave</span></td>";
+                echo "</tr>";
+            }
+        }
+    } else {
+        echo "<tr><td colspan='10'>No data found</td></tr>";
+    }
+    ?>
   </table>
 </div>
 </div>
