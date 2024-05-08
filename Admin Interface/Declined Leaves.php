@@ -102,9 +102,7 @@ $result = $conn->query($sql);
                 echo "<td class='td'>" . $row["from_date"] . "</td>";
                 echo "<td class='td'>" . $row["to_date"] . "</td>";
                 echo "<td class='td'>-</td>";
-                echo "<td class='td actions eye tooltip'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></td>";
-                echo "<td class='td actions check tooltip'><i class='fa fa-check'></i><span class='tooltiptext-approve'>Approve Leave</span></td>";
-                echo "<td class='td actions close tooltip'><i class='fa fa-close'></i><span class='tooltiptext-reject'>Decline Leave</span></td>";
+                echo "<td class='td actions eye tooltip'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
                 echo "</tr>";
             }
         }
