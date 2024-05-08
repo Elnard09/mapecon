@@ -159,17 +159,28 @@ $result = $connection->query($sql);
     document.getElementById('exportForm').submit();
   }
 
+
+  
   function exportToExcel() {
     var selectedIds = [];
     var checkboxes = document.querySelectorAll('.checkBoxes:checked');
     checkboxes.forEach(function(checkbox) {
         selectedIds.push(checkbox.value);
     });
-    document.getElementById('selected').value = JSON.stringify(selectedIds);
-    document.getElementById('exportForm').action = "export_excel.php";
-    document.getElementById('exportForm').submit();
+
+    if (selectedIds.length === 0) {
+        alert("No data is selected");
+        return;
+    } else{
+      document.getElementById('selected').value = JSON.stringify(selectedIds);
+      document.getElementById('exportForm').action = "export_excel.php";
+      document.getElementById('exportForm').submit();
+    }
   }
-  
+
+
+
+
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");
     var content = document.getElementById("content");
