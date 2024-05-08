@@ -84,20 +84,49 @@ $result = $conn->query($sql);
   
     <div class="leave-report-header">
       <h2>Leave History</h2>
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
         <ul class="dropdown-menu">
           <li><a href="#">Compiled PDF</a></li>
           <li><a href="#">Excel Format</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
     
     <div class="filters">
       <table>
         <tr class="filter-row-approved">
-          <th class="entries">Show <input type="number" value="10"> entries</th>
-          <th><input type="date" id="dateInput"></th>
+        <th>
+            <select id="monthFilter">
+              <option value="">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </th>
+          <th>
+            <select id="yearFilter">
+              <option value="">Year</option>
+              <?php 
+                $start_year = 2010;
+                $end_year = date('Y');
+                for( $j=$end_year; $j>=$start_year; $j-- ) {
+                    echo '<option value="'.$j.'">'.$j.'</option>';
+                }
+              ?>
+            </select>
+          </th>
+          <th><input type="date" id="dateFilter"></th>
+        </tr>
         </tr>
       </table>
     </div>
@@ -105,7 +134,7 @@ $result = $conn->query($sql);
 <div>
   <table>
     <tr>
-      <th class="th-history"><input type="checkbox"></th>
+      <!-- <th class="th-history"><input type="checkbox"></th> -->
       <th class="th-history">Type of Leave</th>
       <th class="th-history">Date Filed</th>
       <th class="th-history">Date Requested</th>
@@ -118,7 +147,7 @@ $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td class='td-history'><input type='checkbox'></td>";
+            //echo "<td class='td-history'><input type='checkbox'></td>";
             echo "<td class='td-history'>" . $row["leave_type"] . "</td>";
             echo "<td class='td-history'>" . $row["date_filed"] . "</td>";
             echo "<td class='td-history'>" . $row["from_date"] . "</td>";
@@ -229,13 +258,93 @@ $result = $conn->query($sql);
   }
   
 
-    // Add script to set default text for date input
-  document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('dateInput');
-    const today = new Date();
-    const formattedDate = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
-    dateInput.value = formattedDate;
-  });
+   // Filter table rows based on date filed
+   document.getElementById('dateFilter').addEventListener('input', function() {
+        var inputDate = this.value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                if (textValue === inputDate) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Filter table rows based on month and year
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Filter table rows based on year
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Reset table rows when date filter is cleared
+    document.getElementById('dateFilter').addEventListener('change', function() {
+        if (this.value === "") {
+            var rows = document.querySelectorAll('table tr');
+            for (var i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+        } else {
+            // Clear month and year filters
+            document.getElementById('monthFilter').value = "";
+            document.getElementById('yearFilter').value = "";
+        }
+    });
+
+    // Clear date filter when month or year filter is utilized
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
+
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
   
 </script>
 </html>

@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       ?>
       <script type="text/javascript">
       alert('Profile updated successfully!');
-      window.location.href='User Profile.php';
+      window.location.href='User Leave Home.php';
       </script>
       <?php
       die;

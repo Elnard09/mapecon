@@ -1,15 +1,58 @@
+<?php
+  session_start();
+  include("../sql/config.php");
+  include("../sql/function.php");
+  
+  // Check if user is logged in
+  $user_data = check_login($connection);
+
+  // Handle form submission
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $current_password = $_POST['current-password'];
+      $new_password = $_POST['new-password'];
+      $confirm_password = $_POST['confirm-new-password'];
+
+      // Verify if the current password is correct
+      $hashed_password = $user_data['password'];
+      if (password_verify($current_password, $hashed_password)) {
+          // Check if new password matches the confirmation
+          if ($new_password === $confirm_password) {
+              // Update the password in the database
+              $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+              $id = $user_data['id'];
+              $query = "UPDATE users SET password='$hashed_new_password' WHERE id='$id'";
+              $result = mysqli_query($connection, $query);
+              if ($result) {
+                  // Password updated successfully
+                  echo '<script>alert("Password updated successfully!");</script>';
+              } else {
+                  // Error updating password
+                  echo '<script>alert("Error updating password!");</script>';
+              }
+          } else {
+              // New password and confirmation do not match
+              echo '<script>alert("New password and confirmation do not match!");</script>';
+          }
+      } else {
+          // Current password is incorrect
+          echo '<script>alert("Current password is incorrect!");</script>';
+      }
+}
+?>
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Profile</title>
+  <title>User Change Password</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/mapecon/style.css">
   
 </head>
 <body>
-  <header>
+<header>
     <div class="logo_header">
     <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
   </div>
@@ -18,8 +61,8 @@
     <label for="profile-dropdown-toggle" class="profile-dropdown">
       <img src="/mapecon/Pictures/profile.png" alt="Profile">
       <div class="dropdown-content">
-        <a href="../User Interface/User Profile.php">Profile </a>
-        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="Admin Profile.php">Profile </a>
+        <a href="Admin Change Password.php">Change Password</a>
         <a href="../sql/logout.php">Logout</a>
       </div>
     </label>
@@ -31,64 +74,38 @@
   <!-- Content -->
  <div class="content" id="content">
 
-   <!-- Sidebar -->
+    <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="#" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php" class="home-sidebar" id="active"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
-    <a href="#"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="#"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
-    <a href="#"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
+    <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+    <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
 
-  <div class="profile-edit">
-    <h2>Edit Profile</h2>
-    <form>
-      <label for="fname">First Name:</label>
-      <input type="text" id="fname" name="fname" required>
+  <!-- Change Password Form -->
+  <div class="change-password" >
+    <h2>Change Password</h2>
+    <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
+      <label for="current-password">Current Password:</label>
+      <input type="password" id="password" name="current-password" required>
 
-      <label for="lname">Last Name:</label>
-      <input type="text" id="lname" name="lname" required>
+      <label for="new-password">New Password:</label>
+      <input type="password" id="password" name="new-password" required>
 
-      <label for="contact">Contact:</label>
-      <input type="tel" id="contact" name="contact" required>
-
-      <label for="department">Department:</label>
-      <div class="department-edit">
-        <select name="department" id="department-edit" required>
-          <option value="">Select</option>
-          <option value="Accounting">Accounting</option>
-          <option value="Admin">Admin and Shared Services</option>
-          <option value="Ads">Ads and Promo</option>
-          <option value="Business">Business Development Group</option>
-          <option value="Chem Room">Chem Room</option>
-          <option value="Clinic">Clinic</option>
-          <option value="Collection">Collection</option>
-          <option value="EVP">EVP Office</option>
-          <option value="Greenovations-Floor">Greenovations (1st and 2nd Floor)</option>
-          <option value="Greenovations-Table">Greenovations (MGCPI Table)</option>
-          <option value="Operator-HR">Operator and HR</option>
-          <option value="OTD">OTD</option>
-          <option value="Research">Research and Development</option>
-          <option value="Sales">Sales</option>
-          <option value="Service">Service</option>
-        </select>
-      </div>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+      <label for="confirm-new-password">Confirm New Password:</label>
+      <input type="password" id="password" name="confirm-new-password" required>
 
       <div class="buttons">
-        <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.html';">Cancel</button>
+        <button type="button">Cancel</button>
         <button type="submit" id="submit-btn">Save</button>
       </div>
     </form>
   </div>
-
-  </div>
-  
+</div>
 </body>
 
 <script>

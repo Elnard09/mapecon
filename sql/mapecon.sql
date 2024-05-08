@@ -36,7 +36,8 @@ CREATE TABLE `leave_applications` (
   `from_date` date NOT NULL,
   `to_date` date NOT NULL,
   `working_days_covered` int(11) NOT NULL,
-  `reason` text DEFAULT NULL
+  `reason` text DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

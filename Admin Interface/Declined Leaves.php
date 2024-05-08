@@ -30,7 +30,7 @@ $result = $conn->query($sql);
 
 
 <body>
-  <header>
+<header>
     <div class="logo_header">
     <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
   </div>
@@ -39,8 +39,8 @@ $result = $conn->query($sql);
     <label for="profile-dropdown-toggle" class="profile-dropdown">
       <img src="/mapecon/Pictures/profile.png" alt="Profile">
       <div class="dropdown-content">
-        <a href="../User Interface/User Profile.php">Profile </a>
-        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="Admin Profile.php">Profile </a>
+        <a href="Admin Change Password.php">Change Password</a>
         <a href="../sql/logout.php">Logout</a>
       </div>
     </label>
@@ -81,7 +81,7 @@ $result = $conn->query($sql);
 <div>
   <table>
     <tr>
-      <th class="th"><input type="checkbox"></th>
+      <!-- <th class="th"><input type="checkbox"></th> -->
       <th class="th">Full Name</th>
       <th class="th">Type of Leave</th>
       <th class="th">Date Filed</th>
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
             if($row["status"] === "Declined") {
                 echo "<tr>";
-                echo "<td class='td'><input type='checkbox'></td>";
+                //echo "<td class='td'><input type='checkbox'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
                 echo "<td class='td'>" . $row["date_filed"] . "</td>";

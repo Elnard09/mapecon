@@ -3,19 +3,11 @@ session_start();
 
 include("../sql/config.php");
 
-// Connect to database
-$conn = mysqli_connect("localhost", "root", "", "mapecon");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
         FROM leave_applications AS l 
         INNER JOIN users AS u ON l.user_id = u.user_id
         ORDER BY l.id DESC";
-$result = $conn->query($sql);
+$result = $connection->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +22,7 @@ $result = $conn->query($sql);
 
 
 <body>
-  <header>
+<header>
     <div class="logo_header">
     <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
   </div>
@@ -39,8 +31,8 @@ $result = $conn->query($sql);
     <label for="profile-dropdown-toggle" class="profile-dropdown">
       <img src="/mapecon/Pictures/profile.png" alt="Profile">
       <div class="dropdown-content">
-        <a href="../User Interface/User Profile.php">Profile </a>
-        <a href="../User Interface/User Change Password.php">Change Password</a>
+        <a href="Admin Profile.php">Profile </a>
+        <a href="Admin Change Password.php">Change Password</a>
         <a href="../sql/logout.php">Logout</a>
       </div>
     </label>
@@ -70,7 +62,7 @@ $result = $conn->query($sql);
       <div class="dropdown">
         <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
         <ul class="dropdown-menu">
-          <li><a href="#">Compiled PDF</a></li>
+          <li><a href="#" onclick="exportToPDF()">Compiled PDF</a></li>
           <li><a href="#">Excel Format</a></li>
         </ul>
       </div>
@@ -79,17 +71,48 @@ $result = $conn->query($sql);
     <div class="filters">
       <table>
         <tr class="filter-row-approved">
-          <th class="entries">Show <input type="number" value="10"> entries</th>
-          <th><input type="text" placeholder="Name"></th>
-          <th><input type="date" id="dateInput"></th>
+          <!--<th class="entries">Show <input type="number" id="entries" value="10"> entries</th> -->
+          <th><input type="text" placeholder="Name" id="nameFilter"></th>
+          <th>
+            <select id="monthFilter">
+              <option value="">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </th>
+          <th>
+            <select id="yearFilter">
+              <option value="">Year</option>
+              <?php 
+                $start_year = 2010;
+                $end_year = date('Y');
+                for( $j=$end_year; $j>=$start_year; $j-- ) {
+                    echo '<option value="'.$j.'">'.$j.'</option>';
+                }
+              ?>
+            </select>
+          </th>
+          <th><input type="date" id="dateFilter"></th>
         </tr>
       </table>
     </div>
 
 <div>
+<form id="exportForm" method="POST" action="export pdf.php" target="_blank">
+<input type="hidden" name="selected" id="selected">
   <table>
     <tr>
-      <th class="th"><input type="checkbox"></th>
+      <th class="th"><input type="checkbox" id="checkAll"></th>
       <th class="th">Full Name</th>
       <th class="th">Type of Leave</th>
       <th class="th">Date Filed</th>
@@ -103,7 +126,7 @@ $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
             if($row["status"] === "Approved") {
                 echo "<tr>";
-                echo "<td class='td'><input type='checkbox'></td>";
+                echo "<td class='td'><input type='checkbox' class='checkBoxes'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
                 echo "<td class='td'>" . $row["date_filed"] . "</td>";
@@ -119,13 +142,23 @@ $result = $conn->query($sql);
     }
     ?>
   </table>
+  </form>
 </div>
 </div>
 </div>
 </body>
 
 <script>
-
+  function exportToPDF() {
+    var selectedIds = [];
+    var checkboxes = document.querySelectorAll('.checkBoxes:checked');
+    checkboxes.forEach(function(checkbox) {
+        selectedIds.push(checkbox.value);
+    });
+    document.getElementById('selected').value = JSON.stringify(selectedIds);
+    document.getElementById('exportForm').submit();
+  }
+  
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");
     var content = document.getElementById("content");
@@ -183,12 +216,131 @@ $result = $conn->query($sql);
   }
   
 
-    // Add script to set default text for date input
-  document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('dateInput');
-    const today = new Date();
-    const formattedDate = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
-    dateInput.value = formattedDate;
-  });
+    // Check all checkboxes when the header checkbox is clicked
+    document.getElementById("checkAll").addEventListener("click", function() {
+        var checkboxes = document.querySelectorAll('.checkBoxes');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+
+    // Check the header checkbox if all checkboxes in table rows are checked
+    document.querySelectorAll('.checkBoxes').forEach(function(checkbox) {
+        checkbox.addEventListener('click', function() {
+            var allChecked = true;
+            document.querySelectorAll('.checkBoxes').forEach(function(checkbox) {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+            document.getElementById('checkAll').checked = allChecked;
+        });
+    });
+    
+    // Filter table rows based on name
+    document.getElementById('nameFilter').addEventListener('input', function() {
+    var input = this.value.toUpperCase();
+    var rows = document.querySelectorAll('table tr');
+    for (var i = 1; i < rows.length; i++) {
+        var name = rows[i].getElementsByTagName("td")[1];
+        if (name) {
+            var textValue = name.textContent || name.innerText;
+            if (textValue.toUpperCase().indexOf(input) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+    });
+
+    // Filter table rows based on date filed
+    document.getElementById('dateFilter').addEventListener('input', function() {
+    var inputDate = this.value;
+    var rows = document.querySelectorAll('table tr');
+    for (var i = 1; i < rows.length; i++) {
+        var dateFiled = rows[i].getElementsByTagName("td")[3];
+        if (dateFiled) {
+            var textValue = dateFiled.textContent || dateFiled.innerText;
+            if (textValue === inputDate) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+      }
+    });
+
+    // Filter table rows based on month and year
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[3];
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Filter table rows based on year
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[3];
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Reset table rows when date filter is cleared
+    document.getElementById('dateFilter').addEventListener('change', function() {
+        if (this.value === "") {
+            var rows = document.querySelectorAll('table tr');
+            for (var i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+        } else {
+            // Clear month and year filters
+            document.getElementById('monthFilter').value = "";
+            document.getElementById('yearFilter').value = "";
+        }
+    });
+
+    // Clear date filter when month or year filter is utilized
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
+
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
+
 </script>
 </html>
