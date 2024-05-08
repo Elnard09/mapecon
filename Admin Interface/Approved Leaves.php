@@ -63,7 +63,7 @@ $result = $connection->query($sql);
         <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
         <ul class="dropdown-menu">
           <li><a href="#" onclick="exportToPDF()">Compiled PDF</a></li>
-          <li><a href="#">Excel Format</a></li>
+          <li><a href="#" onclick="exportToExcel()">Excel Format</a></li>
         </ul>
       </div>
     </div>
@@ -108,7 +108,7 @@ $result = $connection->query($sql);
     </div>
 
 <div>
-<form id="exportForm" method="POST" action="export pdf.php" target="_blank">
+<form id="exportForm" method="POST" action="export_excel.php" target="_blank">
 <input type="hidden" name="selected" id="selected">
   <table>
     <tr>
@@ -126,7 +126,7 @@ $result = $connection->query($sql);
         while($row = $result->fetch_assoc()) {
             if($row["status"] === "Approved") {
                 echo "<tr>";
-                echo "<td class='td'><input type='checkbox' class='checkBoxes'></td>";
+                echo "<td class='td'><input type='checkbox' class='checkBoxes'value='" . $row["id"] . "'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
                 echo "<td class='td'>" . $row["date_filed"] . "</td>";
@@ -156,6 +156,17 @@ $result = $connection->query($sql);
         selectedIds.push(checkbox.value);
     });
     document.getElementById('selected').value = JSON.stringify(selectedIds);
+    document.getElementById('exportForm').submit();
+  }
+
+  function exportToExcel() {
+    var selectedIds = [];
+    var checkboxes = document.querySelectorAll('.checkBoxes:checked');
+    checkboxes.forEach(function(checkbox) {
+        selectedIds.push(checkbox.value);
+    });
+    document.getElementById('selected').value = JSON.stringify(selectedIds);
+    document.getElementById('exportForm').action = "export_excel.php";
     document.getElementById('exportForm').submit();
   }
   
