@@ -108,6 +108,7 @@ $result = $connection->query($sql);
     </div>
 
 <div>
+<form id="exportForm" method="POST" action="export_pdf.php" target="_blank">
 <form id="exportForm" method="POST" action="export_excel.php" target="_blank">
 <input type="hidden" name="selected" id="selected">
   <table>
@@ -155,8 +156,15 @@ $result = $connection->query($sql);
     checkboxes.forEach(function(checkbox) {
         selectedIds.push(checkbox.value);
     });
-    document.getElementById('selected').value = JSON.stringify(selectedIds);
-    document.getElementById('exportForm').submit();
+
+    if (selectedIds.length === 0) {
+        alert("No data is selected");
+        return;
+    } else{
+      document.getElementById('selected').value = JSON.stringify(selectedIds);
+      document.getElementById('exportForm').action = "export_pdf.php";
+      document.getElementById('exportForm').submit();
+    }
   }
 
 

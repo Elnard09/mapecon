@@ -133,7 +133,7 @@ $result = $conn->query($sql);
                 echo "<td class='td'>-</td>";
                 echo "<td class='td actions eye tooltip'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
                 echo "<td class='td actions check tooltip'>";
-                echo "<form action='update_status.php' method='post'>";
+                echo "<form action='update_status.php' method='post' onsubmit='return confirmApproval()'>";
                 echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
                 echo "<input type='hidden' name='status' value='Approved'>";
                 echo "<button type='submit'>";
@@ -143,7 +143,7 @@ $result = $conn->query($sql);
                 echo "</form>";
                 echo "</td>";
                 echo "<td class='td actions close tooltip'>";
-                echo "<form action='update_status.php' method='post'>";
+                echo "<form action='update_status.php' method='post'  onsubmit='return confirmDecline()'>";
                 echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
                 echo "<input type='hidden' name='status' value='Declined'>";
                 echo "<button type='submit'>";
@@ -223,6 +223,14 @@ $result = $conn->query($sql);
       }
     }
   }
+
+function confirmApproval() {
+  return confirm("Are you sure you want to approve this leave application?");
+}
+
+function confirmDecline() {
+  return confirm("Are you sure you want to decline this leave application?");
+}
   
 
   // Filter table rows based on name
