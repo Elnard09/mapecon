@@ -257,7 +257,6 @@ $result = $conn->query($sql);
     }
   }
   
-
    // Filter table rows based on date filed
    document.getElementById('dateFilter').addEventListener('input', function() {
         var inputDate = this.value;

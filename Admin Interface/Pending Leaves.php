@@ -72,9 +72,37 @@ $result = $conn->query($sql);
     <div class="filters">
       <table>
         <tr class="filter-row-pending">
-          <th class="entries">Show <input type="number" value="10"> entries</th>
-          <th><input type="text" placeholder="Name"></th>
-          <th><input type="date" id="dateInput"></th>
+          <th><input type="text" placeholder="Name" id="nameFilter"></th>
+          <th>
+            <select id="monthFilter">
+              <option value="">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </th>
+          <th>
+            <select id="yearFilter">
+              <option value="">Year</option>
+              <?php 
+                $start_year = 2010;
+                $end_year = date('Y');
+                for( $j=$end_year; $j>=$start_year; $j-- ) {
+                    echo '<option value="'.$j.'">'.$j.'</option>';
+                }
+              ?>
+            </select>
+          </th>
+          <th><input type="date" id="dateFilter"></th>
         </tr>
       </table>
     </div>
@@ -197,12 +225,109 @@ $result = $conn->query($sql);
   }
   
 
-    // Add script to set default text for date input
-  document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('dateInput');
-    const today = new Date();
-    const formattedDate = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' + today.getDate().toString().padStart(2, '0');
-    dateInput.value = formattedDate;
-  });
+  // Filter table rows based on name
+  document.getElementById('nameFilter').addEventListener('input', function() {
+    var input = this.value.toUpperCase();
+    var rows = document.querySelectorAll('table tr');
+    for (var i = 1; i < rows.length; i++) {
+        var name = rows[i].getElementsByTagName("td")[0];
+        if (name) {
+            var textValue = name.textContent || name.innerText;
+            if (textValue.toUpperCase().indexOf(input) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+    });
+
+    // Filter table rows based on date filed
+    document.getElementById('dateFilter').addEventListener('input', function() {
+    var inputDate = this.value;
+    var rows = document.querySelectorAll('table tr');
+    for (var i = 1; i < rows.length; i++) {
+        var dateFiled = rows[i].getElementsByTagName("td")[2];
+        if (dateFiled) {
+            var textValue = dateFiled.textContent || dateFiled.innerText;
+            if (textValue === inputDate) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+      }
+    });
+
+    // Filter table rows based on month and year
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[2];
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Filter table rows based on year
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            var dateFiled = rows[i].getElementsByTagName("td")[2];
+            if (dateFiled) {
+                var textValue = dateFiled.textContent || dateFiled.innerText;
+                var month = textValue.split("-")[1];
+                var year = textValue.split("-")[0];
+                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    });
+
+    // Reset table rows when date filter is cleared
+    document.getElementById('dateFilter').addEventListener('change', function() {
+        if (this.value === "") {
+            var rows = document.querySelectorAll('table tr');
+            for (var i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+        } else {
+            // Clear month and year filters
+            document.getElementById('monthFilter').value = "";
+            document.getElementById('yearFilter').value = "";
+        }
+    });
+
+    // Clear date filter when month or year filter is utilized
+    document.getElementById('monthFilter').addEventListener('change', function() {
+        var inputMonth = this.value;
+        var inputYear = document.getElementById('yearFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
+
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        var inputYear = this.value;
+        var inputMonth = document.getElementById('monthFilter').value;
+        if (inputMonth !== "" || inputYear !== "") {
+            document.getElementById('dateFilter').value = "";
+        }
+    });
 </script>
 </html>
