@@ -169,7 +169,7 @@ include("../sql/config.php");
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
   <div class="leave-application">
     <h2>New Leave Application</h2>
-    <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return validateForm()">
         <label for="leave-type">Leave Type:</label>
         <div class="leave-type">
             <select name="leave-type" id="leave-type">
@@ -226,6 +226,19 @@ include("../sql/config.php");
             othersContainer.style.display = 'none';
         }
     });
+
+    function validateForm() {
+        var leaveType = document.getElementById('leave-type').value;
+        var fromDate = document.getElementById('from-date').value;
+        var toDate = document.getElementById('to-date').value;
+        var numOfDays = document.getElementById('numofDays').value;
+
+        if (leaveType === "" || fromDate === "" || toDate === "" || numOfDays === "") {
+            alert("Please fill in all fields.");
+            return false;
+        }
+        return true;
+    }
   
     function toggleNav() {
         var sidebar = document.getElementById("sidebar");
