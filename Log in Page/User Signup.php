@@ -108,7 +108,7 @@ session_start();
 </head>
 
 <body class="no-header-padding">
-  <div class="background-image">
+  <div class="background-image-1">
   </div>
   <div class="container-sign">
     <div class="login-form">
@@ -125,7 +125,7 @@ session_start();
         </div>
       </div>
         <label for="contact">Contact:</label>
-        <input type="text" id="contact" name="contact" required placeholder="Enter your contact # (Ex. 09#########)">
+        <input type="tel" id="contact" name="contact" required placeholder="Enter your contact # (Ex. 09#########)">
         <label for="department">Department:</label>
       <div class="department-edit">
         <select name="department" id="department-edit" required>

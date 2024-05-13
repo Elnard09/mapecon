@@ -183,7 +183,7 @@ include("../sql/config.php");
                 <option value="Others">Others</option>
             </select>
         </div>
-        <div id="others-container" style="display: none;">
+        <div class="others" id="others-container" style="display: none;">
             <label for="others">Others:</label>
             <input type="others" id="others" name="others">
         </div>
