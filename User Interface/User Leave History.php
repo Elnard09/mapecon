@@ -13,15 +13,17 @@ if ($conn->connect_error) {
 
 // Check if cancel request button is clicked
 if (isset($_POST['cancel_request'])) {
-    $id_to_delete = $_POST['id_to_delete'];
-    
-    // Delete the record from the database
-    $sql_delete = "DELETE FROM leave_applications WHERE id = $id_to_delete";
-    if ($conn->query($sql_delete) === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $conn->error;
-    }
+  $id_to_delete = $_POST['id_to_delete'];
+
+  // Delete the record from the database
+  $sql_delete = "DELETE FROM leave_applications WHERE id = $id_to_delete";
+  if ($conn->query($sql_delete) === TRUE) {
+    // Redirect to the current page after successful deletion (refresh)
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit();
+  } else {
+    echo "Error deleting record: " . $conn->error;
+  }
 }
 
 // Get the user ID from the session
@@ -49,7 +51,7 @@ $result = $conn->query($sql);
 
 <body>
 <header>
-    <div class="logo_header">
+  <div class="logo_header">
     <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
   </div>
   <div class="profile-dropdown">
@@ -63,9 +65,9 @@ $result = $conn->query($sql);
       </div>
     </label>
   </div>
-  </header>
+</header>
 
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP<div id="date-time"></div></div>
 
  <!-- Content -->
 <div class="content" id="content">
@@ -135,6 +137,7 @@ $result = $conn->query($sql);
   <table>
     <tr>
       <!-- <th class="th-history"><input type="checkbox"></th> -->
+      <th class="th-history"></th>
       <th class="th-history">Type of Leave</th>
       <th class="th-history">Date Filed</th>
       <th class="th-history">Date Requested</th>
@@ -143,11 +146,12 @@ $result = $conn->query($sql);
       <th class="th-history"></th>
       <th class="th-history" colspan="3">Action</th>
     </tr>
-    <?php
+    <?php 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
             //echo "<td class='td-history'><input type='checkbox'></td>";
+            echo "<td class='td-history'></td>";
             echo "<td class='td-history'>" . $row["leave_type"] . "</td>";
             echo "<td class='td-history'>" . $row["date_filed"] . "</td>";
             echo "<td class='td-history'>" . $row["from_date"] . "</td>";
@@ -170,19 +174,28 @@ $result = $conn->query($sql);
             echo "<td class='td-history'> -</td>";
             echo "<td class='actions eye tooltip td-history'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
             echo "<td class='td actions floppy tooltip td-history'><a href='download leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-floppy-o'></i><span class='tooltiptext-approve'>Send to HR</span></a></td>";
-            echo "<td class='td actions close tooltip td-history'>";
-            echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
-            echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
             // Check if the status is "Pending"
             if ($row["status"] == "Pending") {
-                echo "<button type='submit' name='cancel_request'>";
-                echo "<i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span>";
-                echo "</button>";
+
+                echo "<td class='td actions cancel-history tooltip td-history'>";
+                echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
+                echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
+
+                echo "<button class='btn-leaveHistory' type='submit' name='cancel_request'>
+                <i class='fa fa-close'></i><span class='tooltiptext-reject'>Cancel Request</span> 
+                </button>";
+      
+               
             } else {
+
+                echo "<td class='td actions cancel-history-disabled tooltip td-history'>";
+                echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
+                echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
+
                 // If the status is not "Pending", display a disabled button
-                echo "<button type='button' disabled>";
-                echo "<i class='fa fa-trash'></i><span class='tooltiptext-reject'>Cancel Request</span>";
-                echo "</button>";
+                echo "<button class='btn-leaveHistory-disabled' type='button' disabled>
+                <i class='fa fa-ban'></i><span class='tooltiptext-disabled'>Cannot Cancel</span>
+                </button>";
             }
             echo "</form>";
             echo "</td>";
@@ -199,6 +212,20 @@ $result = $conn->query($sql);
 </body>
 
 <script>
+
+function updateTime() {
+  
+  var today = new Date();
+  var time = today.toLocaleTimeString();
+  var options = { month: 'long', day: 'numeric', year: 'numeric' };
+  var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+  
+  document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+  setTimeout(updateTime, 1000); // Update time every second
+}
+
+updateTime();
+
 
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");
@@ -344,6 +371,8 @@ $result = $conn->query($sql);
             document.getElementById('dateFilter').value = "";
         }
     });
+
+  
   
 </script>
 </html>

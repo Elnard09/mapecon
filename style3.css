@@ -20,6 +20,14 @@ header {
   z-index: 1000;
   }
 
+  #date-time {
+    font-size: 0.8rem; /* Adjust font size as needed */
+    color: black; /* Adjust color as needed */
+    display: inline;
+    position: absolute;
+    right: 50px;
+  }
+
   .logo_header img {
   width: 120px;
   height: auto;
@@ -184,6 +192,11 @@ header {
   width: 85px;
 }
 
+.th-history:nth-child(1), .td-history:nth-child(1){
+  background-color: red;
+  display: none;
+}
+
 .th-history:nth-child(2), .td-history:nth-child(2), 
 .th-history:nth-child(3), .td-history:nth-child(3), 
 .th-history:nth-child(4), .td-history:nth-child(4), 
@@ -191,8 +204,12 @@ header {
   width: 150px;
 }
 
+.td-history:nth-child(2){
+  font-weight: 400;
+}
+
 .th-history:nth-child(6), .td-history:nth-child(6){
-  width: 150px;
+  width: 120px;
   text-align: center;
 }
 
@@ -246,7 +263,7 @@ header {
 
   .th-history:nth-child(3), .td-history:nth-child(3),
   .th-history:nth-child(7), .td-history:nth-child(7){
-    width: 70px;
+    width: 120px;
   }
  
   .th-history:nth-child(4), .td-history:nth-child(4), 
@@ -387,12 +404,30 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   padding: 5px 7px; /* Optional: Add padding to adjust the space between the icon and the border */
 }
 
+/* PHP echo button */
+
+.btn-leaveHistory{
+  border: 1px solid #b40000;
+  color: #b40000;
+  background-color: white;
+  padding: 5.5px 8px;
+  border-radius: 5px;
+}
+
+.btn-leaveHistory-disabled{
+  border: 1px solid;
+  background-color: white;
+  padding: 5.5px 8px;
+  border-radius: 5px;
+}
+
 .trash i {
   color: #b40000;
   cursor: pointer;
   border: 1px solid #b40000; /* Add border */
   border-radius: 5px; /* Optional: Add border radius for rounded corners */
   padding: 5px 7px; /* Optional: Add padding to adjust the space between the icon and the border */
+  height: 100%;
 }
 
 .floppy i{
@@ -406,6 +441,20 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .floppy i:hover{
   color: #08ac6c;
   border: 1px solid #08ac6c;
+  transition: all 0.3s ease;
+  padding: 7px 9px;
+}
+
+.btn-leaveHistory:hover{
+  color: red;
+  border: 1px solid red;
+  transition: all 0.3s ease;
+  padding: 7px 10px;
+}
+
+.btn-leaveHistory-disabled:hover{
+  color: black;
+  border: 1px solid black;
   transition: all 0.3s ease;
   padding: 7px 9px;
 }
@@ -470,6 +519,33 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   border-radius: 8px;
   background-color: #D9D9D9;
   color: black;
+}
+
+#monthFilter{
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBEBEB;
+  color: black;
+}
+
+#yearFilter{
+  margin-left: 10px;
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBEBEB;
+  color: black;
+}
+
+#monthFilter option:active{
+ border: 2px solid black;
+}
+
+#monthFilter option, #yearFilter option{
+  background: white;
 }
 
 .filters {
@@ -625,11 +701,50 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     width: 305px;
   }
 
+  /* Leave History */
+
+  .eye i{
+    padding: 6px;
+  }
+
+  .floppy i{
+    padding: 6px 7px;
+  }
+
+  #monthFilter{
+    width: 164%;
+  }
+
+  #yearFilter{
+    width: 118%;
+    margin-left: 70px;
+  }
+
+  .btn-leaveHistory:hover{
+    padding: 5.5px 8px;
+  }
+  
+  .btn-leaveHistory-disabled:hover{
+    color: black;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+    padding: 5px 8px;
+  }
+
+  .eye i:hover{
+    padding: 6px;
+  }
+
+  .floppy i:hover{
+    padding: 6px 7px;
+  }
+
 
 
   .tooltip:hover .tooltiptext-eye,
   .tooltip:hover .tooltiptext-approve,
-  .tooltip:hover .tooltiptext-reject {
+  .tooltip:hover .tooltiptext-reject,
+  .tooltip:hover .tooltiptext-disabled {
     visibility: hidden;
     opacity: 0;
   }
@@ -657,8 +772,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
+  bottom: 100%;
+  left: 35%;
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
@@ -675,9 +790,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
+  bottom: 100%;
+  left: 75%;
+  margin-left: -50px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -693,12 +808,32 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
+  bottom: 100%;
+  left: 65%;
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
 }
+
+.tooltiptext-disabled{
+  font-size: 13px;
+  visibility: hidden;
+  width: max-content;
+  background-color: black; /* Change the color as needed */
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 70%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+
 
 /* Tooltip text visibility on hover */
 .tooltip:hover .tooltiptext-eye {
@@ -717,6 +852,11 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 }
 
 .tooltip:hover .tooltiptext-delete {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip:hover .tooltiptext-disabled{
   visibility: visible;
   opacity: 1;
 }
