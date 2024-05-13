@@ -23,8 +23,10 @@ $result = $connection->query($sql);
 
 <body>
 <header>
-    <div class="logo_header">
-    <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+  <div class="logo_header">
+    <a href="../Admin Interface/Admin Home.php"> 
+      <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo">
+    </a> 
   </div>
   <div class="profile-dropdown">
     <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-toggle">
@@ -37,7 +39,7 @@ $result = $connection->query($sql);
       </div>
     </label>
   </div>
-  </header>
+</header>
 
 <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
 
