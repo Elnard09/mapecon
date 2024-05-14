@@ -31,7 +31,7 @@ mysqli_close($connection);
   <link rel="stylesheet" href="/mapecon/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 </head>
-<body>
+<body class="dashboard-body">
 <header>
   <div class="logo_header">
     <a href="../Admin Interface/Admin Home.php"> 
@@ -74,7 +74,7 @@ mysqli_close($connection);
       <table>
         <tr class="filter-row-approved">
           <th>
-            <select id="monthFilter">
+            <select id="monthFilter-dashboard">
               <option value="">Month</option>
               <option value="01">January</option>
               <option value="02">February</option>
@@ -91,7 +91,7 @@ mysqli_close($connection);
             </select>
           </th>
           <th>
-            <select id="yearFilter">
+            <select id="yearFilter-dashboard">
               <option value="">Year</option>
               <?php 
                 $start_year = 2010;
