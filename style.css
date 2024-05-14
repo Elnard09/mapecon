@@ -281,7 +281,8 @@ p {
 /* FORM FIELDS */
 /* Style the leave application form */
 
-.change-password {
+.change-password,
+.profile-edit {
   margin: 0 auto;
   margin-top: -20px;
   justify-content: center;
@@ -292,18 +293,7 @@ p {
   border-radius: 5px;
 }
 
-.profile-edit{
-  margin: 0 auto;
-  margin-top: -20px;
-  justify-content: center;
-  align-items: center;
-  width: 40%;
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.leave-application{
+.leave-application {
   margin: 0 auto;
   margin-top: -20px;
   justify-content: center;
