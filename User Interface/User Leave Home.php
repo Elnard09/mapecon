@@ -12,7 +12,7 @@
       $user_id = $_SESSION['user_id'];
 
       // Retrieve the current user's first name
-      $queryUser = "SELECT firstname FROM users WHERE id = ?";
+      $queryUser = "SELECT firstname FROM users WHERE user_id = ?";
       $stmt = $connection->prepare($queryUser);
       $stmt->bind_param("i", $user_id);
       $stmt->execute();
