@@ -156,20 +156,6 @@ header {
     color: black;
   }
 
-  /* Dashboard */
-
-  
-  .container_dashboard {
-    display: block;
-    padding: 40px;
-    border: 1px solid #D6DDE1;
-    border-radius: 7px;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
   /* PROFILE DROPDOWN */
   /* Style for the profile dropdown */
   .profile-dropdown-toggle {
@@ -337,13 +323,13 @@ textarea:hover {
 /* Text Styles */
 h2 {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
 
 p {
   text-align: center;
   color: #4f4d4d;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* Link Styles */
@@ -373,6 +359,29 @@ p {
 .sign-up-link a:hover {
   text-decoration: underline;
 }
+
+/* Alert Styles */
+.alert {
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
 /* END LOGIN AND SIGN UP */
 
 /* FORM FIELDS */
@@ -778,6 +787,17 @@ label {
   align-items: center;
   width: 100%;
   height: calc(100vh - 300px); /* Adjust based on your header height */
+}
+
+.container_dashboard {
+  margin: 0 auto;
+  margin-top: -20px;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
 }
 
 /* Styling the Sidebar */

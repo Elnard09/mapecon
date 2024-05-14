@@ -1,68 +1,56 @@
 <?php
-    session_start();
+session_start();
 
-    include("../sql/config.php");
-    include("../sql/function.php");
- 
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        // Something was posted
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+include("../sql/config.php");
+include("../sql/function.php");
 
-        if (!empty($email) && !empty($password)) {
-            // Read from database
-            $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
-            $result = mysqli_query($connection, $query);
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // Something was posted
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-            if ($result && mysqli_num_rows($result) > 0) {
-                $user_data = mysqli_fetch_assoc($result);
-                $stored_hashed_password = $user_data['password'];
+    if (!empty($email) && !empty($password)) {
+        // Read from database
+        $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+        $result = mysqli_query($connection, $query);
 
-                if (password_verify($password, $stored_hashed_password)) {
-                    $_SESSION['user_id'] = $user_data['user_id'];
-                    if ($user_data['user_status'] == 'Admin') {
-                        header("Location: ../Admin Interface/Admin Home.php");
-                        die;
-                    } elseif ($user_data['user_status'] == 'User') {
-                        header("Location: ../User Interface/User Leave Home.php");
-                        die;
-                    }
-                } else {
-                    ?>
-                    <script type="text/javascript">
-                        alert('Wrong password. Please try again');
-                        window.history.back();
-                    </script>
-                    <?php 
-                    exit;
-                } 
+        if ($result && mysqli_num_rows($result) > 0) {
+            $user_data = mysqli_fetch_assoc($result);
+            $stored_hashed_password = $user_data['password'];
+
+            if (password_verify($password, $stored_hashed_password)) {
+                $_SESSION['user_id'] = $user_data['user_id'];
+                if ($user_data['user_status'] == 'Admin') {
+                    header("Location: ../Admin Interface/Admin Home.php");
+                    die;
+                } elseif ($user_data['user_status'] == 'User') {
+                    header("Location: ../User Interface/User Leave Home.php");
+                    die;
+                }
             } else {
-                ?>
-                <script type="text/javascript">
-                    alert('User not found. Please register.');
-                    window.history.back();
-                </script>
-                <?php 
+                $_SESSION['alert'] = 'Wrong password. Please try again.';
+                header("Location: " . $_SERVER['PHP_SELF']);
                 exit;
             }
         } else {
-            ?>
-            <script type="text/javascript">
-                alert('Please fill out the blank form');
-                window.history.back();
-            </script>
-            <?php 
+            $_SESSION['alert'] = 'User not found. Please register.';
+            header("Location: " . $_SERVER['PHP_SELF']);
             exit;
         }
-    }
-
-    if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
-        $mail = $_COOKIE['email'];
-        $pass = $_COOKIE['password'];
     } else {
-        $mail = "";
-        $pass = "";
+        $_SESSION['alert'] = 'Please fill out the blank form.';
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
+}
+
+if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
+    $mail = $_COOKIE['email'];
+    $pass = $_COOKIE['password'];
+} else {
+    $mail = "";
+    $pass = "";
+}
 ?>
 
 
@@ -85,6 +73,12 @@
     <div class="login-form">
       <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Welcome to Leave Simulation System!</h2>
       <p>Log in to access our Leave Management System, streamlining our leave application process.</p>
+      <?php
+            if (isset($_SESSION['alert'])) {
+                echo '<div class="alert">' . $_SESSION['alert'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
+                unset($_SESSION['alert']);
+            }
+            ?>
       <form action="" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required placeholder="Enter your email">
