@@ -102,8 +102,8 @@ function updateTime() {
           label: 'Leave Status',
           data: [<?php echo $rowPending['pending_count']; ?>, <?php echo $rowApproved['approved_count']; ?>, <?php echo $rowDeclined['declined_count']; ?>],
           backgroundColor: [
-            'rgb(58, 58, 58)', // Pending - Blue
-            'rgb(246, 198, 173)', // Approved - Green
+            'rgb(58, 58, 58)', // Pending - Gray
+            'rgba(255,214,213,255)', // Approved - Light Pink
             'rgb(192, 0, 0)' // Declined - Red
           ],
           borderColor: [
