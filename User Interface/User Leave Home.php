@@ -1,10 +1,30 @@
-<?php
-session_start();
+    <?php
+    session_start();
 
-    include("../sql/config.php");
+      include("../sql/config.php");
 
+      // Check if the user is logged in
+      if (!isset($_SESSION['user_id'])) {
+      header("Location: ../login.php");
+      exit();
+      }
 
-?>
+      $user_id = $_SESSION['user_id'];
+
+      // Retrieve the current user's first name
+      $queryUser = "SELECT firstname FROM users WHERE id = ?";
+      $stmt = $connection->prepare($queryUser);
+      $stmt->bind_param("i", $user_id);
+      $stmt->execute();
+      $resultUser = $stmt->get_result();
+
+      if ($resultUser->num_rows > 0) {
+        $rowUser = $resultUser->fetch_assoc();
+        $firstName = $rowUser["firstname"]; // Escape for security
+      } else {
+        $firstName = "User";
+      }
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +55,7 @@ session_start();
     </label>
   </div>
 </header>
-  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
+  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP<div id="name-greeting">Welcome <span class='user-name'><?php echo $firstName; ?></span>!</div></div>
   
   <!-- Content -->
  <div class="content" id="content">

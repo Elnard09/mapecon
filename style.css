@@ -83,6 +83,32 @@ header {
   /* White font color on hover */
   }
 
+
+  /* Date and Time and Name Greeting! */
+  
+  #date-time {
+    font-size: 0.8rem; /* Adjust font size as needed */
+    color: black; /* Adjust color as needed */
+    display: inline;
+    position: absolute;
+    right: 50px;
+  }
+
+  #name-greeting{
+    font-size: 0.8rem; /* Adjust font size as needed */
+    color: black; /* Adjust color as needed */
+    display: inline;
+    position: absolute;
+    right: 50px;
+  }
+
+  .user-name{
+    color: red;
+    text-transform: uppercase;
+  }
+
+
+
   /* PROFILE DROPDOWN */
   /* Style for the profile dropdown */
   .profile-dropdown-toggle {

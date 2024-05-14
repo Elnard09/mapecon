@@ -155,7 +155,7 @@ include("../sql/config.php");
   </div>
 </header>
 
-  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
+  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP<div id="date-time"></div></div>
   
   <!-- Content -->
  <div class="content" id="content">
@@ -221,6 +221,20 @@ include("../sql/config.php");
 </body>
 
 <script>
+
+    function updateTime() {
+    
+    var today = new Date();
+    var time = today.toLocaleTimeString();
+    var options = { month: 'long', day: 'numeric', year: 'numeric' };
+    var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+    
+    document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+    setTimeout(updateTime, 1000); // Update time every second
+    }
+
+    updateTime();
+
     document.getElementById('leave-type').addEventListener('change', function() {
         var othersContainer = document.getElementById('others-container');
         if (this.value === 'Others') {
