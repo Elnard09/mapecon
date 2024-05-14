@@ -49,7 +49,7 @@ $result = $conn->query($sql);
   </div>
 </header>
 
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR<div id="date-time"></div></div>
 
  <!-- Content -->
  <div class="content" id="content">
@@ -57,9 +57,9 @@ $result = $conn->query($sql);
   
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
-    <a href="Pending Leaves.php" class="home-sidebar" id="active"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+    <a href="Pending Leaves.php" id="active"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
     <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
@@ -76,7 +76,7 @@ $result = $conn->query($sql);
         <tr class="filter-row-pending">
           <th><input type="text" placeholder="Name" id="nameFilter"></th>
           <th>
-            <select id="monthFilter">
+            <select id="monthFilter-pending">
               <option value="">Month</option>
               <option value="01">January</option>
               <option value="02">February</option>
@@ -93,7 +93,7 @@ $result = $conn->query($sql);
             </select>
           </th>
           <th>
-            <select id="yearFilter">
+            <select id="yearFilter-pending">
               <option value="">Year</option>
               <?php 
                 $start_year = 2010;
@@ -113,6 +113,7 @@ $result = $conn->query($sql);
   <table>
     <tr>
       <!-- <th class="th"><input type="checkbox"></th> -->
+      <th class="th"></th>
       <th class="th">Full Name</th>
       <th class="th">Type of Leave</th>
       <th class="th">Date Filed</th>
@@ -127,6 +128,7 @@ $result = $conn->query($sql);
             if($row["status"] === "Pending") {
                 echo "<tr>";
                 //echo "<td class='td'><input type='checkbox'></td>";
+                echo "<td class='td'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
                 echo "<td class='td'>" . $row["date_filed"] . "</td>";
@@ -134,21 +136,25 @@ $result = $conn->query($sql);
                 echo "<td class='td'>" . $row["to_date"] . "</td>";
                 echo "<td class='td'>-</td>";
                 echo "<td class='td actions eye tooltip'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
-                echo "<td class='td actions check tooltip'>";
+                
+                
+                echo "<td class='td actions  tooltip'>";
                 echo "<form action='update_status.php' method='post' onsubmit='return confirmApproval()'>";
                 echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
                 echo "<input type='hidden' name='status' value='Approved'>";
-                echo "<button type='submit'>";
+                echo "<button type='submit' class='btn-approved'>";
                 echo "<i class='fa fa-check'></i>";
                 echo "<span class='tooltiptext-approve'>Approve Leave</span>";
                 echo "</button>";
                 echo "</form>";
                 echo "</td>";
-                echo "<td class='td actions close tooltip'>";
+
+
+                echo "<td class='td actions tooltip'>";
                 echo "<form action='update_status.php' method='post'  onsubmit='return confirmDecline()'>";
                 echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
                 echo "<input type='hidden' name='status' value='Declined'>";
-                echo "<button type='submit'>";
+                echo "<button type='submit' class='btn-leaveHistory'>";
                 echo "<i class='fa fa-close'></i>";
                 echo "<span class='tooltiptext-reject'>Decline Leave</span>";
                 echo "</button>";
@@ -169,6 +175,19 @@ $result = $conn->query($sql);
 
 
 <script>
+
+function updateTime() {
+  
+  var today = new Date();
+  var time = today.toLocaleTimeString();
+  var options = { month: 'long', day: 'numeric', year: 'numeric' };
+  var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+  
+  document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+  setTimeout(updateTime, 1000); // Update time every second
+}
+
+updateTime();
 
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");

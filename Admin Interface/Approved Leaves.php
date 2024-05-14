@@ -42,7 +42,7 @@ $result = $connection->query($sql);
   </div>
 </header>
 
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR<div id="date-time"></div></div>
 
  <!-- Content -->
  <div class="content" id="content">
@@ -50,10 +50,10 @@ $result = $connection->query($sql);
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="Approved Leaves.php" class="home-sidebar" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+    <a href="Approved Leaves.php" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
     <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
@@ -77,7 +77,7 @@ $result = $connection->query($sql);
           <!--<th class="entries">Show <input type="number" id="entries" value="10"> entries</th> -->
           <th><input type="text" placeholder="Name" id="nameFilter"></th>
           <th>
-            <select id="monthFilter">
+            <select id="monthFilter-pending">
               <option value="">Month</option>
               <option value="01">January</option>
               <option value="02">February</option>
@@ -94,7 +94,7 @@ $result = $connection->query($sql);
             </select>
           </th>
           <th>
-            <select id="yearFilter">
+            <select id="yearFilter-pending">
               <option value="">Year</option>
               <?php 
                 $start_year = 2010;
@@ -116,7 +116,7 @@ $result = $connection->query($sql);
 <input type="hidden" name="selected" id="selected">
   <table>
     <tr>
-      <th class="th"><input type="checkbox" id="checkAll"></th>
+      <th class="th-checkboxes"><input type="checkbox" id="checkAll"></th>
       <th class="th">Full Name</th>
       <th class="th">Type of Leave</th>
       <th class="th">Date Filed</th>
@@ -130,7 +130,7 @@ $result = $connection->query($sql);
         while($row = $result->fetch_assoc()) {
             if($row["status"] === "Approved") {
                 echo "<tr>";
-                echo "<td class='td'><input type='checkbox' class='checkBoxes'value='" . $row["id"] . "'></td>";
+                echo "<td class='td-checkboxes'><input type='checkbox' class='checkBoxes'value='" . $row["id"] . "'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
                 echo "<td class='td'>" . $row["date_filed"] . "</td>";
@@ -153,6 +153,20 @@ $result = $connection->query($sql);
 </body>
 
 <script>
+
+  function updateTime() {
+    
+    var today = new Date();
+    var time = today.toLocaleTimeString();
+    var options = { month: 'long', day: 'numeric', year: 'numeric' };
+    var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+    
+    document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+    setTimeout(updateTime, 1000); // Update time every second
+  }
+
+  updateTime();
+
   function exportToPDF() {
     var selectedIds = [];
     var checkboxes = document.querySelectorAll('.checkBoxes:checked');

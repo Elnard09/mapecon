@@ -218,6 +218,7 @@ header {
   text-align: right;
 }
 
+
 .pending-leave{
   display: block;
   background-color: blue;
@@ -330,9 +331,25 @@ td:nth-child(5), .th:nth-child(6), td:nth-child(6){
   width: 120px;
 }
 
-td:nth-child(1) {
-  text-align: center; /* Align content to the center */
-  max-width: 5px;
+.th:nth-child(1), .td:nth-child(1){
+  display: none;
+}
+
+.th-checkboxes{
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f6f6f6;
+}
+
+.th-declined{
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f6f6f6;
+}
+
+.th-checkboxes, .td-checkboxes{
+  width: 30px;  
+  text-align: center;
 }
 
 td:nth-child(2) {
@@ -368,7 +385,6 @@ td:nth-child(2){
   color: black;
   font-weight: bold;
   border-top: 1px solid #ddd;
-
 }
 
 .th:nth-child(1), .th:nth-child(2), .th:nth-child(6){
@@ -406,12 +422,20 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 /* PHP echo button */
 
-.btn-leaveHistory{
+.btn-leaveHistory{ /* This is the Cancel Button */
   border: 1px solid #b40000;
   color: #b40000;
   background-color: white;
   padding: 5.5px 8px;
   border-radius: 5px;
+}
+
+.btn-approved{
+  color: green;
+  border: 1px solid green; /* Add border */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+  padding: 5.5px 8px; /* Optional: Add padding to adjust the space between the icon and the border */
+  background-color: white;
 }
 
 .btn-leaveHistory-disabled{
@@ -450,6 +474,13 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   border: 1px solid red;
   transition: all 0.3s ease;
   padding: 7px 10px;
+}
+
+.btn-approved:hover{
+  color: #08ac6c;
+  border: 1px solid #08ac6c;
+  transition: all 0.3s ease;
+  padding: 7px 9px;
 }
 
 .btn-leaveHistory-disabled:hover{
@@ -521,6 +552,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   color: black;
 }
 
+
+
 #monthFilter{
   width: 120px;
   padding: 5px;
@@ -530,7 +563,28 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   color: black;
 }
 
+#monthFilter-pending{
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBEBEB;
+  color: black;
+  margin-left: 10px;
+}
+
+
 #yearFilter{
+  margin-left: 10px;
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBEBEB;
+  color: black;
+}
+
+#yearFilter-pending{
   margin-left: 10px;
   width: 120px;
   padding: 5px;
@@ -632,11 +686,20 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     } 
 
   .th:nth-child(2), td.th:nth-child(2){
-    width: 30px;
+    width: 120px;
   }
 
-  .th:nth-child(4), .th:nth-child(5), .th:nth-child(6), .th:nth-child(7), 
-  .td:nth-child(4), .td:nth-child(5), .td:nth-child(6), .td:nth-child(7) {
+  .th-declined, .td-declined{
+    font-size: 13.5px;
+    width: 70px;
+  }
+
+  .th:nth-child(3), td.th:nth-child(3){
+    width: 100px;
+  }
+
+  .th:nth-child(1), .th:nth-child(4), .th:nth-child(5), .th:nth-child(6), .th:nth-child(7), 
+  .td:nth-child(1), .td:nth-child(4), .td:nth-child(5), .td:nth-child(6), .td:nth-child(7) {
     display: none;
   }
 
@@ -660,6 +723,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     align-items: center; /* Center horizontally */
   }
 
+  /* Declined Leaves */
 
   .filter-row input[type="text"],
   .filter-row input[type="date"] {
@@ -669,8 +733,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     background-color: #D9D9D9;
     color: black;
     margin-left: -2px;
-    margin-top: 15px; /* Add spacing between inputs */
-    width: 310px;
+    margin-top: 10px; /* Add spacing between inputs */
+    width: 308px;
   }   
 
   /* Pending Leaves */
@@ -683,7 +747,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     background-color: #D9D9D9;
     color: black;
     margin-left: 0px;
-    margin-top: 15px; /* Add spacing between inputs */
+    margin-top: 10px; /* Add spacing between inputs */
     width: 305px;
   }
 
@@ -697,7 +761,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     background-color: #D9D9D9;
     color: black;
     margin-left: 0px;
-    margin-top: 15px; /* Add spacing between inputs */
+    margin-top: 10px; /* Add spacing between inputs */
     width: 305px;
   }
 
@@ -715,13 +779,33 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     width: 164%;
   }
 
+  #monthFilter-pending{
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 164%;
+  }
+
+  #yearFilter-pending{
+    width: 118%;
+    margin-top: 10px;
+    margin-left: 70px;
+  }
+
   #yearFilter{
     width: 118%;
     margin-left: 70px;
   }
 
+  .btn-approved{
+    padding: 5.5px 6.5px;
+  }
+
   .btn-leaveHistory:hover{
     padding: 5.5px 8px;
+  }
+
+  .btn-approved:hover{
+    padding: 5.5px 6.5px;
   }
   
   .btn-leaveHistory-disabled:hover{
