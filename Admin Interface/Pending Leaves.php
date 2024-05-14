@@ -261,7 +261,7 @@ function confirmDecline() {
     var input = this.value.toUpperCase();
     var rows = document.querySelectorAll('table tr');
     for (var i = 1; i < rows.length; i++) {
-        var name = rows[i].getElementsByTagName("td")[0];
+        var name = rows[i].getElementsByTagName("td")[1];
         if (name) {
             var textValue = name.textContent || name.innerText;
             if (textValue.toUpperCase().indexOf(input) > -1) {
@@ -278,7 +278,7 @@ function confirmDecline() {
     var inputDate = this.value;
     var rows = document.querySelectorAll('table tr');
     for (var i = 1; i < rows.length; i++) {
-        var dateFiled = rows[i].getElementsByTagName("td")[2];
+        var dateFiled = rows[i].getElementsByTagName("td")[3];
         if (dateFiled) {
             var textValue = dateFiled.textContent || dateFiled.innerText;
             if (textValue === inputDate) {
@@ -291,12 +291,12 @@ function confirmDecline() {
     });
 
     // Filter table rows based on month and year
-    document.getElementById('monthFilter').addEventListener('change', function() {
+    document.getElementById('monthFilter-pending').addEventListener('change', function() {
         var inputMonth = this.value;
-        var inputYear = document.getElementById('yearFilter').value;
+        var inputYear = document.getElementById('yearFilter-pending').value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[2];
+            var dateFiled = rows[i].getElementsByTagName("td")[3];
             if (dateFiled) {
                 var textValue = dateFiled.textContent || dateFiled.innerText;
                 var month = textValue.split("-")[1];
@@ -311,12 +311,12 @@ function confirmDecline() {
     });
 
     // Filter table rows based on year
-    document.getElementById('yearFilter').addEventListener('change', function() {
+    document.getElementById('yearFilter-pending').addEventListener('change', function() {
         var inputYear = this.value;
-        var inputMonth = document.getElementById('monthFilter').value;
+        var inputMonth = document.getElementById('monthFilter-pending').value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[2];
+            var dateFiled = rows[i].getElementsByTagName("td")[3];
             if (dateFiled) {
                 var textValue = dateFiled.textContent || dateFiled.innerText;
                 var month = textValue.split("-")[1];
@@ -339,23 +339,23 @@ function confirmDecline() {
             }
         } else {
             // Clear month and year filters
-            document.getElementById('monthFilter').value = "";
-            document.getElementById('yearFilter').value = "";
+            document.getElementById('monthFilter-pending').value = "";
+            document.getElementById('yearFilter-pending').value = "";
         }
     });
 
     // Clear date filter when month or year filter is utilized
-    document.getElementById('monthFilter').addEventListener('change', function() {
+    document.getElementById('monthFilter-pending').addEventListener('change', function() {
         var inputMonth = this.value;
-        var inputYear = document.getElementById('yearFilter').value;
+        var inputYear = document.getElementById('yearFilter-pending').value;
         if (inputMonth !== "" || inputYear !== "") {
             document.getElementById('dateFilter').value = "";
         }
     });
 
-    document.getElementById('yearFilter').addEventListener('change', function() {
+    document.getElementById('yearFilter-pending').addEventListener('change', function() {
         var inputYear = this.value;
-        var inputMonth = document.getElementById('monthFilter').value;
+        var inputMonth = document.getElementById('monthFilter-pending').value;
         if (inputMonth !== "" || inputYear !== "") {
             document.getElementById('dateFilter').value = "";
         }
