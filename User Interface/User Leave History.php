@@ -292,7 +292,7 @@ updateTime();
         var inputDate = this.value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            var dateFiled = rows[i].getElementsByTagName("td")[2]; // Changed index to 1 for "Date Filed" column
             if (dateFiled) {
                 var textValue = dateFiled.textContent || dateFiled.innerText;
                 if (textValue === inputDate) {
@@ -310,7 +310,7 @@ updateTime();
         var inputYear = document.getElementById('yearFilter').value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            var dateFiled = rows[i].getElementsByTagName("td")[2]; // Changed index to 1 for "Date Filed" column
             if (dateFiled) {
                 var textValue = dateFiled.textContent || dateFiled.innerText;
                 var month = textValue.split("-")[1];
@@ -330,7 +330,7 @@ updateTime();
         var inputMonth = document.getElementById('monthFilter').value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[1]; // Changed index to 1 for "Date Filed" column
+            var dateFiled = rows[i].getElementsByTagName("td")[2]; // Changed index to 1 for "Date Filed" column
             if (dateFiled) {
                 var textValue = dateFiled.textContent || dateFiled.innerText;
                 var month = textValue.split("-")[1];
