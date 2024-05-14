@@ -118,7 +118,8 @@
       </div>
   </div>
 
-
+</div>
+</body>
 
   <script>
     // JavaScript functions for sidebar toggling

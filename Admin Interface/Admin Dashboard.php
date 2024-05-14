@@ -100,7 +100,11 @@ function updateTime() {
         labels: ['Pending', 'Approved', 'Declined'],
         datasets: [{
           label: 'Leave Status',
-          data: [<?php echo $rowPending['pending_count']; ?>, <?php echo $rowApproved['approved_count']; ?>, <?php echo $rowDeclined['declined_count']; ?>],
+          data: [
+            <?php echo $rowPending['pending_count']; ?>, 
+            <?php echo $rowApproved['approved_count']; ?>, 
+            <?php echo $rowDeclined['declined_count']; ?>
+          ],
           backgroundColor: [
             'rgb(58, 58, 58)', // Pending - Gray
             'rgba(255,214,213,255)', // Approved - Light Pink
