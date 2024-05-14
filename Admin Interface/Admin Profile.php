@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
     <a href="Admin Home.php" id="active"><i class="fa fa-home"></i> Home</a>
-    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-tachometer"></i> Dashboard</a>
+    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-pie-chart"></i> Dashboard</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>

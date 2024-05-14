@@ -320,7 +320,7 @@ p {
 .change-password,
 .profile-edit {
   margin: 0 auto;
-  margin-top: -20px;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
   width: 40%;
@@ -695,6 +695,17 @@ label {
   
 }
 
+/* Dashboard */
+
+.data-visualization {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 300px); /* Adjust based on your header height */
+}
+
 /* Styling the Sidebar */
 
 .sidebar {
@@ -710,6 +721,7 @@ label {
   transition: 0.5s;
   padding-top: 60px;
   margin-top: 160px;
+  font-weight: 400;
 }
 
 /* The sidebar links */
@@ -815,7 +827,13 @@ label {
   background-color: rgba(0,0,0,0.5); /* Semi-transparent black */
   z-index: 1001; /* Ensure it's above everything else */
 }
+
+.data-visualization{
+  margin-left: -25px;
 }
+}
+
+
 
 
 

@@ -51,30 +51,46 @@ mysqli_close($connection);
   </div>
 </header>
 
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR<div id="date-time"></div>
   
 <!-- Content -->
  <div class="content" id="content">
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
-    <a href="Admin Dashboard.php" class="home-sidebar" id="active"><i class="fa fa-tachometer"></i> Dashboard</a>
-    <span class="leave-label">LEAVE REPORTS</span>
-    <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
-    <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
-    <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
-  </div>
+      <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+      <a href="Admin Dashboard.php" class="home-sidebar" id="active"><i class="fa fa-pie-chart"></i> Dashboard</a>
+      <span class="leave-label">LEAVE REPORTS</span>
+      <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
+      <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
+      <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
+  </div> 
 
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closeNav()"></div>
+  
 <!-- Data Visualization -->
   <div class="data-visualization">
     <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
   </div>
-
 </div>
 </body>
 
 <script>
+
+function updateTime() {
+    
+    var today = new Date();
+    var time = today.toLocaleTimeString();
+    var options = { month: 'long', day: 'numeric', year: 'numeric' };
+    var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+    
+    document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+    setTimeout(updateTime, 1000); // Update time every second
+  }
+
+  updateTime();
+
   // JavaScript function to create and update the leave status chart
   document.addEventListener("DOMContentLoaded", function() {
     var ctx = document.getElementById('leaveChart').getContext('2d');
@@ -102,7 +118,7 @@ mysqli_close($connection);
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          position: 'right'
+          position: 'center'
         }
       }
     });

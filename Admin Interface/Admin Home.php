@@ -82,6 +82,7 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="Admin Home.php" class="home-sidebar" id="active"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-pie-chart"></i> Dashboard</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
@@ -117,47 +118,7 @@
       </div>
   </div>
 
-<!-- Data Visualization -->
-  <div class="data-visualization">
-    <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
-  </div>
-</div>
-</body>
 
-<script>
-  // JavaScript function to create and update the leave status chart
-  document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById('leaveChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'pie', // Change chart type to pie
-      data: {
-        labels: ['Pending', 'Approved', 'Declined'],
-        datasets: [{
-          label: 'Leave Status',
-          data: [<?php echo $rowPending['pending_count']; ?>, <?php echo $rowApproved['approved_count']; ?>, <?php echo $rowDeclined['declined_count']; ?>],
-          backgroundColor: [
-            'rgba(0, 0, 255, 0.7)', // Pending - Blue
-            'rgba(0, 128, 0, 0.7)', // Approved - Green
-            'rgba(255, 0, 0, 0.7)' // Declined - Red
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: 'right'
-        }
-      }
-    });
-  });
-</script>
 
   <script>
     // JavaScript functions for sidebar toggling
