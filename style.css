@@ -107,7 +107,46 @@ header {
     text-transform: uppercase;
   }
 
+  /* Month and Year Filter */
+  #monthFilter{
+    width: 120px;
+    padding: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-left: 10px;
+  }
 
+  #monthFilter option:active{
+    border: 2px solid black;
+   }
+   
+   #monthFilter option, #yearFilter option{
+     background: white;
+   }
+
+   #yearFilter{
+    margin-left: 10px;
+    width: 120px;
+    padding: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+  }
+
+  /* Dashboard */
+  .container_dashboard {
+    display: block;
+    padding: 40px;
+    border: 1px solid #D6DDE1;
+    border-radius: 7px;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+  }
 
   /* PROFILE DROPDOWN */
   /* Style for the profile dropdown */

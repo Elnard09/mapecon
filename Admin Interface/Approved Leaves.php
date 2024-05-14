@@ -44,8 +44,8 @@ $result = $connection->query($sql);
 
 <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR<div id="date-time"></div></div>
 
- <!-- Content -->
- <div class="content" id="content">
+<!-- Content -->
+<div class="content" id="content">
 <div class="container_report_report">
 
   <!-- Sidebar -->
@@ -148,7 +148,8 @@ $result = $connection->query($sql);
     ?>
   </table>
   </form>
-</div>
+  </div>
+  
 </div>
 </div>
 </body>

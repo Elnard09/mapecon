@@ -102,7 +102,7 @@ $result = $conn->query($sql);
       <table>
         <tr class="filter-row-approved">
         <th>
-            <select id="monthFilter ">
+            <select id="monthFilter">
               <option value="">Month</option>
               <option value="01">January</option>
               <option value="02">February</option>

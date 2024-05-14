@@ -55,6 +55,7 @@ mysqli_close($connection);
   
 <!-- Content -->
  <div class="content" id="content">
+ <div class="container_dashboard">
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
@@ -68,12 +69,50 @@ mysqli_close($connection);
 
   <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
+
+  <div class="filters">
+      <table>
+        <tr class="filter-row-approved">
+          <th>
+            <select id="monthFilter">
+              <option value="">Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </th>
+          <th>
+            <select id="yearFilter">
+              <option value="">Year</option>
+              <?php 
+                $start_year = 2010;
+                $end_year = date('Y');
+                for( $j=$end_year; $j>=$start_year; $j-- ) {
+                    echo '<option value="'.$j.'">'.$j.'</option>';
+                }
+              ?>
+            </select>
+          </th>
+        </tr>
+      </table>
+    </div>
   
-<!-- Data Visualization -->
-  <div class="data-visualization">
-    <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
+    <!-- Data Visualization -->
+    <div class="data-visualization">
+      <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
+    </div>
+
   </div>
-</div>
+  </div>
 </body>
 
 <script>
