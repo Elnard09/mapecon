@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </header>
 
-  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP</div>
+  <div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  EMP<div id="date-time"></div></div>
   
   <!-- Content -->
  <div class="content" id="content">
@@ -138,6 +138,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 <script>
+
+  function updateTime() {
+      
+      var today = new Date();
+      var time = today.toLocaleTimeString();
+      var options = { month: 'long', day: 'numeric', year: 'numeric' };
+      var date = today.toLocaleDateString("en-US", options); // May 12, 2024
+      
+      document.getElementById("date-time").innerHTML = "Today is " +  date + " | " + time;
+      setTimeout(updateTime, 1000); // Update time every second
+    }
+
+    updateTime();
+
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");
     var content = document.getElementById("content");
