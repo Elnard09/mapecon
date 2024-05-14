@@ -100,7 +100,7 @@
       <input type="password" id="password" name="confirm-new-password" required>
 
       <div class="buttons">
-        <button type="button">Cancel</button>
+        <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.php';">Cancel</button>
         <button type="submit" id="submit-btn">Save</button>
       </div>
     </form>
