@@ -74,13 +74,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="/mapecon/Pictures/favicon.png">
   <link rel="stylesheet" href="/mapecon/style.css">
 </head>
 
 <body class="no-header-padding">
   <div class="background-image">
   </div>
-  <div class="container-sign">
+  <div class="container-login">
     <div class="login-form">
       <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Welcome to Leave Simulation System!</h2>
       <p>Log in to access our Leave Management System, streamlining our leave application process.</p>

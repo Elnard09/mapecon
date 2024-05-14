@@ -96,7 +96,7 @@ session_start();
     }
   }
 ?>
- --- -- -- --- -- - -- - - - - --  -- -- - - - - - - - - - - - - - - - - -  - - - - - - - - - -- - 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +104,7 @@ session_start();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
+  <link rel="shortcut icon" href="/mapecon/Pictures/favicon.png">
   <link rel="stylesheet" href="/mapecon/style.css">
 </head>
 
@@ -111,7 +112,7 @@ session_start();
   <div class="background-image-1">
   </div>
   <div class="container-sign">
-    <div class="login-form">
+    <div class="sign-form">
       <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Sign Up</h2>
       <form action="" method="post">
       <div class="name-fields">

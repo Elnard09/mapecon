@@ -25,6 +25,7 @@ $result = $conn->query($sql);
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pending Leaves</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/mapecon/Pictures/favicon.png">
 <link rel="stylesheet" href="/mapecon/style3.css">
 </head>
 
@@ -57,7 +58,8 @@ $result = $conn->query($sql);
   
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-tachometer"></i> Dashboard</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php" id="active"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>

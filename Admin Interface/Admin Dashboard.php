@@ -3,28 +3,6 @@ session_start();
 
 include("../sql/config.php");
 
- // Check if the user is logged in
- if (!isset($_SESSION['user_id'])) {
-  header("Location: ../login.php");
-  exit();
-  }
-
-  $user_id = $_SESSION['user_id'];
-
-  // Retrieve the current user's first name
-  $queryUser = "SELECT firstname FROM users WHERE id = ?";
-  $stmt = $connection->prepare($queryUser);
-  $stmt->bind_param("i", $user_id);
-  $stmt->execute();
-  $resultUser = $stmt->get_result();
-
-  if ($resultUser->num_rows > 0) {
-    $rowUser = $resultUser->fetch_assoc();
-    $firstName = $rowUser["firstname"]; // Escape for security
-  } else {
-    $firstName = "User";
-  }
-
 // Retrieve data for pending, approved, and declined leaves
 $queryPending = "SELECT COUNT(*) AS pending_count FROM leave_applications WHERE status = 'Pending'";
 $queryApproved = "SELECT COUNT(*) AS approved_count FROM leave_applications WHERE status = 'Approved'";
@@ -47,13 +25,11 @@ mysqli_close($connection);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="shortcut icon" href="/mapecon/Pictures/favicon.png">
   <link rel="stylesheet" href="/mapecon/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
-  <style>
-  </style>
 </head>
 <body>
 <header>
@@ -74,52 +50,64 @@ mysqli_close($connection);
     </label>
   </div>
 </header>
-<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR<div id="name-greeting">Welcome <span class='user-name'><?php echo $firstName; ?></span>!</div></div>
+
+<div class="menu"><span class="openbtn" onclick="toggleNav()">&#9776;</span>  HR</div>
   
-  <!-- Content -->
+<!-- Content -->
  <div class="content" id="content">
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php" id="active"><i class="fa fa-home"></i> Home</a>
-    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-tachometer"></i> Dashboard</a>
+    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Dashboard.php" class="home-sidebar" id="active"><i class="fa fa-tachometer"></i> Dashboard</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
     <a href="Declined Leaves.php"><i class="fa fa-file-excel-o"></i> Declined Leaves</a>
   </div>
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay" onclick="closeNav()"></div>
-  <div class="card-container-admin">
-    <div class="card-container-wrapper">
-      <div class="card" onclick="location.href='/mapecon/Admin Interface/Pending Leaves.php';" style="cursor: pointer;">
-        <div class="card-content">
-          <img src="/mapecon/Pictures/pending.png" alt="Pending">
-        </div>
-      </div>
-      <p class="phrase">Pending</p>
-    </div>
-    <div class="card-container-wrapper">
-        <div class="card" onclick="location.href='/mapecon/Admin Interface/Approved Leaves.php';" style="cursor: pointer;">
-          <div class="card-content">
-            <img src="/mapecon/Pictures/approved.png" alt="Approved">
-          </div>
-        </div>
-        <p class="phrase">Approved</p>
-      </div>
-    <div class="card-container-wrapper">
-      <div class="card" onclick="location.href='/mapecon/Admin Interface/Declined Leaves.php';" style="cursor: pointer;">
-        <div class="card-content">
-          <img src="/mapecon/Pictures/declined.png" alt="Declined">
-        </div>
-      </div>
-      <p class="phrase">Declined</p>
-    </div>
-</div>
+<!-- Data Visualization -->
+  <div class="data-visualization">
+    <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
+  </div>
 
 </div>
 </body>
+
+<script>
+  // JavaScript function to create and update the leave status chart
+  document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('leaveChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie', // Change chart type to pie
+      data: {
+        labels: ['Pending', 'Approved', 'Declined'],
+        datasets: [{
+          label: 'Leave Status',
+          data: [<?php echo $rowPending['pending_count']; ?>, <?php echo $rowApproved['approved_count']; ?>, <?php echo $rowDeclined['declined_count']; ?>],
+          backgroundColor: [
+            'rgb(58, 58, 58)', // Pending - Blue
+            'rgb(246, 198, 173)', // Approved - Green
+            'rgb(192, 0, 0)' // Declined - Red
+          ],
+          borderColor: [
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: 'right'
+        }
+      }
+    });
+  });
+</script>
 
 <script>
   // JavaScript functions for sidebar toggling

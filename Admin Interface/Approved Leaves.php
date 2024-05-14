@@ -50,7 +50,8 @@ $result = $connection->query($sql);
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-tachometer"></i> Dashboard</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
@@ -319,7 +320,7 @@ $result = $connection->query($sql);
     });
 
     // Filter table rows based on month and year
-    document.getElementById('monthFilter').addEventListener('change', function() {
+    document.getElementById('monthFilter-pending').addEventListener('change', function() {
         var inputMonth = this.value;
         var inputYear = document.getElementById('yearFilter').value;
         var rows = document.querySelectorAll('table tr');
@@ -341,7 +342,7 @@ $result = $connection->query($sql);
     // Filter table rows based on year
     document.getElementById('yearFilter').addEventListener('change', function() {
         var inputYear = this.value;
-        var inputMonth = document.getElementById('monthFilter').value;
+        var inputMonth = document.getElementById('monthFilter-pending').value;
         var rows = document.querySelectorAll('table tr');
         for (var i = 1; i < rows.length; i++) {
             var dateFiled = rows[i].getElementsByTagName("td")[3];
@@ -367,13 +368,13 @@ $result = $connection->query($sql);
             }
         } else {
             // Clear month and year filters
-            document.getElementById('monthFilter').value = "";
+            document.getElementById('monthFilter-pending').value = "";
             document.getElementById('yearFilter').value = "";
         }
     });
 
     // Clear date filter when month or year filter is utilized
-    document.getElementById('monthFilter').addEventListener('change', function() {
+    document.getElementById('monthFilter-pending').addEventListener('change', function() {
         var inputMonth = this.value;
         var inputYear = document.getElementById('yearFilter').value;
         if (inputMonth !== "" || inputYear !== "") {
@@ -383,7 +384,7 @@ $result = $connection->query($sql);
 
     document.getElementById('yearFilter').addEventListener('change', function() {
         var inputYear = this.value;
-        var inputMonth = document.getElementById('monthFilter').value;
+        var inputMonth = document.getElementById('monthFilter-pending').value;
         if (inputMonth !== "" || inputYear !== "") {
             document.getElementById('dateFilter').value = "";
         }

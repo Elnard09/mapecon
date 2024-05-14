@@ -152,7 +152,14 @@ header {
   .profile-dropdown-toggle:checked + .profile-dropdown .dropdown-content {
       display: block;
   }
-  
+
+.container-login {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    justify-content: center; 
+    align-items: center; 
+  }
 
 .container-sign {
   display: flex;
@@ -160,6 +167,8 @@ header {
   position: relative;
   justify-content: center; 
   align-items: center; 
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .no-header-padding {
@@ -190,6 +199,7 @@ header {
 }
 
 /* LOGIN AND SIGN UP */
+.sign-form,
 .login-form {
   display: flex;
   flex-direction: column;
