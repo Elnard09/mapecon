@@ -109,7 +109,7 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
                     <label class="remember-me">
                         <input type="checkbox"> Remember me
                     </label>
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <a href="forgot password.php" class="forgot-password">Forgot password?</a>
                 </div>
                 <button type="submit" class="login-btn">Login</button>
             </div>

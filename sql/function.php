@@ -33,3 +33,14 @@ function random_num($length)
 
     return $text;
 }
+
+function updatePassword($connection, $email, $new_password) {
+    // Update user's password
+    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    $update_sql = "UPDATE users SET password = '$hashed_password' WHERE email = '$email'";
+    if (mysqli_query($connection, $update_sql)) {
+        return true;
+    } else {
+        return false;
+    }
+}
