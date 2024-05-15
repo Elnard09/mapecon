@@ -386,6 +386,14 @@ p {
 .close-btn:hover {
   color: rgb(201, 199, 199);
 }
+.alert-success {
+  background-color: #4CAF50;
+  color: white;
+}
+.alert-error {
+  background-color: #f44336;
+  color: white;
+}
 
 /* END LOGIN AND SIGN UP */
 

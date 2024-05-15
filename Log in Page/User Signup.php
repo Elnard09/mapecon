@@ -53,7 +53,7 @@ session_start();
               $query_run = mysqli_query($connection, $query);
 
               if ($query_run) {
-                  $_SESSION['alert'] = 'Registration successful! Please log in to your account';
+                  $_SESSION['alert'] = 'Registration successful! Login your account.';
                   header("Location: User Log in.php");
                   exit;
               } else {

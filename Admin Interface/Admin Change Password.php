@@ -24,20 +24,23 @@
               $result = mysqli_query($connection, $query);
               if ($result) {
                   // Password updated successfully
-                  echo '<script>alert("Password updated successfully!");</script>';
+                  $_SESSION['alert'] = ['message' => 'Password updated successfully!', 'type' => 'success'];
               } else {
                   // Error updating password
-                  echo '<script>alert("Error updating password!");</script>';
+                  $_SESSION['alert'] = ['message' => 'Error updating password!', 'type' => 'error'];
               }
           } else {
               // New password and confirmation do not match
-              echo '<script>alert("New password and confirmation do not match!");</script>';
+              $_SESSION['alert'] = ['message' => 'New password and confirmation do not match!', 'type' => 'error'];
           }
       } else {
           // Current password is incorrect
-          echo '<script>alert("Current password is incorrect!");</script>';
+          $_SESSION['alert'] = ['message' => 'Current password is incorrect!', 'type' => 'error'];
       }
-}
+
+      header("Location: Admin Change Password.php");
+      exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +94,13 @@
   <!-- Change Password Form -->
   <div class="change-password" >
     <h2>Change Password</h2>
+    <?php
+      if (isset($_SESSION['alert'])) {
+          $alert_type = $_SESSION['alert']['type'] == 'success' ? 'alert-success' : 'alert-error';
+          echo '<div class="alert ' . $alert_type . '">' . $_SESSION['alert']['message'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
+          unset($_SESSION['alert']);
+      }
+    ?>
     <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
       <label for="current-password">Current Password:</label>
       <input type="password" id="password" name="current-password" required>

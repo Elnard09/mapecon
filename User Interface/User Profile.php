@@ -5,6 +5,7 @@ include("../sql/config.php");
 include("../sql/function.php");
 
 $update_msg = ""; // Initialize the update message
+$errors = []; // Array to store validation errors
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = $_POST['fname'];
@@ -12,37 +13,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact = $_POST['contact'];
     $department = $_POST['department'];
 
-    $query = "UPDATE users 
-              SET firstname = '$fname', lastname = '$lname', contactnumber = '$contact', department = '$department' 
-              WHERE user_id = " . $_SESSION['user_id'];
+    // Validate first name
+    if (empty($fname)) {
+      $errors['fname'] = "First name is required.";
+  }
 
-    if (mysqli_query($connection, $query)) {
-        $update_msg = "Profile updated successfully!";
-    } else {
-        $update_msg = "Error updating profile: " . mysqli_error($connection);
-    }
+  // Validate last name
+  if (empty($lname)) {
+      $errors['lname'] = "Last name is required.";
+  }
 
-    // Fetch user's current profile data
-    $user_id = $_SESSION['user_id'];
-    $query = "SELECT * FROM users WHERE user_id = $user_id";
-    $result = mysqli_query($connection, $query);
-    $row = mysqli_fetch_assoc($result);
-    if($result){
-      ?>
-      <script type="text/javascript">
-      alert('Profile updated successfully!');
-      window.location.href='User Leave Home.php';
-      </script>
-      <?php
-      die;
+  // Validate contact
+  if (empty($contact)) {
+      $errors['contact'] = "Contact number is required.";
+  }
+
+  // Validate department
+  if (empty($department)) {
+      $errors['department'] = "Department is required.";
+  }
+
+  // If no errors, proceed with the update
+  if (empty($errors)) {
+      $query = "UPDATE users 
+                SET firstname = '$fname', lastname = '$lname', contactnumber = '$contact', department = '$department' 
+                WHERE user_id = " . $_SESSION['user_id'];
+
+      if (mysqli_query($connection, $query)) {
+          $_SESSION['alert'] = ['message' => 'Profile updated successfully!', 'type' => 'success'];
       } else {
-        ?><script type="text/javascript">
-        alert('Error updating profile! Please try again');
-        window.location.href='User Profile.php';
-        </script>
-        <?php
+          $_SESSION['alert'] = ['message' => 'Error updating profile: ' . mysqli_error($connection), 'type' => 'error'];
       }
+
+      header("Location: User Profile.php");
+      exit;
+  }
 }
+
+// Fetch user's current profile data
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM users WHERE user_id = $user_id";
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -94,40 +106,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div class="profile-edit">
     <h2>Edit Profile</h2>
+    <?php
+    if (isset($_SESSION['alert'])) {
+        $alert_type = $_SESSION['alert']['type'] == 'success' ? 'alert-success' : 'alert-error';
+        echo '<div class="alert ' . $alert_type . '">' . $_SESSION['alert']['message'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
+        unset($_SESSION['alert']);
+    }
+    ?>
     <form action="<?php echo($_SERVER["PHP_SELF"]); ?>" method="post">
       <label for="fname">First Name:</label>
-      <input type="text" id="fname" name="fname" required>
+      <input type="text" id="fname" name="fname" value="<?php echo htmlspecialchars($fname ?? $row['firstname']); ?>" required>
+      <?php if (isset($errors['fname'])): ?><span class="error"><?php echo $errors['fname']; ?></span><?php endif; ?>
 
       <label for="lname">Last Name:</label>
-      <input type="text" id="lname" name="lname" required>
+      <input type="text" id="lname" name="lname" value="<?php echo htmlspecialchars($lname ?? $row['lastname']); ?>" required>
+      <?php if (isset($errors['lname'])): ?><span class="error"><?php echo $errors['lname']; ?></span><?php endif; ?>
 
       <label for="contact">Contact:</label>
-      <input type="tel" id="contact" name="contact" required>
+      <input type="tel" id="contact" name="contact" value="<?php echo htmlspecialchars($contact ?? $row['contactnumber']); ?>" required>
+      <?php if (isset($errors['contact'])): ?><span class="error"><?php echo $errors['contact']; ?></span><?php endif; ?>
 
       <label for="department">Department:</label>
       <div class="department-edit">
         <select name="department" id="department-edit" required>
           <option value="">Select</option>
-          <option value="Accounting">Accounting</option>
-          <option value="Admin">Admin and Shared Services</option>
-          <option value="Ads">Ads and Promo</option>
-          <option value="Business">Business Development Group</option>
-          <option value="Chem Room">Chem Room</option>
-          <option value="Clinic">Clinic</option>
-          <option value="Collection">Collection</option>
-          <option value="EVP">EVP Office</option>
-          <option value="Greenovations-Floor">Greenovations (1st and 2nd Floor)</option>
-          <option value="Greenovations-Table">Greenovations (MGCPI Table)</option>
-          <option value="Operator-HR">Operator and HR</option>
-          <option value="OTD">OTD</option>
-          <option value="Research">Research and Development</option>
-          <option value="Sales">Sales</option>
-          <option value="Service">Service</option>
+          <option value="Accounting" <?php echo (isset($department) && $department == 'Accounting') ? 'selected' : ($row['department'] == 'Accounting' ? 'selected' : ''); ?>>Accounting</option>
+          <option value="Admin" <?php echo (isset($department) && $department == 'Admin') ? 'selected' : ($row['department'] == 'Admin' ? 'selected' : ''); ?>>Admin and Shared Services</option>
+          <option value="Ads" <?php echo (isset($department) && $department == 'Ads') ? 'selected' : ($row['department'] == 'Ads' ? 'selected' : ''); ?>>Ads and Promo</option>
+          <option value="Business" <?php echo (isset($department) && $department == 'Business') ? 'selected' : ($row['department'] == 'Business' ? 'selected' : ''); ?>>Business Development Group</option>
+          <option value="Chem Room" <?php echo (isset($department) && $department == 'Chem Room') ? 'selected' : ($row['department'] == 'Chem Room' ? 'selected' : ''); ?>>Chem Room</option>
+          <option value="Clinic" <?php echo (isset($department) && $department == 'Clinic') ? 'selected' : ($row['department'] == 'Clinic' ? 'selected' : ''); ?>>Clinic</option>
+          <option value="Collection" <?php echo (isset($department) && $department == 'Collection') ? 'selected' : ($row['department'] == 'Collection' ? 'selected' : ''); ?>>Collection</option>
+          <option value="EVP" <?php echo (isset($department) && $department == 'EVP') ? 'selected' : ($row['department'] == 'EVP' ? 'selected' : ''); ?>>EVP Office</option>
+          <option value="Greenovations-Floor" <?php echo (isset($department) && $department == 'Greenovations-Floor') ? 'selected' : ($row['department'] == 'Greenovations-Floor' ? 'selected' : ''); ?>>Greenovations (1st and 2nd Floor)</option>
+          <option value="Greenovations-Table" <?php echo (isset($department) && $department == 'Greenovations-Table') ? 'selected' : ($row['department'] == 'Greenovations-Table' ? 'selected' : ''); ?>>Greenovations (MGCPI Table)</option>
+          <option value="Operator-HR" <?php echo (isset($department) && $department == 'Operator-HR') ? 'selected' : ($row['department'] == 'Operator-HR' ? 'selected' : ''); ?>>Operator and HR</option>
+          <option value="OTD" <?php echo (isset($department) && $department == 'OTD') ? 'selected' : ($row['department'] == 'OTD' ? 'selected' : ''); ?>>OTD</option>
+          <option value="Research" <?php echo (isset($department) && $department == 'Research') ? 'selected' : ($row['department'] == 'Research' ? 'selected' : ''); ?>>Research and Development</option>
+          <option value="Sales" <?php echo (isset($department) && $department == 'Sales') ? 'selected' : ($row['department'] == 'Sales' ? 'selected' : ''); ?>>Sales</option>
+          <option value="Service" <?php echo (isset($department) && $department == 'Service') ? 'selected' : ($row['department'] == 'Service' ? 'selected' : ''); ?>>Service</option>
         </select>
-      </div>
 
-      <!--<label for="email">Email:</label>
-      <input type="email" id="email" name="email" required> -->
+        <?php if (isset($errors['department'])): ?><span class="error"><?php echo $errors['department']; ?></span><?php endif; ?>
+          
+      </div>
 
       <div class="buttons">
         <button type="button" onclick="window.location.href='/mapecon/User Interface/User Leave Home.php';">Cancel</button>
