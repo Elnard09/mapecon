@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../sql/config.php");
+include("../sql/function.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get form data

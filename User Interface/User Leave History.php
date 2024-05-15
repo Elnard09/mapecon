@@ -2,14 +2,7 @@
 session_start();
 
 include("../sql/config.php");
-
-// Connect to database
-$conn = mysqli_connect("localhost", "root", "", "mapecon");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include("../sql/function.php");
 
 // Check if cancel request button is clicked
 if (isset($_POST['cancel_request'])) {
@@ -17,12 +10,12 @@ if (isset($_POST['cancel_request'])) {
 
   // Delete the record from the database
   $sql_delete = "DELETE FROM leave_applications WHERE id = $id_to_delete";
-  if ($conn->query($sql_delete) === TRUE) {
+  if ($connection->query($sql_delete) === TRUE) {
     // Redirect to the current page after successful deletion (refresh)
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
   } else {
-    echo "Error deleting record: " . $conn->error;
+    echo "Error deleting record: " . $connection->error;
   }
 }
 
@@ -35,7 +28,7 @@ $sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
         INNER JOIN users AS u ON l.user_id = u.user_id
         WHERE l.user_id = $user_id
         ORDER BY l.id DESC";
-$result = $conn->query($sql);
+$result = $connection->query($sql);
 
 ?>
 <!DOCTYPE html>
@@ -381,5 +374,5 @@ updateTime();
 </html>
 <?php
 // Close database connection
-$conn->close();
+$connection->close();
 ?>
