@@ -130,7 +130,6 @@ function updateTime() {
 
   updateTime();
 
-  // JavaScript function to create and update the leave status chart
   document.addEventListener("DOMContentLoaded", function() {
     var ctx = document.getElementById('leaveChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -165,8 +164,27 @@ function updateTime() {
         }
       }
     });
+
+    // Function to update chart based on selected month and year
+    function updateChart() {
+      var selectedMonth = document.getElementById("monthFilter-dashboard").value;
+      var selectedYear = document.getElementById("yearFilter-dashboard").value;
+
+      // Fetch data based on selected month and year
+      fetch('update_chart.php?month=' + selectedMonth + '&year=' + selectedYear)
+        .then(response => response.json())
+        .then(data => {
+          myChart.data.datasets[0].data = [data.pending_count, data.approved_count, data.declined_count];
+          myChart.update();
+        });
+    }
+
+    // Listen for changes in month and year filters
+    document.getElementById("monthFilter-dashboard").addEventListener("change", updateChart);
+    document.getElementById("yearFilter-dashboard").addEventListener("change", updateChart);
   });
 </script>
+
 
 <script>
   // JavaScript functions for sidebar toggling
