@@ -20,81 +20,55 @@ session_start();
     $check_email = "SELECT email FROM users WHERE email = '$email' LIMIT 1";
     $check_email_query = mysqli_query($connection, $check_email);
 
-    if(mysqli_num_rows($check_email_query) > 0)
-    {
-      //$_SESSION['status'] = "Email address already exists";
-      ?>
-      <script type="text/javascript">
-      alert('Email address already exists');
-      window.location.href='User Log in.php';
-      </script>
-      <?php
-      die;
-      //$errorMessage = "Email address already exists";
-      //header("Location: User Signup.php");
-    }else {
-      if(!empty($fname) && !empty($lname) && !empty($contact) && !empty($department) && !empty($email) && !empty($password))
-      {
-        //$isMatch = $signpass.equals($signconpass); 
-        if($password == $conpassword)
-        {
-          //save to database
-
-          // Function to generate a random 5-digit number
-          function generate5DigitNumber() {
-          return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
-          }
-
-          // Function to check if the generated number exists in the database
-          function numberExistsInDatabase($number, $connection) {
-            $query = "SELECT COUNT(*) AS count FROM users WHERE user_id = ?";
-            $statement = $connection->prepare($query);
-            $statement->bind_param("s", $number);
-            $statement->execute();
-            $result = $statement->get_result();
-            $row = $result->fetch_assoc();
-            return $row['count'] > 0;
-          }
-          $user_id = generate5DigitNumber();
-          // Check if the generated number exists in the database
-          while (numberExistsInDatabase($user_id, $connection)) {
-              $user_id = generate5DigitNumber();
-          }
-
-          //encrypt password
-          $passhash = $password;
-          $hashed_password = password_hash($passhash, PASSWORD_DEFAULT);
-          //$verify_token = bin2hex(random_bytes(16));
-
-          $query = "INSERT INTO users (user_id, user_status, firstname, lastname, contactnumber, email, password, department) VALUES ('$user_id', 'User', '$fname', '$lname', '$contact', '$email', '$hashed_password', '$department') ";
-          $query_run = mysqli_query($connection, $query);
-
-        if($query_run)
-        {
-          ?>
-          <script type="text/javascript">
-          alert('Registration successful! Please log in your account');
-          window.location.href='User Log in.php';
-          </script>
-          <?php
-          die;
-        } else {
-          ?><script type="text/javascript">
-          alert('Registration Failed. Please try again');
-          window.location.href='User Signup.php';
-          </script>
-          <?php
+    if (mysqli_num_rows($check_email_query) > 0) {
+      $_SESSION['alert'] = 'Email address already exists';
+      header("Location: " . $_SERVER['PHP_SELF']);
+      exit;
+  } else {
+      if (!empty($fname) && !empty($lname) && !empty($contact) && !empty($department) && !empty($email) && !empty($password)) {
+          if ($password == $conpassword) {
+              function generate5DigitNumber() {
+                  return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
               }
-        } else {
-                  ?><script type="text/javascript">
-                  alert('Passwords do not match');
-                  window.history.back();
-                  </script>
-                  <?php
-                }
-        }
-    }
+
+              function numberExistsInDatabase($number, $connection) {
+                  $query = "SELECT COUNT(*) AS count FROM users WHERE user_id = ?";
+                  $statement = $connection->prepare($query);
+                  $statement->bind_param("s", $number);
+                  $statement->execute();
+                  $result = $statement->get_result();
+                  $row = $result->fetch_assoc();
+                  return $row['count'] > 0;
+              }
+
+              $user_id = generate5DigitNumber();
+              while (numberExistsInDatabase($user_id, $connection)) {
+                  $user_id = generate5DigitNumber();
+              }
+
+              $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+              $query = "INSERT INTO users (user_id, user_status, firstname, lastname, contactnumber, email, password, department) 
+                        VALUES ('$user_id', 'User', '$fname', '$lname', '$contact', '$email', '$hashed_password', '$department')";
+              $query_run = mysqli_query($connection, $query);
+
+              if ($query_run) {
+                  $_SESSION['alert'] = 'Registration successful! Please log in to your account';
+                  header("Location: User Log in.php");
+                  exit;
+              } else {
+                  $_SESSION['alert'] = 'Registration Failed. Please try again';
+                  header("Location: " . $_SERVER['PHP_SELF']);
+                  exit;
+              }
+          } else {
+              $_SESSION['alert'] = 'Passwords do not match';
+              header("Location: " . $_SERVER['PHP_SELF']);
+              exit;
+          }
+      }
   }
+}
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +87,14 @@ session_start();
   </div>
   <div class="container-sign">
     <div class="sign-form">
-      <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Sign Up</h2>
+      <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> 
+      <h2>Sign Up</h2>
+      <?php
+          if (isset($_SESSION['alert'])) {
+              echo '<div class="alert">' . $_SESSION['alert'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
+              unset($_SESSION['alert']);
+          }
+          ?>
       <form action="" method="post">
       <div class="name-fields">
         <div class="form-group">

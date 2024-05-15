@@ -71,7 +71,8 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
   </div>
   <div class="container-login">
     <div class="login-form">
-      <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> <h2>Welcome to Leave Simulation System!</h2>
+      <img src="/mapecon/Pictures/MAPECON_logo.png" alt="MAPECON Logo" class="logo"> 
+      <h2>Welcome to Leave Simulation System!</h2>
       <p>Log in to access our Leave Management System, streamlining our leave application process.</p>
       <?php
             if (isset($_SESSION['alert'])) {
