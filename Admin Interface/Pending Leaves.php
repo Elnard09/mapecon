@@ -2,7 +2,7 @@
 session_start();
 
 include("../sql/config.php");
-
+$user_data = check_login($connection);
 // Connect to database
 $conn = mysqli_connect("localhost", "root", "", "mapecon");
 

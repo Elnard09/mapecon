@@ -2,6 +2,7 @@
 session_start();
 
 include("../sql/config.php");
+$user_data = check_login($connection);
 
 $sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
         FROM leave_applications AS l 

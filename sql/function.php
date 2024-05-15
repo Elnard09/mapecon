@@ -12,7 +12,7 @@ function check_login($connection){
         }
     }
     //redirect to login
-    header("Location: ../User Interface/User Leave Home.php.php");
+    header("Location: ../Log in Page/User Log in.php");
     die;
 }
 

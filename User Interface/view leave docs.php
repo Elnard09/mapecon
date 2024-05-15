@@ -2,6 +2,7 @@
 include("../sql/config.php");
 include("../sql/function.php");
 
+
 // Include the FPDF library
 require("/xampp/htdocs/mapecon/fpdf/fpdf.php");
 

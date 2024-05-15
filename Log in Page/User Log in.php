@@ -4,6 +4,17 @@ session_start();
 include("../sql/config.php");
 include("../sql/function.php");
 
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    if ($_SESSION['user_status'] == 'Admin') {
+        header("Location: ../Admin Interface/Admin Home.php");
+        exit;
+    } elseif ($_SESSION['user_status'] == 'User') {
+        header("Location: ../User Interface/User Leave Home.php");
+        exit;
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // Something was posted
     $email = $_POST['email'];
@@ -20,6 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             if (password_verify($password, $stored_hashed_password)) {
                 $_SESSION['user_id'] = $user_data['user_id'];
+                $_SESSION['user_status'] = $user_data['user_status'];
+
+                // Check if "Remember Me" is checked
+                if (isset($_POST['remember_me'])) {
+                    // Set cookies for email and password
+                    setcookie('email', $email, time() + (86400 * 30), "/");
+                    setcookie('password', $password, time() + (86400 * 30), "/");
+                }
+
                 if ($user_data['user_status'] == 'Admin') {
                     header("Location: ../Admin Interface/Admin Home.php");
                     die;
@@ -82,9 +102,12 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
             ?>
       <form action="" method="post">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email">
+        <input type="email" id="email" name="email" required placeholder="Enter your email" value="<?php echo $mail; ?>">
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required placeholder="Enter your password">
+        <input type="password" id="password" name="password" required placeholder="Enter your password" value="<?php echo $pass; ?>">
+        <label for="remember_me">Remember Me
+        <input type="checkbox" id="remember_me" name="remember_me">
+        </label>
         <a href="#" class="forgot-password">Forgot Password?</a>
         <button type="submit" class="login-btn">Login</button>  </form>
       <div class="sign-up-link">

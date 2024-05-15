@@ -2,12 +2,13 @@
 session_start();
 
 include("../sql/config.php");
-
+include("../sql/function.php");
+$user_data = check_login($connection);
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
+/*if (!isset($_SESSION['user_id'])) {
   header("Location: ../login.php");
   exit();
-}
+}*/
 
 $user_id = $_SESSION['user_id'];
 

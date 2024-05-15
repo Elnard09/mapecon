@@ -3,7 +3,7 @@ session_start();
 
 include("../sql/config.php");
 include("../sql/function.php");
-
+$user_data = check_login($connection);
 // Check if cancel request button is clicked
 if (isset($_POST['cancel_request'])) {
   $id_to_delete = $_POST['id_to_delete'];

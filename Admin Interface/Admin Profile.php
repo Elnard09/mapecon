@@ -3,6 +3,7 @@ session_start();
 
 include("../sql/config.php");
 include("../sql/function.php");
+$user_data = check_login($connection);
 
 $update_msg = ""; // Initialize the update message
 $errors = []; // Array to store validation errors
