@@ -73,7 +73,6 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,19 +100,24 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
             }
             ?>
       <form action="" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email" value="<?php echo $mail; ?>">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required placeholder="Enter your password" value="<?php echo $pass; ?>">
-        <label for="remember_me">Remember Me
-        <input type="checkbox" id="remember_me" name="remember_me">
-        </label>
-        <a href="#" class="forgot-password">Forgot Password?</a>
-        <button type="submit" class="login-btn">Login</button>  </form>
-      <div class="sign-up-link">
-        Don't have an account? <a href="/mapecon/Log in Page/User Signup.php">Sign Up</a>
-      </div>
-      
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email" value="<?php echo $mail; ?>">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password" value="<?php echo $pass; ?>">
+            <div class="login-form-footer">
+                <div class="remember-forgot-container">
+                    <label class="remember-me">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </div>
+        </form>
+        <div class="sign-up-link">
+            Don't have an account? <a href="/mapecon/Log in Page/User Signup.php">Sign Up</a>
+        </div>
+
     </div>
   </div>
 </body>

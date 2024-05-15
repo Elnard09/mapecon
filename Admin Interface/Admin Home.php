@@ -53,34 +53,7 @@ mysqli_close($connection);
   <link rel="shortcut icon" href="/mapecon/Pictures/favicon.png">
   <link rel="stylesheet" href="/mapecon/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
-  <style>
-    /* Add your custom styles here */
-    .dashboard-body {
-      background-color: #f4f4f4;
-    }
-    .dashboard-content {
-      padding: 20px;
-    }
-    .dashboard-content h1 {
-      margin-bottom: 20px;
-    }
-    .dashboard-content .divider {
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 20px;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-    }
-    .admin-home {
-      flex: 1;
-      padding-right: 10px;
-    }
-    .admin-dashboard {
-      flex: 1;
-      padding-left: 10px;
-    }
-  </style>
+
 </head>
 <body>
 <header>
@@ -124,7 +97,7 @@ mysqli_close($connection);
   <div class="overlay" id="overlay" onclick="closeNav()"></div>
 
   <!-- Admin Home content -->
-  <div class="container">
+  <div class="admin-container">
     <div class="admin-home">
       <div class="dashboard-content">
         <h1>Home</h1>

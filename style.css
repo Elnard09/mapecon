@@ -333,13 +333,30 @@ p {
 }
 
 /* Link Styles */
+
+/* Style for the container holding both "forgot password" and "remember me" */
+.remember-forgot-container {
+  display: flex; /* Use flexbox to align items */
+  justify-content: space-between; /* Space items evenly */
+  align-items: center; /* Center items vertically */
+}
+
+/* Style for the forgot password link */
+.remember-me,
 .forgot-password {
-  margin-top: -10px;
-  margin-bottom: 15px;
-  display: block;  
-  text-decoration: none;
+  text-decoration: none; /* Remove underline */
   font-size: 13px;
   color: #333;
+}
+
+/* Style for the remember me checkbox and label */
+.remember-me {
+  margin-right: 10px; /* Add some space between checkbox and label */
+}
+
+/* Style for the checkbox input */
+.remember-me input[type="checkbox"] {
+  vertical-align: middle;
 }
 
 .forgot-password:hover{
@@ -803,18 +820,42 @@ label {
 }
 
 .container_dashboard {
-  margin: 0 auto;
-  margin-top: -20px;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 90%;
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 5px;
 }
 
-/* Styling the Sidebar */
+/* Add your custom styles here */
+.dashboard-body {
+  background-color: #f4f4f4;
+}
+.dashboard-content {
+  padding: 20px;
+}
+.dashboard-content h1 {
+  margin-bottom: 20px;
+}
+.dashboard-content .divider {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.admin-container {
+  display: flex;
+  justify-content: center;
+}
+.admin-home {
+  flex: 1;
+  padding-right: 10px;
+}
+.admin-dashboard {
+  flex: 1;
+  padding-left: 10px;
+}
 
+/* Styling the Sidebar */
 .sidebar {
   height: 100%;
   visibility: hidden;
