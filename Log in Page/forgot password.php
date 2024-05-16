@@ -24,13 +24,15 @@ if (isset($_POST['forgotSubmit'])) {
   if (mysqli_num_rows($result) > 0) {
     // Generate a random OTP
     $otp = generateOTP(); // Define the function to generate an OTP
+    date_default_timezone_set("Asia/Bangkok");
+    $date = date("y-m-d");
 
     // Store the OTP in a session variable
     $_SESSION['otp'] = $otp;
     $_SESSION['email'] = $email;
 
     // Store the OTP in the database
-    $sql = "UPDATE users SET password_reset_otp = '$otp' WHERE email = '$email'"; // Update column name here
+    $sql = "UPDATE `users` SET `otp` = '$otp', `token expired` = '$date' WHERE `email` = '$email'"; // Update column name here
     $result = mysqli_query($connection, $sql);
 
     if (!$result) {
@@ -44,13 +46,13 @@ if (isset($_POST['forgotSubmit'])) {
     // Display the success message and redirect
     echo '<script type="text/javascript">';
     echo 'alert("Password reset OTP has been sent to your email.");';
-    echo 'window.location.href = "otp_verification.php";';
+    echo 'window.location.href = "User Log in.php";';
     echo '</script>';
     exit();
   } else {
     echo '<script type="text/javascript">';
     echo 'alert("Email does not exist");';
-    echo 'window.location.href = "forgot_password.php";';
+    echo 'window.location.href = "forgot password.php";';
     echo '</script>';
     exit();
   }
@@ -64,7 +66,7 @@ function generateOTP() {
 }
 
 // Function to send an email with the OTP
-function sendEmail($to, $otp) {
+function sendEmail($email, $otp) {
   $mail = new PHPMailer();
   $mail->isSMTP();
   $mail->Host = 'smtp.gmail.com';
@@ -75,16 +77,53 @@ function sendEmail($to, $otp) {
   $mail->Port = 587;
 
   $mail->setFrom('sorpresabakeshop2019@gmail.com', 'Sorpresa Bakeshop');
-  $mail->addAddress($to);
+  $mail->addAddress($email);
 
   $mail->isHTML(true);
-  $mail->Subject = 'Password Reset OTP';
-  $mail->Body = "Your OTP for password reset is: $otp.\n\n This OTP is valid for 5 minutes only.";
+  $mail->Subject = 'MAPECON: Password Reset OTP';
+  $mail->Body = "
+            <body style='background: #171818; color: #fff; padding: 50px; border-radius: 10px;'>
+            
+            <center><h1 style='color: #FED586; font-family: Judson;'>GLAMOUR</h1></center>
+
+            <p style='color: #fff;'>
+            <em>Good day!<em>
+            </p>
+
+            <p style='color: #fff;'>
+                We have received a request to reset the password associated with your account. 
+                If you did not initiate this request, please disregard this message. To reset your 
+                password, please click on the link below:<br><br>
+            </p>
+
+            <center>
+            <a href='localhost/mapecon/Log in Page/otp input.php?email=$email&reset_token=$otp' 
+            style='background: #FED586; padding: 10px; color: black; font-weight: bolder; 
+            font-family: Judson; text-decoration: none; border-radius: 5px;'>RESET PASSWORD</a><br><br>
+            </center> 
+            
+            <p style='color: #fff;'>
+                You will be taken to a page where you can enter a new password. Please make sure to 
+                choose a strong, unique password that you have not used before. <br><br>
+
+                If you have any questions or concerns, please do not hesitate to contact our with  
+                this email. Thank you for your cooperation. Have a great day ahead! <br><br>
+            </p>
+
+            <p style='color: #fff;'>
+            <em>
+            Best regards, <br>
+            MAPECON
+            </em> <br>
+            </p>
+
+            </body>
+            ";
 
   if (!$mail->send()) {
     echo '<script type="text/javascript">';
     echo 'alert("Error sending email: ' . $mail->ErrorInfo . '");';
-    echo 'window.location.href = "forgot_password.php";';
+    echo 'window.location.href = "forgot password.php";';
     echo '</script>';
     exit();
   }
