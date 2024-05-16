@@ -83,6 +83,16 @@ header {
   /* White font color on hover */
   }
 
+  /* Home h3 */
+
+  h3{
+    margin-left: 17px;
+  }
+
+  .h3-dashboard{
+    margin-left: -1px;
+  }
+
 
   /* Date and Time and Name Greeting! */
   
@@ -387,6 +397,17 @@ p {
   text-align: center;
   position: relative;
 }
+
+.alert-success{
+  padding: 10px;
+  background-color: green;
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+}
+
 .close-btn {
   position: absolute;
   top: 50%;
@@ -714,6 +735,10 @@ label {
   #monthFilter-dashboard{
     margin-left: 20px
   }
+
+  .card:hover {
+    padding: 10px;
+  }
 }
 
 /* Make the form responsive on phone and tablet breakpoints */
@@ -822,10 +847,10 @@ label {
 .container_dashboard {
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 92%;
   border: 1px solid #ccc;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 5px; 
 }
 
 /* Add your custom styles here */
@@ -841,6 +866,7 @@ label {
 .dashboard-content .divider {
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
+ 
 }
 .admin-container {
   display: flex;
@@ -853,6 +879,7 @@ label {
 .admin-dashboard {
   flex: 1;
   padding-left: 10px;
+ 
 }
 
 /* Styling the Sidebar */
@@ -978,6 +1005,28 @@ label {
 
 .data-visualization{
   margin-left: -25px;
+}
+
+.admin-container {
+  display: block;
+  justify-content: center;
+}
+
+.admin-dashboard {
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+h3{
+  margin-left: 14px;
+}
+
+.h3-dashboard{
+  margin-left: -15px;
+}
+
+#monthFilter-dashboard{
+  margin-left: 45px;
 }
 }
 

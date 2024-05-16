@@ -100,7 +100,7 @@ mysqli_close($connection);
   <div class="admin-container">
     <div class="admin-home">
       <div class="dashboard-content">
-        <h1>Home</h1>
+        <h3>Home</h3>
         <div class="overlay" id="overlay" onclick="closeNav()"></div>
     <div class="card-container-admin">
       <div class="card-container-wrapper">
@@ -135,7 +135,7 @@ mysqli_close($connection);
     <!-- Admin Dashboard content -->
     <div class="admin-dashboard">
       <div class="dashboard-content">
-        <h1>Dashboard</h1>
+        <h3 class="h3-dashboard">Dashboard</h3>
         <div class="container_dashboard">
           <div class="filters">
             <table>
