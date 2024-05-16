@@ -1,0 +1,88 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['otp']) || !isset($_SESSION['email'])) {
+  // Redirect back to the forgot password page if OTP and email are not set
+  header("Location: forgot_password.php");
+  exit();
+}
+
+// Set the OTP timestamp if it's not already set
+if (!isset($_SESSION['otp_time'])) {
+  $_SESSION['otp_time'] = time();
+}
+
+// Check if the OTP has expired (5 minutes in this example)
+if (time() > ($_SESSION['otp_time'] + (5 * 60))) {
+  // Clear the OTP and its timestamp
+  unset($_SESSION['otp']);
+  unset($_SESSION['otp_time']);
+
+  // Display the session expired alert and redirect to the forgot password page
+  echo '<script type="text/javascript">';
+  echo 'alert("Session expired, please request an OTP again.");';
+  echo 'window.location.href = "forgot_password.php";';
+  echo '</script>';
+  exit();
+}
+
+if (isset($_POST['forgotSubmit'])) {
+  $userOTP = trim($_POST['otp']); // Remove leading/trailing whitespaces from the entered OTP
+
+  if (strval($userOTP) === strval($_SESSION['otp'])) { // Compare as strings
+    // Clear the OTP and its timestamp after successful verification
+    unset($_SESSION['otp']);
+    unset($_SESSION['otp_time']);
+
+    // OTP verification successful, redirect to the password reset page
+    header("Location: reset_password.php");
+    exit();
+  } else {
+    echo '<script type="text/javascript">';
+    echo 'alert("Incorrect OTP. Please try again.");';
+    echo 'window.location.href = "otp_verification.php";'; // Redirect back to OTP verification page on failure
+    echo '</script>';
+  }
+}
+?>
+
+<!-- HTML code for the OTP verification page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>OTP Verification</title>
+  <!-- Include the CSS stylesheets and other head elements -->
+  <link rel="stylesheet" href="css/vertical-layout-light/passwordstyle.css">
+  <link rel="shortcut icon" href="images/favicon.jpg" />
+</head>
+
+<body>
+  <!-- Apply the same container class -->
+  <div class="container">
+    <div class="card">
+      <div class="logo">
+          <a href="index.php"><img src="images/pos/logo-mini.png" alt="logo" /></a>
+      </div>
+      <h3 class="card-header">OTP Verification</h3>
+      <div class="card-body">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> <!-- Use the PHP_SELF variable to refer to the current script -->
+          <div class="form-group">
+            <label for="otp">Enter the OTP:</label>
+            <input type="text" name="otp" id="otp" class="input-field" required>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" name="forgotSubmit" class="submit-button" value="Verify OTP">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+</html>
