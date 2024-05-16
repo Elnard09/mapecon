@@ -97,7 +97,7 @@ function sendEmail($email, $otp) {
             </p>
 
             <center>
-            <a href='localhost/mapecon/Log in Page/otp input.php?email=$email&reset_token=$otp' 
+            <a href='../Log in Page/otp input.php?email=$email&reset_token=$otp' 
             style='background: #FED586; padding: 10px; color: black; font-weight: bolder; 
             font-family: Judson; text-decoration: none; border-radius: 5px;'>RESET PASSWORD</a><br><br>
             </center> 
