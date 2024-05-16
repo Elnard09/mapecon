@@ -24,15 +24,14 @@ if (isset($_POST['forgotSubmit'])) {
   if (mysqli_num_rows($result) > 0) {
     // Generate a random OTP
     $otp = generateOTP(); // Define the function to generate an OTP
-    date_default_timezone_set("Asia/Bangkok");
-    $date = date("y-m-d");
+    $expiration = date("Y-m-d H:i:s", strtotime('+3 minutes'));
 
     // Store the OTP in a session variable
-    $_SESSION['otp'] = $otp;
-    $_SESSION['email'] = $email;
+    //$_SESSION['otp'] = $otp;
+    //$_SESSION['email'] = $email;
 
     // Store the OTP in the database
-    $sql = "UPDATE `users` SET `otp` = '$otp', `token expired` = '$date' WHERE `email` = '$email'"; // Update column name here
+    $sql = "UPDATE `users` SET `otp` = '$otp', `token_expired` = '$expiration' WHERE `email` = '$email'"; // Update column name here
     $result = mysqli_query($connection, $sql);
 
     if (!$result) {
@@ -96,8 +95,12 @@ function sendEmail($email, $otp) {
                 password, please click on the link below:<br><br>
             </p>
 
+            <p style='color: #789;'>
+                This is your otp: $otp<br>
+            </p>
+
             <center>
-            <a href='localhost/mapecon/Log in Page/otp input.php?email=$email&reset_token=$otp' 
+            <a href='localhost/mapecon/Log in Page/createnewpass.php?email=$email&resettoken=$otp' 
             style='background-color: #F32424; padding: 10px; color: #fff; font-weight: bolder; font-size: 1rem; font-family: \"Oxygen\", Arial, sans-serif;
             text-decoration: none; border-radius: 5px;'>RESET PASSWORD</a><br><br>
             </center> 

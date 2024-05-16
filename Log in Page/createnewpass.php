@@ -6,48 +6,67 @@ include("../sql/function.php");
 
 if (isset($_GET['email']) && isset($_GET['otp'])) {
     date_default_timezone_set("Asia/Bangkok");
-    $date = date("y-m-d");
-    $stmt = $connection->prepare("SELECT * FROM users WHERE email = ? AND otp = ? AND `token expired` = ?");
-    $stmt->bind_param("sss", $_GET['email'], $_GET['otp'], $date);
+    $current_date = date("Y-m-d H:i:s");
+    $email = $_GET['email'];
+    $otp = $_GET['otp'];
+
+    $stmt = $connection->prepare("SELECT * FROM users WHERE email = ? AND otp = ? AND `token_expired` = ?");
+    $stmt->bind_param("sss", $email, $otp, $current_date);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result) {
-        if ($result->num_rows == 1) {
-            // The link is valid
-        } else {
-            echo '<script type="text/javascript">
-                    alert("Invalid or expired link");
-                  </script>';
-        }
+    if ($result && $result->num_rows == 1) {
+        // The link is valid
+        $_SESSION['verified_email'] = $email;
+        $_SESSION['otp'] = $otp;
     } else {
         echo '<script type="text/javascript">
-                alert("Server down. try again later");
+                alert("Invalid or expired link");
+                window.location.href="forgot password.php";
               </script>';
+        exit();
     }
     $stmt->close();
 }
 
 if (isset($_POST['updatepass'])) {
-    $email = $_POST['email'];
-    $newpass = $_POST['newpass'];
-    $hashed_password = password_hash($newpass, PASSWORD_DEFAULT);
+    if (isset($_SESSION['verified_email']) && isset($_SESSION['otp'])) {
+        $email = $_SESSION['verified_email'];
+        $input_otp = $_POST['otpnum'];
+        $newpass = $_POST['newpass'];
 
-    $stmt = $connection->prepare("UPDATE `users` SET `password` = ?, `otp` = NULL, `token expired` = NULL WHERE `email` = ?");
-    $stmt->bind_param("ss", $hashed_password, $email);
-    $querycheck = $stmt->execute();
+        // Verify the OTP
+        if ($input_otp === $_SESSION['otp']) {
+            $hashed_password = password_hash($newpass, PASSWORD_DEFAULT);
 
-    if ($querycheck) {
-        echo "<script>
-                alert('Password updated successfully');
-                window.location.href='User Log in.php';
-              </script>";
+            $stmt = $connection->prepare("UPDATE users SET password = ?, otp = NULL, token_expired = NULL WHERE email = ?");
+            $stmt->bind_param("ss", $hashed_password, $email);
+            $querycheck = $stmt->execute();
+
+            if ($querycheck) {
+                unset($_SESSION['verified_email']);
+                unset($_SESSION['otp']);
+                echo "<script>
+                        alert('Password updated successfully');
+                        window.location.href='User Log in.php';
+                      </script>";
+            } else {
+                echo '<script type="text/javascript">
+                        alert("Server down. Please try again later");
+                      </script>';
+            }
+            $stmt->close();
+        } else {
+            echo '<script type="text/javascript">
+                    alert("Wrong OTP. Please try again.");
+                  </script>';
+        }
     } else {
         echo '<script type="text/javascript">
-                alert("Server down. Please try again later");
+                alert("Session expired. Please request a new password reset.");
+                window.location.href="forgot password.php";
               </script>';
     }
-    $stmt->close();
 }
 ?>
 
@@ -57,7 +76,7 @@ if (isset($_POST['updatepass'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Password | Glamour</title>
+    <title>Create New Password | MAPECON</title>
     <link rel="shortcut icon" type="image/png" href="CSS/Pictures/favicon.png">
     <link rel="stylesheet" href="CSS/createnewpass.css">
     <link rel="stylesheet" href="/mapecon/style.css">
@@ -76,8 +95,8 @@ if (isset($_POST['updatepass'])) {
             <p class="p-forgor">Email verified. Create a password that you can remember.</p>
             <form action="" method="POST">
                 <div class="form-group">
+                    <input type="text" name="otpnum" id="otpnum" required placeholder="Enter the OTP number">
                     <input type="password" name="newpass" id="newpass" required placeholder="Enter new password">
-                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($_GET['email']); ?>">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="login-btn" name="updatepass">Update</button>
