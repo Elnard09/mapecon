@@ -93,6 +93,16 @@ header {
     margin-left: -1px;
   }
 
+  /* Forgor Password */
+
+  .h2-forgor{
+    margin-bottom: 0px;
+  }
+
+  .p-forgor{
+    margin-bottom: 30px;
+  }
+
 
   /* Date and Time and Name Greeting! */
   

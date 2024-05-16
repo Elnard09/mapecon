@@ -98,7 +98,7 @@ if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
                 echo '<div class="alert">' . $_SESSION['alert'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
                 unset($_SESSION['alert']);
             }
-            else {
+            else if (isset($_SESSION['alert-success'])) {
                 echo '<div class="alert-success">' . $_SESSION['alert-success'] . '<button class="close-btn" onclick="this.parentElement.style.display=\'none\';">&times;</button></div>';
                 unset($_SESSION['alert-success']);
             }
