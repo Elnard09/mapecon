@@ -871,7 +871,8 @@ label {
   padding: 20px;
 }
 .dashboard-content h1 {
-  margin-bottom: 20px;
+  margin-top: -40px;
+  margin-bottom: 10px;
 }
 .dashboard-content .divider {
   border-bottom: 1px solid #ccc;
