@@ -57,14 +57,14 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `department` varchar(255) NOT NULL,
   `otp` int(6) DEFAULT NULL,
-  `token expired` int(255) DEFAULT NULL
+  `token_expired` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `user_status`, `firstname`, `lastname`, `contactnumber`, `email`, `password`, `department`) VALUES
+INSERT INTO `users` (`id`, `user_id`, `user_status`, `firstname`, `lastname`, `contactnumber`, `email`, `password`, `department`, `otp`,`token_expired`) VALUES
 (0, 1, 'Admin', 'Admin', '', '', 'admin@gmail.com', '$2y$10$FmjPZzCQbq9ggeBoQOfzMOoK11ecmjzIQxnZqtkMLdZQe5WnIvMxC', '', NULL, NULL), /*Pass: 123456*/
 (1, 2, 'User', 'fname dummy', 'lname dummy', '09999099543', 'dummy@gmail.com', '$2y$10$FmjPZzCQbq9ggeBoQOfzMOoK11ecmjzIQxnZqtkMLdZQe5WnIvMxC', 'Accounting', NULL, NULL); /*Pass: 123456*/
 

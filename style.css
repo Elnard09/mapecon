@@ -869,6 +869,8 @@ label {
 }
 .dashboard-content {
   padding: 20px;
+  margin-top: -50px;
+
 }
 .dashboard-content h1 {
   margin-top: -40px;
