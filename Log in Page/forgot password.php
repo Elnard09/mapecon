@@ -73,6 +73,14 @@ function sendEmail($email, $otp) {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+        )
+    );
+
     $mail->setFrom('sorpresabakeshop2019@gmail.com', 'Sorpresa Bakeshop');
     $mail->addAddress($email);
 

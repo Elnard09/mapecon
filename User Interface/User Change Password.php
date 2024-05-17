@@ -17,30 +17,36 @@
       if (password_verify($current_password, $hashed_password)) {
           // Check if new password matches the confirmation
           if ($new_password === $confirm_password) {
-              // Update the password in the database
-              $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
-              $id = $user_data['id'];
-              $query = "UPDATE users SET password='$hashed_new_password' WHERE id='$id'";
-              $result = mysqli_query($connection, $query);
-              if ($result) {
-                  // Password updated successfully
-                  $_SESSION['alert'] = ['message' => 'Password updated successfully!', 'type' => 'success'];
-              } else {
-                  // Error updating password
-                  $_SESSION['alert'] = ['message' => 'Error updating password!', 'type' => 'error'];
-              }
-          } else {
-              // New password and confirmation do not match
-              $_SESSION['alert'] = ['message' => 'New password and confirmation do not match!', 'type' => 'error'];
-          }
-      } else {
-          // Current password is incorrect
-          $_SESSION['alert'] = ['message' => 'Current password is incorrect!', 'type' => 'error'];
-      }
+            // Validate the new password
+            if (preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $new_password)) {
+                // Update the password in the database
+                $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+                $id = $user_data['id'];
+                $query = "UPDATE users SET password='$hashed_new_password' WHERE id='$id'";
+                $result = mysqli_query($connection, $query);
+                if ($result) {
+                    // Password updated successfully
+                    $_SESSION['alert'] = ['message' => 'Password updated successfully!', 'type' => 'success'];
+                } else {
+                    // Error updating password
+                    $_SESSION['alert'] = ['message' => 'Error updating password!', 'type' => 'error'];
+                }
+            } else {
+                // New password does not meet the requirements
+                $_SESSION['alert'] = ['message' => 'New password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character', 'type' => 'error'];
+            }
+        } else {
+            // New password and confirmation do not match
+            $_SESSION['alert'] = ['message' => 'New password and confirmation do not match!', 'type' => 'error'];
+        }
+    } else {
+        // Current password is incorrect
+        $_SESSION['alert'] = ['message' => 'Current password is incorrect!', 'type' => 'error'];
+    }
 
-      header("Location: User Change Password.php");
-      exit;
-  }
+  header("Location: User Change Password.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>

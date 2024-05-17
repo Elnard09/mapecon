@@ -44,24 +44,31 @@ if (isset($_POST['updatepass'])) {
 
         // Verify the OTP
         if ($input_otp === $_SESSION['otp']) {
-            $hashed_password = password_hash($newpass, PASSWORD_DEFAULT);
-            
-            // Update the user's password in the database
-            $update_stmt = $connection->prepare("UPDATE users SET password = ? WHERE email = ?");
-            $update_stmt->bind_param("ss", $hashed_password, $email);
-            $update_result = $update_stmt->execute();
-            $update_stmt->close();
+            // Validate the new password
+            if (preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $newpass)) {
+                $hashed_password = password_hash($newpass, PASSWORD_DEFAULT);
+                
+                // Update the user's password in the database
+                $update_stmt = $connection->prepare("UPDATE users SET password = ? WHERE email = ?");
+                $update_stmt->bind_param("ss", $hashed_password, $email);
+                $update_result = $update_stmt->execute();
+                $update_stmt->close();
 
-            if ($update_result) {
-                unset($_SESSION['verified_email']);
-                unset($_SESSION['otp']);
-                echo "<script>
-                        alert('Password updated successfully');
-                        window.location.href='User Log in.php';
-                      </script>";
+                if ($update_result) {
+                    unset($_SESSION['verified_email']);
+                    unset($_SESSION['otp']);
+                    echo "<script>
+                            alert('Password updated successfully');
+                            window.location.href='User Log in.php';
+                          </script>";
+                } else {
+                    echo '<script type="text/javascript">
+                            alert("Failed to update password. Please try again later");
+                          </script>';
+                }
             } else {
                 echo '<script type="text/javascript">
-                        alert("Failed to update password. Please try again later");
+                        alert("New password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character.");
                       </script>';
             }
         } else {

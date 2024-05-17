@@ -24,40 +24,47 @@ session_start();
       $_SESSION['alert'] = 'Email address already exists';
       header("Location: " . $_SERVER['PHP_SELF']);
       exit;
-  } else {
+    } else {
       if (!empty($fname) && !empty($lname) && !empty($contact) && !empty($department) && !empty($email) && !empty($password)) {
           if ($password == $conpassword) {
-              function generate5DigitNumber() {
-                  return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
-              }
+              // Validate the password
+              if (preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
+                  function generate5DigitNumber() {
+                      return str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+                  }
 
-              function numberExistsInDatabase($number, $connection) {
-                  $query = "SELECT COUNT(*) AS count FROM users WHERE user_id = ?";
-                  $statement = $connection->prepare($query);
-                  $statement->bind_param("s", $number);
-                  $statement->execute();
-                  $result = $statement->get_result();
-                  $row = $result->fetch_assoc();
-                  return $row['count'] > 0;
-              }
+                  function numberExistsInDatabase($number, $connection) {
+                      $query = "SELECT COUNT(*) AS count FROM users WHERE user_id = ?";
+                      $statement = $connection->prepare($query);
+                      $statement->bind_param("s", $number);
+                      $statement->execute();
+                      $result = $statement->get_result();
+                      $row = $result->fetch_assoc();
+                      return $row['count'] > 0;
+                  }
 
-              $user_id = generate5DigitNumber();
-              while (numberExistsInDatabase($user_id, $connection)) {
                   $user_id = generate5DigitNumber();
-              }
+                  while (numberExistsInDatabase($user_id, $connection)) {
+                      $user_id = generate5DigitNumber();
+                  }
 
-              $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-              $query = "INSERT INTO users (user_id, user_status, firstname, lastname, contactnumber, email, password, department) 
-                        VALUES ('$user_id', 'User', '$fname', '$lname', '$contact', '$email', '$hashed_password', '$department')";
-              $query_run = mysqli_query($connection, $query);
+                  $query = "INSERT INTO users (user_id, user_status, firstname, lastname, contactnumber, email, password, department) 
+                            VALUES ('$user_id', 'User', '$fname', '$lname', '$contact', '$email', '$hashed_password', '$department')";
+                  $query_run = mysqli_query($connection, $query);
 
-              if ($query_run) {
-                  $_SESSION['alert-success'] = 'Registration successful! Login your account.';
-                  header("Location: User Log in.php");
-                  exit;
+                  if ($query_run) {
+                      $_SESSION['alert-success'] = 'Registration successful! Login your account.';
+                      header("Location: User Log in.php");
+                      exit;
+                  } else {
+                      $_SESSION['alert'] = 'Registration Failed. Please try again';
+                      header("Location: " . $_SERVER['PHP_SELF']);
+                      exit;
+                  }
               } else {
-                  $_SESSION['alert'] = 'Registration Failed. Please try again';
+                  $_SESSION['alert'] = 'Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character';
                   header("Location: " . $_SERVER['PHP_SELF']);
                   exit;
               }
