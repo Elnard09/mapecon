@@ -4,13 +4,20 @@ session_start();
 include("../sql/config.php");
 include("../sql/function.php");
 
+$connection = mysqli_connect("localhost", "root", "", "mapecon"); // Update database name here
+
+// Set MySQL session timezone to Singapore
+mysqli_query($connection, "SET time_zone = '+08:00'");
+date_default_timezone_set("Asia/Singapore");
+
 if (isset($_GET['email']) && isset($_GET['otp'])) {
-    date_default_timezone_set("Asia/Bangkok");
+    
     $current_date = date("Y-m-d H:i:s");
     $email = $_GET['email'];
     $otp = $_GET['otp'];
 
-    $stmt = $connection->prepare("SELECT * FROM users WHERE email = ? AND otp = ? AND `token_expired` = ?");
+    // Use token_expired >= current_date to check if the token is still valid
+    $stmt = $connection->prepare("SELECT * FROM users WHERE email = ? AND otp = ? AND token_expired >= ?");
     $stmt->bind_param("sss", $email, $otp, $current_date);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -38,12 +45,14 @@ if (isset($_POST['updatepass'])) {
         // Verify the OTP
         if ($input_otp === $_SESSION['otp']) {
             $hashed_password = password_hash($newpass, PASSWORD_DEFAULT);
+            
+            // Update the user's password in the database
+            $update_stmt = $connection->prepare("UPDATE users SET password = ? WHERE email = ?");
+            $update_stmt->bind_param("ss", $hashed_password, $email);
+            $update_result = $update_stmt->execute();
+            $update_stmt->close();
 
-            $stmt = $connection->prepare("UPDATE users SET password = ?, otp = NULL, token_expired = NULL WHERE email = ?");
-            $stmt->bind_param("ss", $hashed_password, $email);
-            $querycheck = $stmt->execute();
-
-            if ($querycheck) {
+            if ($update_result) {
                 unset($_SESSION['verified_email']);
                 unset($_SESSION['otp']);
                 echo "<script>
@@ -52,10 +61,9 @@ if (isset($_POST['updatepass'])) {
                       </script>";
             } else {
                 echo '<script type="text/javascript">
-                        alert("Server down. Please try again later");
+                        alert("Failed to update password. Please try again later");
                       </script>';
             }
-            $stmt->close();
         } else {
             echo '<script type="text/javascript">
                     alert("Wrong OTP. Please try again.");
