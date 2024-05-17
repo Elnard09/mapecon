@@ -26,7 +26,7 @@ if (isset($_POST['forgotSubmit'])) {
     if (mysqli_num_rows($result) > 0) {
         // Generate a random OTP
         $otp = generateOTP(); // Define the function to generate an OTP
-        $expiration = date("Y-m-d H:i:s", strtotime('+3 minutes'));
+        $expiration = date("Y-m-d H:i:s", strtotime('+5 minutes'));
 
         // Store the OTP in the database
         $sql = "UPDATE `users` SET `otp` = '$otp', `token_expired` = '$expiration' WHERE `email` = '$email'"; // Update column name here
