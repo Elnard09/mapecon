@@ -112,7 +112,6 @@ $result = $connection->query($sql);
     </div>
 
 <div>
-<form id="exportForm" method="POST" action="export_pdf.php" target="_blank">
 <form id="exportForm" method="POST" action="export_excel.php" target="_blank">
 <input type="hidden" name="selected" id="selected">
   <table>
@@ -263,31 +262,30 @@ $result = $connection->query($sql);
       }
     }
   }
-  
+    // Check all visible checkboxes when the header checkbox is clicked
+document.getElementById("checkAll").addEventListener("click", function() {
+    var checkboxes = document.querySelectorAll('table tr:not([style*="display: none"]) .checkBoxes');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+});
 
-    // Check all checkboxes when the header checkbox is clicked
-    document.getElementById("checkAll").addEventListener("click", function() {
-        var checkboxes = document.querySelectorAll('.checkBoxes');
+// Check the header checkbox if all visible checkboxes in table rows are checked
+document.querySelectorAll('.checkBoxes').forEach(function(checkbox) {
+    checkbox.addEventListener('click', function() {
+        var allChecked = true;
+        var checkboxes = document.querySelectorAll('table tr:not([style*="display: none"]) .checkBoxes');
         for (var checkbox of checkboxes) {
-            checkbox.checked = this.checked;
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
         }
+        document.getElementById('checkAll').checked = allChecked;
     });
+});
 
-    // Check the header checkbox if all checkboxes in table rows are checked
-    document.querySelectorAll('.checkBoxes').forEach(function(checkbox) {
-        checkbox.addEventListener('click', function() {
-            var allChecked = true;
-            document.querySelectorAll('.checkBoxes').forEach(function(checkbox) {
-                if (!checkbox.checked) {
-                    allChecked = false;
-                }
-            });
-            document.getElementById('checkAll').checked = allChecked;
-        });
-    });
-    
-    // Filter table rows based on name
-    document.getElementById('nameFilter').addEventListener('input', function() {
+// Filter table rows based on name
+document.getElementById('nameFilter').addEventListener('input', function() {
     var input = this.value.toUpperCase();
     var rows = document.querySelectorAll('table tr');
     for (var i = 1; i < rows.length; i++) {
@@ -301,10 +299,11 @@ $result = $connection->query($sql);
             }
         }
     }
-    });
+    updateCheckAllStatus();
+});
 
-    // Filter table rows based on date filed
-    document.getElementById('dateFilter').addEventListener('input', function() {
+// Filter table rows based on date filed
+document.getElementById('dateFilter').addEventListener('input', function() {
     var inputDate = this.value;
     var rows = document.querySelectorAll('table tr');
     for (var i = 1; i < rows.length; i++) {
@@ -317,28 +316,33 @@ $result = $connection->query($sql);
                 rows[i].style.display = "none";
             }
         }
-      }
-    });
+    }
+    updateCheckAllStatus();
+});
 
-    // Filter table rows based on month and year
-    document.getElementById('monthFilter-pending').addEventListener('change', function() {
-        var inputMonth = this.value;
-        var inputYear = document.getElementById('yearFilter-pending').value;
-        var rows = document.querySelectorAll('table tr');
-        for (var i = 1; i < rows.length; i++) {
-            var dateFiled = rows[i].getElementsByTagName("td")[3];
-            if (dateFiled) {
-                var textValue = dateFiled.textContent || dateFiled.innerText;
-                var month = textValue.split("-")[1];
-                var year = textValue.split("-")[0];
-                if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
+// Filter table rows based on month and year
+document.getElementById('monthFilter-pending').addEventListener('change', filterByMonthAndYear);
+document.getElementById('yearFilter-pending').addEventListener('change', filterByMonthAndYear);
+
+function filterByMonthAndYear() {
+    var inputMonth = document.getElementById('monthFilter-pending').value;
+    var inputYear = document.getElementById('yearFilter-pending').value;
+    var rows = document.querySelectorAll('table tr');
+    for (var i = 1; i < rows.length; i++) {
+        var dateFiled = rows[i].getElementsByTagName("td")[3];
+        if (dateFiled) {
+            var textValue = dateFiled.textContent || dateFiled.innerText;
+            var month = textValue.split("-")[1];
+            var year = textValue.split("-")[0];
+            if ((inputMonth === "" || month === inputMonth) && (inputYear === "" || year === inputYear)) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
             }
         }
-    });
+    }
+    updateCheckAllStatus();
+}
 
     // Filter table rows based on year
     document.getElementById('yearFilter-pending').addEventListener('change', function() {
@@ -360,36 +364,52 @@ $result = $connection->query($sql);
         }
     });
 
-    // Reset table rows when date filter is cleared
-    document.getElementById('dateFilter').addEventListener('change', function() {
-        if (this.value === "") {
-            var rows = document.querySelectorAll('table tr');
-            for (var i = 1; i < rows.length; i++) {
-                rows[i].style.display = "";
-            }
-        } else {
-            // Clear month and year filters
-            document.getElementById('monthFilter-pending').value = "";
-            document.getElementById('yearFilter-pending').value = "";
+// Reset table rows when date filter is cleared
+document.getElementById('dateFilter').addEventListener('change', function() {
+    if (this.value === "") {
+        var rows = document.querySelectorAll('table tr');
+        for (var i = 1; i < rows.length; i++) {
+            rows[i].style.display = "";
         }
-    });
+    } else {
+        // Clear month and year filters
+        document.getElementById('monthFilter-pending').value = "";
+        document.getElementById('yearFilter-pending').value = "";
+    }
+    updateCheckAllStatus();
+});
 
-    // Clear date filter when month or year filter is utilized
-    document.getElementById('monthFilter-pending').addEventListener('change', function() {
-        var inputMonth = this.value;
-        var inputYear = document.getElementById('yearFilter-pending').value;
-        if (inputMonth !== "" || inputYear !== "") {
-            document.getElementById('dateFilter').value = "";
-        }
-    });
+// Clear date filter when month or year filter is utilized
+document.getElementById('monthFilter-pending').addEventListener('change', function() {
+    var inputMonth = this.value;
+    var inputYear = document.getElementById('yearFilter-pending').value;
+    if (inputMonth !== "" || inputYear !== "") {
+        document.getElementById('dateFilter').value = "";
+    }
+    updateCheckAllStatus();
+});
 
-    document.getElementById('yearFilter-pending').addEventListener('change', function() {
-        var inputYear = this.value;
-        var inputMonth = document.getElementById('monthFilter-pending').value;
-        if (inputMonth !== "" || inputYear !== "") {
-            document.getElementById('dateFilter').value = "";
+document.getElementById('yearFilter-pending').addEventListener('change', function() {
+    var inputYear = this.value;
+    var inputMonth = document.getElementById('monthFilter-pending').value;
+    if (inputMonth !== "" || inputYear !== "") {
+        document.getElementById('dateFilter').value = "";
+    }
+    updateCheckAllStatus();
+});
+
+function updateCheckAllStatus() {
+    var checkboxes = document.querySelectorAll('table tr:not([style*="display: none"]) .checkBoxes');
+    var allChecked = true;
+    for (var checkbox of checkboxes) {
+        if (!checkbox.checked) {
+            allChecked = false;
+            break;
         }
-    });
+    }
+    document.getElementById('checkAll').checked = allChecked;
+}
+
 
 </script>
 </html>
