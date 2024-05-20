@@ -51,7 +51,6 @@ $result = $connection->query($sql);
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
-    <!-- <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-pie-chart"></i> Dashboard</a> -->
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
@@ -66,7 +65,6 @@ $result = $connection->query($sql);
       <div class="dropdown">
         <button class="dropdown-button" onclick="showDropdown()">Export   <i class="fa fa-caret-down"></i></button>
         <ul class="dropdown-menu">
-          <!-- <li><a href="#" onclick="exportToPDF()">Compiled PDF</a></li> -->
           <li><a href="#" onclick="exportToExcel()">Excel Format</a></li>
         </ul>
       </div>
@@ -167,25 +165,6 @@ $result = $connection->query($sql);
   }
 
   updateTime();
-
-  function exportToPDF() {
-    var selectedIds = [];
-    var checkboxes = document.querySelectorAll('.checkBoxes:checked');
-    checkboxes.forEach(function(checkbox) {
-        selectedIds.push(checkbox.value);
-    });
-
-    if (selectedIds.length === 0) {
-        alert("No data is selected");
-        return;
-    } else{
-      document.getElementById('selected').value = JSON.stringify(selectedIds);
-      document.getElementById('exportForm').action = "export_pdf.php";
-      document.getElementById('exportForm').submit();
-    }
-  }
-
-
   
   function exportToExcel() {
     var selectedIds = [];
@@ -201,6 +180,9 @@ $result = $connection->query($sql);
       document.getElementById('selected').value = JSON.stringify(selectedIds);
       document.getElementById('exportForm').action = "export_excel.php";
       document.getElementById('exportForm').submit();
+      setTimeout(function(){
+          location.reload();
+      }, 1000);
     }
   }
 
