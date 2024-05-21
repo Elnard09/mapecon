@@ -202,7 +202,7 @@ $user_data = check_login($connection);
                 <input type="date" name="to-date" id="to-date">
             </div>
             <div class="num-of-days">
-                <label for="numofDays">Working days covered:</label>
+                <label for="numofDays">Days covered:</label>
                 <input type="number" id="numofDays" name="numofDays">
             </div>
         </div>

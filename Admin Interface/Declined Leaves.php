@@ -2,7 +2,10 @@
 session_start();
 
 include("../sql/config.php");
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 // Connect to database
 $conn = mysqli_connect("localhost", "root", "", "mapecon");
 

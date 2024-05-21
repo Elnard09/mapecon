@@ -124,7 +124,7 @@ mysqli_close($connection);
   <div class="admin-container">
     <div class="admin-home">
       <div class="dashboard-content">
-        <h3>Home</h3>
+        <h3 class="h3-home">Home</h3>
         <div class="overlay" id="overlay" onclick="closeNav()"></div>
     <div class="card-container-admin">
       <div class="card-container-wrapper">

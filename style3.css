@@ -25,7 +25,7 @@ header {
     color: black; /* Adjust color as needed */
     display: inline;
     position: absolute;
-    right: 50px;
+    right: 55px;
   }
 
   #name-greeting{
@@ -320,6 +320,7 @@ table {
   width: 100%;
 }
 
+
 .filter-row th{
   border: none;
 }
@@ -454,7 +455,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   color: green;
   border: 1px solid green; /* Add border */
   border-radius: 5px; /* Optional: Add border radius for rounded corners */
-  padding: 5.5px 8px; /* Optional: Add padding to adjust the space between the icon and the border */
+  padding: 5.5px 7px; /* Optional: Add padding to adjust the space between the icon and the border */
   background-color: white;
 }
 
@@ -560,13 +561,23 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   background-color: #F3F3F3;
 }
 
-.filter-row input[type="text"],  
-.filter-row input[type="date"],
-.filter-row-approved input[type="text"],  
-.filter-row-approved input[type="date"],
-.filter-row-pending input[type="text"],  
+ 
+.filter-row input[type="date"],  
+.filter-row-approved input[type="date"],  
 .filter-row-pending input[type="date"] {
   margin-left: 10px;
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #D9D9D9;
+  color: black;
+}
+
+.filter-row input[type="text"],
+.filter-row-approved input[type="text"],
+.filter-row-pending input[type="text"]
+{
   width: 120px;
   padding: 5px;
   border: none;
@@ -584,16 +595,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   color: black;
 }
 
-#monthFilter-pending{
-  width: 120px;
-  padding: 5px;
-  border: none;
-  border-radius: 8px;
-  background-color: #EBEBEB;
-  color: black;
-  margin-left: 10px;
-}
-
 #yearFilter{
   margin-left: 10px;
   width: 120px;
@@ -602,6 +603,16 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   border-radius: 8px;
   background-color: #EBEBEB;
   color: black;
+}
+
+#monthFilter-pending{
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBEBEB;
+  color: black;
+  margin-left: 10px;
 }
 
 #yearFilter-pending{
@@ -695,7 +706,46 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .dropdown:hover .dropdown-menu {
   display: block;
 }
-@media only screen and (max-width: 768px) {
+
+@media only screen and (max-width: 920px) {
+
+  .th:nth-child(2), .td:nth-child(2){
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .openbtn{
+    margin-left: -30px;
+  }
+  
+  #date-time {
+    right: 20px;
+  }
+
+  .th:nth-child(5), .th:nth-child(6), .th:nth-child(7), 
+  .td:nth-child(5), .td:nth-child(6), .td:nth-child(7) {
+    display: none;
+  }
+  .content{
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+
+  .openbtn{
+    margin-left: 0px;
+  }
+  
+  #date-time {
+    right: 55px;
+  }
+
+  .th-declined, .td-declined{
+    font-size: 13.5px;
+  }
+
 
   .th, td {
     font-size: 13.5px;
@@ -705,8 +755,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     margin-right: -5px;
     } 
 
-  .th:nth-child(2), td.th:nth-child(2){
-    width: 120px;
+  .th:nth-child(2), .td:nth-child(2){
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .th-declined, .td-declined{
@@ -796,6 +848,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   #monthFilter{
     width: 164%;
   }
+  #yearFilter{
+    width: 118%;
+    margin-left: 70px;
+  }
 
   #monthFilter-pending{
     margin-top: 10px;
@@ -809,12 +865,15 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     margin-left: 70px;
   }
 
-  #yearFilter{
-    width: 118%;
-    margin-left: 70px;
+  .btn-approved{
+    padding: 5.5px 6.5px;
   }
 
-  .btn-approved{
+  .btn-leaveHistory-disabled{
+    padding: 5.5px 6.5px;
+  }
+
+  .btn-leaveHistory-disabled:hover{
     padding: 5.5px 6.5px;
   }
 
@@ -825,6 +884,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   .btn-approved:hover{
     padding: 5.5px 6.5px;
   }
+
+ 
   
   .btn-leaveHistory-disabled:hover{
     color: black;
@@ -851,6 +912,514 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
   .container_report_report {
     width: 70%;
+  }
+
+}
+
+@media only screen and (max-width: 440px) {
+
+  .openbtn{
+    margin-left: -20px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  .th-declined, .td-declined{
+    font-size: 10px;
+  }
+
+
+  .th, .td{
+    font-size: 10px;
+  }
+
+  .th-history, .td-history {
+    font-size: 10px;
+  }
+
+
+  #date-time {
+    font-size: 0.7rem; /* Adjust font size as needed */
+    right: 30px;
+  
+  }
+
+
+  #monthFilter{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 165%;
+  }
+
+  #yearFilter{
+    font-size: 10px;
+    width: 120%;
+    margin-top: 10px;
+    margin-left: 60px;
+  }
+
+  /* Pending Leave */
+
+  #monthFilter-pending{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 165%;
+  }
+
+  #yearFilter-pending{
+    font-size: 10px;
+    width: 120%;
+    margin-top: 10px;
+    margin-left: 60px;
+  }
+
+  .filter-row-pending input[type="text"],
+  .filter-row-pending input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 260px;
+  }
+
+  /* Declined Leaves */
+
+  .filter-row input[type="text"],
+  .filter-row input[type="date"] {
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 260px;
+  }   
+
+   /* Approved Leaves */
+
+   .filter-row-approved input[type="text"],
+   .filter-row-approved input[type="date"] {
+     padding: 8px;
+     border: none;
+     border-radius: 8px;
+     background-color: #D9D9D9;
+     color: black;
+     margin-left: 0px;
+     width: 260px;
+   }
+
+  .btn-leaveHistory{ /* This is the Cancel Button */
+    border: 1px solid #b40000;
+    color: #b40000;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  
+  .btn-approved{
+    padding: 3px 4px; /* Optional: Add padding to adjust the space between the icon and the border */
+  }
+
+  .btn-leaveHistory-disabled{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory-disabled:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-approved:hover{
+    padding: 3px 4px;
+  }
+}
+
+
+@media only screen and (max-width: 420px) {
+
+  .openbtn{
+    margin-left: -20px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  .th-declined, .td-declined{
+    font-size: 10px;
+  }
+
+  .th, .td{
+    font-size: 10px;
+  }
+
+
+  #date-time {
+    font-size: 0.7rem; /* Adjust font size as needed */
+    right: 30px;
+  
+  }
+
+  #monthFilter{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 160%;
+  }
+
+  #yearFilter{
+    font-size: 10px;
+    width: 130%;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  #monthFilter-pending{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 160%;
+  }
+
+  #yearFilter-pending{
+    font-size: 10px;
+    width: 130%;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  /* Pending Leave */
+
+  .filter-row-pending input[type="text"],
+  .filter-row-pending input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 250px;
+  }
+
+  /* Declined Leave */
+
+  .filter-row input[type="text"],
+  .filter-row input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 250px;
+  }   
+
+   /* Approved Leaves */
+
+   .filter-row-approved input[type="text"],
+   .filter-row-approved input[type="date"] {
+     padding: 8px;
+     border: none;
+     border-radius: 8px;
+     background-color: #D9D9D9;
+     color: black;
+     font-size: 10px;
+     margin-left: 0px;
+     width: 250px;
+   }
+
+  .btn-leaveHistory{ /* This is the Cancel Button */
+    border: 1px solid #b40000;
+    color: #b40000;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  
+  .btn-approved{
+    padding: 3px 4px; /* Optional: Add padding to adjust the space between the icon and the border */
+  }
+
+  .btn-leaveHistory-disabled{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory-disabled:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-approved:hover{
+    padding: 3px 4px;
+  }
+}
+
+@media only screen and (max-width: 395px) {
+
+  .openbtn{
+    margin-left: -20px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  .th-declined, .td-declined{
+    font-size: 10px;
+  }
+
+  .th, .td{
+    font-size: 10px;
+  }
+
+  .th:nth-child(2), .td:nth-child(2){
+    max-width: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  #date-time {
+    font-size: 0.7rem; /* Adjust font size as needed */
+    right: 30px;
+  
+  }
+
+  #monthFilter{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 155%;
+  }
+
+  #yearFilter{
+    font-size: 10px;
+    width: 118%;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  #monthFilter-pending{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 155%;
+  }
+
+  #yearFilter-pending{
+    font-size: 10px;
+    width: 118%;
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  /* Pending Leave */
+
+  .filter-row-pending input[type="text"],
+  .filter-row-pending input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px; 
+    width: 235px;
+  }
+
+  /* Declined Leave */
+
+  .filter-row input[type="text"],
+  .filter-row input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 235px;
+  }   
+
+   /* Approved Leaves */
+
+   .filter-row-approved input[type="text"],
+   .filter-row-approved input[type="date"] {
+     padding: 8px;
+     border: none;
+     border-radius: 8px;
+     background-color: #D9D9D9;
+     color: black;
+     font-size: 10px;
+     margin-left: 0px;
+     width: 235px;
+   }
+
+  .btn-leaveHistory{ /* This is the Cancel Button */
+    border: 1px solid #b40000;
+    color: #b40000;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  
+  .btn-approved{
+    padding: 3px 4px; /* Optional: Add padding to adjust the space between the icon and the border */
+  }
+
+  .btn-leaveHistory-disabled{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory-disabled:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-approved:hover{
+    padding: 3px 4px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+
+  .openbtn{
+    margin-left: -20px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  .th-declined, .td-declined{
+    font-size: 10px;
+  }
+
+  .th, .td{
+    font-size: 10px;
+  }
+
+
+  #date-time {
+    font-size: 0.7rem; /* Adjust font size as needed */
+    right: 30px;
+  
+  }
+
+  #monthFilter{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 140%;
+  }
+
+  #yearFilter{
+    font-size: 10px;
+    width: 140%;
+    margin-top: 10px;
+    margin-left: 36px;
+  }
+
+  #monthFilter-pending{
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    width: 140%;
+  }
+
+  #yearFilter-pending{
+    font-size: 10px;
+    width: 140%;
+    margin-top: 10px;
+    margin-left: 36px;
+  }
+
+  /* Pending Leave */
+
+  .filter-row-pending input[type="text"],
+  .filter-row-pending input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px; 
+    width: 225px;
+  }
+
+  /* Declined Leave */
+
+  .filter-row input[type="text"],
+  .filter-row input[type="date"] {
+    font-size: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+    color: black;
+    margin-left: 0px;
+    width: 225px;
+  }   
+
+   /* Approved Leaves */
+
+   .filter-row-approved input[type="text"],
+   .filter-row-approved input[type="date"] {
+     padding: 8px;
+     border: none;
+     border-radius: 8px;
+     background-color: #D9D9D9;
+     color: black;
+     font-size: 10px;
+     margin-left: 0px;
+     width: 225px;
+   }
+
+  .btn-leaveHistory{ /* This is the Cancel Button */
+    border: 1px solid #b40000;
+    color: #b40000;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  
+  .btn-approved{
+    padding: 3px 4px; /* Optional: Add padding to adjust the space between the icon and the border */
+  }
+
+  .btn-leaveHistory-disabled{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory-disabled:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-leaveHistory:hover{
+    padding: 3px 5px;
+  }
+
+  .btn-approved:hover{
+    padding: 3px 4px;
   }
 
 }
