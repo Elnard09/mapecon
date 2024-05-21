@@ -7,7 +7,7 @@ $user_data = check_login($connection);
 // Check if the user is logged in
 /*if (!isset($_SESSION['user_id'])) {
   header("Location: ../login.php");
-  exit();
+  exit(); 
 }*/
 
 $user_id = $_SESSION['user_id'];
@@ -193,16 +193,26 @@ mysqli_close($connection);
                     ?>
                   </select>
                 </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                <div class="navigation-buttons">
+                  <button id="prevButton" class="nav-button" onclick="showPreviousVisualization()" style="display: none;">Prev</button>
+                  <button id="nextButton" class="nav-button" onclick="showNextVisualization()">Next</button>
+                </div>
+                </th>
               </tr>
             </table>
           </div>
 
           <!-- Data Visualization -->
-          <div class="data-visualization">
-            <canvas id="leaveChart"></canvas> <!-- Canvas for the chart -->
+          <div class="data-visualization" id="visualization1">
+            <canvas id="leaveChart"></canvas> <!-- Canvas for the pie chart -->
           </div>
-          <div class="data-visualization">
-            <canvas id="leavetypeChart"></canvas> <!-- Canvas for the chart -->
+          <div class="data-visualization" id="visualization2" style="display: none;">
+            <canvas id="leavetypeChart"></canvas> <!-- Canvas for the bar chart -->
           </div>
       </div>
     </div>
@@ -210,6 +220,21 @@ mysqli_close($connection);
 </div>
 
 <script>
+  function showNextVisualization() {
+    document.getElementById("visualization1").style.display = "none";
+    document.getElementById("visualization2").style.display = "block";
+    document.getElementById("nextButton").style.display = "none";
+    document.getElementById("prevButton").style.display = "block";
+  }
+
+  // Function to show the previous visualization
+  function showPreviousVisualization() {
+    document.getElementById("visualization1").style.display = "block";
+    document.getElementById("visualization2").style.display = "none";
+    document.getElementById("nextButton").style.display = "block";
+    document.getElementById("prevButton").style.display = "none";
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
     var ctx = document.getElementById('leaveChart').getContext('2d');
     var myChart = new Chart(ctx, {
