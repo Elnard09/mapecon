@@ -4,19 +4,25 @@ session_start();
 include("../sql/config.php");
 include("../sql/function.php");
 $user_data = check_login($connection);
-// Check if cancel request button is clicked
-if (isset($_POST['cancel_request'])) {
-  $id_to_delete = $_POST['id_to_delete'];
 
-  // Delete the record from the database
-  $sql_delete = "DELETE FROM leave_applications WHERE id = $id_to_delete";
-  if ($connection->query($sql_delete) === TRUE) {
-    // Redirect to the current page after successful deletion (refresh)
-    header("Location: " . $_SERVER['REQUEST_URI']);
+// Check if cancel request button is clicked
+if (isset($_POST['id_to_delete'])) {
+    $id_to_delete = $_POST['id_to_delete'];
+
+    // Prepare the SQL statement to prevent SQL injection
+    $stmt = $connection->prepare("DELETE FROM leave_applications WHERE id = ?");
+    $stmt->bind_param("i", $id_to_delete);
+
+    if ($stmt->execute()) {
+        // Send success response
+        header("Location: " . $_SERVER['REQUEST_URI']);
+    } else {
+        // Send error response
+        echo "Error deleting record: " . $connection->error;
+    }
+
+    $stmt->close();
     exit();
-  } else {
-    echo "Error deleting record: " . $connection->error;
-  }
 }
 
 // Get the user ID from the session
@@ -26,9 +32,12 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT l.*, UCASE(CONCAT(u.lastname, ', ', u.firstname)) AS full_name
         FROM leave_applications AS l 
         INNER JOIN users AS u ON l.user_id = u.user_id
-        WHERE l.user_id = $user_id
+        WHERE l.user_id = ?
         ORDER BY l.id DESC";
-$result = $connection->query($sql);
+$stmt = $connection->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 ?>
 <!DOCTYPE html>
@@ -172,30 +181,20 @@ $result = $connection->query($sql);
             echo "<td class='td actions floppy tooltip td-history'><a href='download leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-floppy-o'></i><span class='tooltiptext-approve'>Save as PDF</span></a></td>";
             // Check if the status is "Pending"
             if ($row["status"] == "Pending") {
-
-                echo "<td class='td actions cancel-history tooltip td-history'>";
-                echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
-                echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
-
-                echo "<button class='btn-leaveHistory' type='submit' name='cancel_request'>
-                <i class='fa fa-close'></i><span class='tooltiptext-reject'>Cancel Request</span> 
-                </button>";
-      
-               
-            } else {
-
-                echo "<td class='td actions cancel-history-disabled tooltip td-history'>";
-                echo "<form method='post' onsubmit='return confirm(\"Are you sure you want to cancel this request?\");'>";
-                echo "<input type='hidden' name='id_to_delete' value='" . $row["id"] . "'>";
-
-                // If the status is not "Pending", display a disabled button
-                echo "<button class='btn-leaveHistory-disabled' type='button' disabled>
-                <i class='fa fa-ban'></i><span class='tooltiptext-disabled'>Cannot Cancel</span>
-                </button>";
-            }
-            echo "</form>";
-            echo "</td>";
-            echo "</tr>";
+              echo "<td class='td actions cancel-history tooltip td-history'>";
+              echo "<button class='btn-leaveHistory' onclick='openCancelModal(" . $row['id'] . ")'>
+                    <i class='fa fa-close'></i><span class='tooltiptext-reject'>Cancel Request</span> 
+                    </button>";
+              echo "</td>";
+          } else {
+              echo "<td class='td actions cancel-history-disabled tooltip td-history'>";
+              echo "<button class='btn-leaveHistory-disabled' disabled>
+                    <i class='fa fa-ban'></i><span class='tooltiptext-disabled'>Cannot Cancel</span>
+                    </button>";
+              echo "</td>";
+          }
+  
+          echo "</tr>";
         }
     } else {
         echo "<tr><td colspan='10'>No data found</td></tr>";
@@ -205,7 +204,31 @@ $result = $connection->query($sql);
 </div>
 </div>
 </div>
-</body>
+
+<!-- Modals -->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to cancel this leave request?</p>
+        <form method='post'>
+            <input type='hidden' name='id_to_delete' id='cancelIdToDelete'>
+            <button type='submit' class='btn-leaveHistory' name='cancel_request'>Yes</button>
+            <button type='button' class='btn-grey' onclick="closeModal('cancelModal')">No</button>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+
+<script>
+function openCancelModal(idToDelete) {
+    document.getElementById('cancelIdToDelete').value = idToDelete;
+    document.getElementById('cancelModal').style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+</script>
 
 <script>
 
@@ -370,7 +393,8 @@ updateTime();
 
   
   
-</script>
+</script>  
+</body>
 </html>
 <?php
 // Close database connection

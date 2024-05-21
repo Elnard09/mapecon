@@ -50,7 +50,7 @@ $result = $connection->query($sql);
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
+    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php" id="active"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
@@ -149,7 +149,7 @@ $result = $connection->query($sql);
   
 </div>
 </div>
-</body>
+
 
 <script>
 
@@ -185,9 +185,6 @@ $result = $connection->query($sql);
       }, 1000);
     }
   }
-
-
-
 
   function toggleNav() {
     var sidebar = document.getElementById("sidebar");
@@ -394,4 +391,5 @@ function updateCheckAllStatus() {
 
 
 </script>
+</body>
 </html>

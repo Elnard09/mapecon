@@ -97,7 +97,7 @@ function sendEmail($email, $otp) {
                 style='background-color: #F32424; padding: 10px; color: #fff; font-weight: bolder; font-size: 1rem; font-family: \"Oxygen\", Arial, sans-serif; text-decoration: none; border-radius: 5px;'>RESET PASSWORD</a><br><br>
             </center> 
             <p style='color: #000;'>You will be taken to a page where you can enter a new password. Please make sure to choose a strong, unique password that you have not used before. <br><br>
-            If you have any questions or concerns, please do not hesitate to contact our with this email. Thank you for your cooperation. Have a great day ahead! <br><br></p>
+            If you have any questions or concerns, please do not hesitate to contact us with this email. Thank you for your cooperation. Have a great day ahead! <br><br></p>
             <p style='color: #000;'><em>Best regards, <br><b>MAPECON</b></em> <br></p>
         </body>
     ";

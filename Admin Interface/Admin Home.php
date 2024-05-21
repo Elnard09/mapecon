@@ -41,12 +41,12 @@ $rowDeclined = mysqli_fetch_assoc($resultDeclined);
 
 
 // Retrieve counts for each leave type
-$queryCasual = "SELECT COUNT(*) AS casual_count FROM leave_applications WHERE leave_type = 'Casual Leave'";
-$queryCompensatory = "SELECT COUNT(*) AS compensatory_count FROM leave_applications WHERE leave_type = 'Compensatory Off'";
-$queryWithoutPay = "SELECT COUNT(*) AS withoutpay_count FROM leave_applications WHERE leave_type = 'Leave without Pay'";
-$queryPrivilege = "SELECT COUNT(*) AS privilege_count FROM leave_applications WHERE leave_type = 'Privilege Leave'";
-$querySick = "SELECT COUNT(*) AS sick_count FROM leave_applications WHERE leave_type = 'Sick Leave'";
-$queryVacation = "SELECT COUNT(*) AS vacation_count FROM leave_applications WHERE leave_type = 'Vacation Leave'";
+$queryCasual = "SELECT COUNT(*) AS casual_count FROM leave_applications WHERE leave_type = 'Casual Leave' AND status = 'Approved'";
+$queryCompensatory = "SELECT COUNT(*) AS compensatory_count FROM leave_applications WHERE leave_type = 'Compensatory Off' AND status = 'Approved'";
+$queryWithoutPay = "SELECT COUNT(*) AS withoutpay_count FROM leave_applications WHERE leave_type = 'Leave without Pay' AND status = 'Approved'";
+$queryPrivilege = "SELECT COUNT(*) AS privilege_count FROM leave_applications WHERE leave_type = 'Privilege Leave' AND status = 'Approved'";
+$querySick = "SELECT COUNT(*) AS sick_count FROM leave_applications WHERE leave_type = 'Sick Leave' AND status = 'Approved'";
+$queryVacation = "SELECT COUNT(*) AS vacation_count FROM leave_applications WHERE leave_type = 'Vacation Leave' AND status = 'Approved'";
 
 $resultCasual = mysqli_query($connection, $queryCasual);
 $resultCompensatory = mysqli_query($connection, $queryCompensatory);
@@ -233,6 +233,7 @@ mysqli_close($connection);
     document.getElementById("visualization2").style.display = "none";
     document.getElementById("nextButton").style.display = "block";
     document.getElementById("prevButton").style.display = "none";
+    window.location.reload();
   }
 
   document.addEventListener("DOMContentLoaded", function() {
@@ -290,70 +291,70 @@ mysqli_close($connection);
   });
 </script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById('leavetypeChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-      type: 'bar', // Change chart type to bar
-    data: {
-      labels: ['Casual Leave', 'Compensatory Off', 'Leave without Pay', 'Privilege Leave', 'Sick Leave', 'Vacation Leave'],
-      datasets: [{
-        label: 'Leave Count',
-        data: [
-          <?php echo $rowCasual['casual_count']; ?>, 
-          <?php echo $rowCompensatory['compensatory_count']; ?>, 
-          <?php echo $rowWithoutPay['withoutpay_count']; ?>, 
-          <?php echo $rowPrivilege['privilege_count']; ?>, 
-          <?php echo $rowSick['sick_count']; ?>, 
-          <?php echo $rowVacation['vacation_count']; ?>
-        ],
-        backgroundColor: [
-          'rgb(58, 58, 58)', // Casual Leave - Gray
-          'rgba(255,214,213,255)', // Compensatory Off - Light Pink
-          'rgb(192, 0, 0)', // Leave without Pay - Red
-          'rgb(0, 128, 0)', // Privilege Leave - Green
-          'rgb(0, 0, 255)', // Sick Leave - Blue
-          'rgb(255, 165, 0)' // Vacation Leave - Orange
-        ],
-        borderColor: [
-          'rgb(255, 255, 255)',
-          'rgb(255, 255, 255)',
-          'rgb(255, 255, 255)',
-          'rgb(255, 255, 255)',
-          'rgb(255, 255, 255)',
-          'rgb(255, 255, 255)'
-        ],
-        borderWidth: 1
-      }]
-    },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: 'center'
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var ctx = document.getElementById('leavetypeChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar', // Change chart type to bar
+      data: {
+        labels: ['Casual Leave', 'Compensatory Off', 'Leave without Pay', 'Privilege Leave', 'Sick Leave', 'Vacation Leave'],
+        datasets: [{
+          label: 'Leave Count',
+          data: [
+            <?php echo $rowCasual['casual_count']; ?>, 
+            <?php echo $rowCompensatory['compensatory_count']; ?>, 
+            <?php echo $rowWithoutPay['withoutpay_count']; ?>, 
+            <?php echo $rowPrivilege['privilege_count']; ?>, 
+            <?php echo $rowSick['sick_count']; ?>, 
+            <?php echo $rowVacation['vacation_count']; ?>
+          ],
+          backgroundColor: [
+            'rgb(58, 58, 58)', // Casual Leave - Gray
+            'rgba(255,214,213,255)', // Compensatory Off - Light Pink
+            'rgb(192, 0, 0)', // Leave without Pay - Red
+            'rgb(0, 128, 0)', // Privilege Leave - Green
+            'rgb(0, 0, 255)', // Sick Leave - Blue
+            'rgb(255, 165, 0)' // Vacation Leave - Orange
+          ],
+          borderColor: [
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)'
+          ],
+          borderWidth: 1
+        }]
+      },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            position: 'center'
+          }
         }
+      });
+
+      // Function to update chart based on selected month and year
+      function updateChart() {
+        var selectedMonth = document.getElementById("monthFilter-dashboard").value;
+        var selectedYear = document.getElementById("yearFilter-dashboard").value;
+
+        // Fetch data based on selected month and year
+        fetch('update_chart.php?month=' + selectedMonth + '&year=' + selectedYear)
+          .then(response => response.json())
+          .then(data => {
+            myChart.data.datasets[0].data = [data.pending_count, data.approved_count, data.declined_count];
+            myChart.update();
+          });
       }
+
+      // Listen for changes in month and year filters
+      document.getElementById("monthFilter-dashboard").addEventListener("change", updateChart);
+      document.getElementById("yearFilter-dashboard").addEventListener("change", updateChart);
     });
-
-    // Function to update chart based on selected month and year
-    function updateChart() {
-      var selectedMonth = document.getElementById("monthFilter-dashboard").value;
-      var selectedYear = document.getElementById("yearFilter-dashboard").value;
-
-      // Fetch data based on selected month and year
-      fetch('update_chart.php?month=' + selectedMonth + '&year=' + selectedYear)
-        .then(response => response.json())
-        .then(data => {
-          myChart.data.datasets[0].data = [data.pending_count, data.approved_count, data.declined_count];
-          myChart.update();
-        });
-    }
-
-    // Listen for changes in month and year filters
-    document.getElementById("monthFilter-dashboard").addEventListener("change", updateChart);
-    document.getElementById("yearFilter-dashboard").addEventListener("change", updateChart);
-  });
-</script>
+  </script>
 
 <script>
   // JavaScript functions for sidebar toggling

@@ -28,7 +28,6 @@ $result = $conn->query($sql);
 <link rel="stylesheet" href="/mapecon/style3.css">
 </head>
 
-
 <body>
 <header>
   <div class="logo_header">
@@ -57,8 +56,7 @@ $result = $conn->query($sql);
   
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="Admin Home.php"><i class="fa fa-home"></i> Home</a>
-    <!-- <a href="Admin Dashboard.php" class="home-sidebar"><i class="fa fa-pie-chart"></i> Dashboard</a> -->
+    <a href="Admin Home.php" class="home-sidebar"><i class="fa fa-home"></i> Home</a>
     <span class="leave-label">LEAVE REPORTS</span>
     <a href="Pending Leaves.php" id="active"><i class="fa fa-file-text-o"></i> Pending Leaves</a>
     <a href="Approved Leaves.php"><i class="fa fa-file-word-o"></i> Approved Leaves</a>
@@ -128,7 +126,6 @@ $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
             if($row["status"] === "Pending") {
                 echo "<tr>";
-                //echo "<td class='td'><input type='checkbox'></td>";
                 echo "<td class='td'></td>";
                 echo "<td class='td'>" . $row["full_name"] . "</td>";
                 echo "<td class='td'>" . $row["leave_type"] . "</td>";
@@ -138,28 +135,18 @@ $result = $conn->query($sql);
                 echo "<td class='td'>-</td>";
                 echo "<td class='td actions eye tooltip'><a href='view leave docs.php?application_id=" . $row["application_id"] . "' target='_blank'><i class='fa fa-eye'></i><span class='tooltiptext-eye'>View Leave Document</span></a></td>";
                 
-                
-                echo "<td class='td actions  tooltip'>";
-                echo "<form action='update_status.php' method='post' onsubmit='return confirmApproval()'>";
-                echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
-                echo "<input type='hidden' name='status' value='Approved'>";
-                echo "<button type='submit' class='btn-approved'>";
+                echo "<td class='td actions tooltip'>";
+                echo "<button class='btn-approved' onclick='openModal(\"approve\", " . $row['application_id'] . ")'>";
                 echo "<i class='fa fa-check'></i>";
                 echo "<span class='tooltiptext-approve'>Approve Leave</span>";
                 echo "</button>";
-                echo "</form>";
                 echo "</td>";
 
-
                 echo "<td class='td actions tooltip'>";
-                echo "<form action='update_status.php' method='post'  onsubmit='return confirmDecline()'>";
-                echo "<input type='hidden' name='application_id' value='" . $row['application_id'] . "'>";
-                echo "<input type='hidden' name='status' value='Declined'>";
-                echo "<button type='submit' class='btn-leaveHistory'>";
+                echo "<button class='btn-leaveHistory' onclick='openModal(\"decline\", " . $row['application_id'] . ")'>";
                 echo "<i class='fa fa-close'></i>";
                 echo "<span class='tooltiptext-reject'>Decline Leave</span>";
                 echo "</button>";
-                echo "</form>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -172,8 +159,56 @@ $result = $conn->query($sql);
 </div>
 </div>
 </div>
-</body>
 
+<!-- Modals -->
+<div id="approveModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to <b>approve</b> this leave request?</p>
+    <form action='update_status.php' method='post'>
+      <input type='hidden' name='application_id' id='approveApplicationId'>
+      <input type='hidden' name='status' value='Approved'>
+      <button type='submit' class='btn-approved'>Yes</button>
+      <button type='button' class='btn-grey' onclick="closeModal('approveModal')">No</button>
+    </form>
+  </div>
+</div>
+
+<div id="declineModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to <b>decline</b> this leave request?</p>
+    <form action='update_status.php' method='post'>
+      <input type='hidden' name='application_id' id='declineApplicationId'>
+      <input type='hidden' name='status' value='Declined'>
+      <button type='submit' class='btn-leaveHistory'>Yes</button>
+      <button type='button' class='btn-grey' onclick="closeModal('declineModal')">No</button>
+    </form>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+function openModal(action, applicationId) {
+  if (action === 'approve') {
+    document.getElementById('approveApplicationId').value = applicationId;
+    document.getElementById('approveModal').style.display = 'block';
+  } else if (action === 'decline') {
+    document.getElementById('declineApplicationId').value = applicationId;
+    document.getElementById('declineModal').style.display = 'block';
+  }
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('approveModal')) {
+    closeModal('approveModal');
+  } else if (event.target == document.getElementById('declineModal')) {
+    closeModal('declineModal');
+  }
+}
+</script>
 
 <script>
 
@@ -360,4 +395,5 @@ function confirmDecline() {
         }
     });
 </script>
+</body>
 </html>
