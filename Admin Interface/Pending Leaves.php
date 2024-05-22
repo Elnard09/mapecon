@@ -395,9 +395,5 @@ function confirmDecline() {
         }
     });
 </script>
-<<<<<<< Updated upstream
 </body>
 </html>
-=======
-</html>
->>>>>>> Stashed changes

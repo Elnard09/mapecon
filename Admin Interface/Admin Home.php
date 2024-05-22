@@ -125,34 +125,32 @@ mysqli_close($connection);
     <div class="admin-home">
       <div class="dashboard-content">
         <h3 class="h3-home">Home</h3>
-        <div class="overlay" id="overlay" onclick="closeNav()"></div>
-    <div class="card-container-admin">
-      <div class="card-container-wrapper">
-        <div class="card" onclick="location.href='/mapecon/Admin Interface/Pending Leaves.php';" style="cursor: pointer;">
-          <div class="card-content">
-            <img src="/mapecon/Pictures/pending.png" alt="Pending">
-          </div>
-        </div>
-        <p class="phrase">Pending</p>
-      </div>
-      <div class="card-container-wrapper">
-          <div class="card" onclick="location.href='/mapecon/Admin Interface/Approved Leaves.php';" style="cursor: pointer;">
-            <div class="card-content">
-              <img src="/mapecon/Pictures/approved.png" alt="Approved">
+        <div class="card-container-admin">
+          <div class="card-container-wrapper">
+            <div class="card" onclick="location.href='/mapecon/Admin Interface/Pending Leaves.php';" style="cursor: pointer;">
+              <div class="card-content">
+                <img src="/mapecon/Pictures/pending.png" alt="Pending">
+              </div>
             </div>
+            <p class="phrase">Pending</p>
           </div>
-          <p class="phrase">Approved</p>
-        </div>
-      <div class="card-container-wrapper">
-        <div class="card" onclick="location.href='/mapecon/Admin Interface/Declined Leaves.php';" style="cursor: pointer;">
-          <div class="card-content">
-            <img src="/mapecon/Pictures/declined.png" alt="Declined">
+          <div class="card-container-wrapper">
+            <div class="card" onclick="location.href='/mapecon/Admin Interface/Approved Leaves.php';" style="cursor: pointer;">
+              <div class="card-content">
+                <img src="/mapecon/Pictures/approved.png" alt="Approved">
+              </div>
+            </div>
+            <p class="phrase">Approved</p>
+          </div>
+          <div class="card-container-wrapper">
+            <div class="card" onclick="location.href='/mapecon/Admin Interface/Declined Leaves.php';" style="cursor: pointer;">
+              <div class="card-content">
+                <img src="/mapecon/Pictures/declined.png" alt="Declined">
+              </div>
+            </div>
+            <p class="phrase">Declined</p>
           </div>
         </div>
-        <p class="phrase">Declined</p>
-      </div>
-  </div>
-        
       </div>
     </div>
 
@@ -161,50 +159,50 @@ mysqli_close($connection);
       <div class="dashboard-content">
         <h3 class="h3-dashboard">Dashboard</h3>
         <div class="container_dashboard">
-          <div class="filters">
-            <table>
-              <tr class="filter-row-approved">
-                <th>
-                  <select id="monthFilter-dashboard">
-                    <option value="">Month</option>
-                    <option value="01">January</option>
-                    <option value="02">February</option>
-                    <option value="03">March</option>
-                    <option value="04">April</option>
-                    <option value="05">May</option>
-                    <option value="06">June</option>
-                    <option value="07">July</option>
-                    <option value="08">August</option>
-                    <option value="09">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                </th>
-                <th>
-                  <select id="yearFilter-dashboard">
-                    <option value="">Year</option>
-                    <?php 
-                      $start_year = 2010;
-                      $end_year = date('Y');
-                      for( $j=$end_year; $j>=$start_year; $j-- ) {
-                          echo '<option value="'.$j.'">'.$j.'</option>';
-                      }
-                    ?>
-                  </select>
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>
-                <div class="navigation-buttons">
-                  <button id="prevButton" class="nav-button" onclick="showPreviousVisualization()" style="display: none;">Prev</button>
-                  <button id="nextButton" class="nav-button" onclick="showNextVisualization()">Next</button>
-                </div>
-                </th>
-              </tr>
-            </table>
+          <div class="filter-nav-container">
+            <div class="filters">
+              <table>
+                <tr class="filter-row-approved">
+                  <th>
+                    <select id="monthFilter-dashboard">
+                      <option value="">Month</option>
+                      <option value="01">January</option>
+                      <option value="02">February</option>
+                      <option value="03">March</option>
+                      <option value="04">April</option>
+                      <option value="05">May</option>
+                      <option value="06">June</option>
+                      <option value="07">July</option>
+                      <option value="08">August</option>
+                      <option value="09">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select id="yearFilter-dashboard">
+                      <option value="">Year</option>
+                      <?php 
+                        $start_year = 2010;
+                        $end_year = date('Y');
+                        for( $j=$end_year; $j>=$start_year; $j-- ) {
+                            echo '<option value="'.$j.'">'.$j.'</option>';
+                        }
+                      ?>
+                    </select>
+                  </th>
+                </tr>
+              </table>
+            </div>
+            <div class="navigation-buttons">
+            <button id="prevButton" class="nav-button" onclick="showPreviousVisualization()" style="display: none;">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i> Bar 
+            </button>
+            <button id="nextButton" class="nav-button" onclick="showNextVisualization()">
+              <i class="fa fa-pie-chart" aria-hidden="true"></i> Pie 
+            </button>
+            </div>
           </div>
 
           <!-- Data Visualization -->
@@ -214,6 +212,7 @@ mysqli_close($connection);
           <div class="data-visualization" id="visualization2" style="display: none;">
             <canvas id="leavetypeChart"></canvas> <!-- Canvas for the bar chart -->
           </div>
+        </div>
       </div>
     </div>
   </div>
