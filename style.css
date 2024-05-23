@@ -254,11 +254,7 @@ header {
     margin-top: -40px;
     margin-bottom: 10px;
   }
-  .dashboard-content .divider {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 20px;
-  
-  }
+ 
   .admin-container {
     display: flex;
     justify-content: center;
@@ -898,10 +894,6 @@ label {
      margin-top: 75px;
   }
 
-  #leaveChart{
-    margin-left: 50px;
-  }
-
   .container_dashboard {
     width: 75%;
     margin-left: -15px;
@@ -1103,6 +1095,201 @@ label {
     width: 90%;
   }
 }
+@media only screen and (min-width: 1020px) and (max-width: 1280px) {
+
+  /* CARD STYLE */
+  .card-container, .card-container-admin {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: -20px;
+  }
+  
+  #yearFilter-dashboard,
+  #monthFilter-dashboard{
+    width: 85px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-top: 20px;
+  }
+   
+  /* New container for filters and nav button */
+  .filter-nav-container {
+    align-items: center;
+    width: 90%;
+    margin-top: -30px;
+    margin-left: -5px;
+  }
+  /* Changing of graph button */
+  .nav-button {
+    background-color: #303030; 
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 85px;
+    margin-right: -40px;
+    margin-top: 30px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
+  }
+  #visualization1 {
+    margin-top: 5px;
+    margin-left: 30px; 
+    height: 420px; 
+    width: 380px;
+  }
+  #visualization2 {
+    margin-top: 5px;
+    margin-left: 30px; 
+    height: 420px; 
+    width: 380px;
+  }
+}
+@media only screen and (min-width: 820px) and (max-width: 920px) {
+
+  /* CARD STYLE */
+  .card-container, .card-container-admin {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: -20px;
+  }
+  
+  #yearFilter-dashboard,
+  #monthFilter-dashboard{
+    width: 85px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-top: 20px;
+  }
+   
+  /* New container for filters and nav button */
+  .filter-nav-container {
+    align-items: center;
+    width: 90%;
+    margin-top: -30px;
+    margin-left: -5px;
+  }
+  /* Changing of graph button */
+  .nav-button {
+    background-color: #303030; 
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 85px;
+    margin-right: -40px;
+    margin-top: 30px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
+  }
+  #visualization1 {
+    margin-top: 5px;
+    margin-left: 30px; 
+    height: 420px; 
+    width: 380px;
+  }
+  #visualization2 {
+    margin-top: 5px;
+    margin-left: 30px; 
+    height: 420px; 
+    width: 380px;
+  }
+}
+
+@media only screen and (min-width: 680px) and  (max-width: 800px) {
+
+  /* CARD STYLE */
+  .card-container, .card-container-admin {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: -20px;
+  }
+
+
+  #yearFilter-dashboard,
+  #monthFilter-dashboard{
+    width: 85px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-top: 20px;
+  }
+   
+  /* New container for filters and nav button */
+  .filter-nav-container {
+    align-items: center;
+    width: 100%;
+    margin-top: -20px;
+    margin-left: -25px;
+  }
+  /* Changing of graph button */
+  .nav-button {
+    background-color: #303030; 
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 85px;
+    margin-top: 15px;
+    margin-right: -25px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
+  }
+  #visualization1 {
+    margin-top: 5px;
+    margin-left: 100px; 
+    height: 450px; 
+    width: 400px;
+  }
+  #visualization2 {
+    margin-top: 5px;
+    margin-left: 100px; 
+    height: 450px; 
+    width: 400px;
+  }
+  
+}
 
 @media only screen and (max-width: 630px) {
   #date-time {
@@ -1114,27 +1301,12 @@ label {
   }
 }
 
-@media only screen and (max-width: 440px) {
-
-
-  .openbtn{
-    margin-left: -5px;
-  }
-
-  #date-time {
-    font-size: 0.7rem; /* Adjust font size as needed */
-    right: 45px;
-  
-  }
-}
-
-@media only screen and (min-width: 381px) and (max-width: 440px) {
-
+@media only screen and (min-width: 480px) and (max-width: 679px) {
   /* Home h3 */
   .h3-home{
     visibility: hidden;
   }
-  
+
   /* CARD STYLE */
   .card-container, .card-container-admin {
     display: flex;
@@ -1143,22 +1315,6 @@ label {
     margin-top: -40px;
   }
 
-  /* Dashboard */
-  .data-visualization {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  .container_dashboard {
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    height: 50vh;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 20px; 
-  }
   #yearFilter-dashboard,
   #monthFilter-dashboard{
     width: 85px;
@@ -1188,10 +1344,111 @@ label {
     cursor: pointer;
     border-radius: 8px;
     width: 85px;
-    margin-inline-start: 10px;
+    margin-right: -45px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
   }
   #visualization1 {
     margin-top: 5px;
+    margin-left: 0px; 
+    height: 400px; 
+    width: 360px;
+  }
+  #visualization2 {
+    margin-top: 5px;
+    margin-left: 0px; 
+    height: 400px; 
+    width: 360px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+
+  .openbtn{
+    margin-left: -5px;
+  }
+
+  #date-time {
+    font-size: 0.7rem; /* Adjust font size as needed */
+    right: 45px;
+  
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 479px) {
+
+  /* Home h3 */
+  .h3-home{
+    visibility: hidden;
+  }
+  
+  /* CARD STYLE */
+  .card-container, .card-container-admin {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: -40px;
+  }
+
+  /* Dashboard */
+  .data-visualization {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  #yearFilter-dashboard,
+  #monthFilter-dashboard{
+    width: 85px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-top: 20px;
+  }
+   
+  /* New container for filters and nav button */
+  .filter-nav-container {
+    align-items: center;
+    width: 100%;
+    margin-top: -30px;
+    margin-left: -45px;
+  }
+  /* Changing of graph button */
+  .nav-button {
+    background-color: #303030;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 85px;
+    margin-top: 5px;
+    margin-inline-start: 10px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: 92%;
+    height: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
+  }
+  #visualization1 {
+    margin-top: 5px;
+    margin-left: 0px; 
     height: 395px; 
     width: 300px;
   } 
@@ -1199,12 +1456,12 @@ label {
     margin-top: 5px;
     padding-left: 20px; 
     height: 395px; 
-    width: 280px;
+    width: 300px;
   }  
   
 }
 
-@media only screen and (min-width: 375px) and (max-width: 395px) {
+@media only screen and (min-width: 375px) and (max-width: 399px) {
 
   .h3-home{
     visibility: hidden;
@@ -1219,7 +1476,7 @@ label {
     right: 40px;
   }
   
-  /*(Iphone SE)*/
+  /*(Iphone SE) and 12 Pro*/
   /* CARD STYLE */
   .card-container, .card-container-admin {
     display: flex;
@@ -1266,14 +1523,7 @@ label {
     height: auto;
     width: 100%;
   }
-  .container_dashboard {
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 20px; 
-  }
+  
   #yearFilter-dashboard,
   #monthFilter-dashboard{
     width: 80px;
@@ -1305,11 +1555,126 @@ label {
     cursor: pointer;
     border-radius: 8px;
     width: 80px;
+    margin-top:5px;  
     margin-inline-start: 10px;
   }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px; 
+  }
+  #visualization1 {
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 375px; 
+    width: 240px;
+  }  
   #visualization2 {
     margin-top: 10px;
     height: 375px; 
+    width: 240px;
+  }  
+}
+
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+  /* Home h3 */
+  .h3-home{
+    visibility: hidden;
+  }
+  
+  /* CARD STYLE */
+  .card-container, .card-container-admin {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: -40px;
+  }
+  .card-container-wrapper {
+    text-align: center;
+  }
+  .card {
+    position: relative; 
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); 
+    width: 110px;
+    height: 110px; 
+    margin: 10px; 
+    text-align: center;
+    font-family: arial;
+    border-radius: 10px; 
+    overflow: hidden;
+
+  }
+  .card:hover {
+    padding: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4); 
+    transition: all 0.3s ease;
+  }
+  
+  .card-content {
+    position: relative;
+    display: flex;    
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+  }
+  
+  /* New container for filters and nav button */
+  .filter-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:  0%;
+    margin-top: -30px;
+    margin-left: -50px;
+  }
+  #yearFilter-dashboard,
+  #monthFilter-dashboard{
+    width: 70px;
+    border: none;
+    border-radius: 8px;
+    background-color: #EBEBEB;
+    color: black;
+    margin-top: 20px;
+  }
+   
+  /* Changing of graph button */
+  .nav-button {
+    background-color: #303030; 
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 70px;
+    margin-inline-start: 10px;
+    margin-top: 5px;
+  }
+  .container_dashboard {
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px; 
+  }
+  #visualization1 {
+    margin-top: 5px;
+    margin-left: -5px; 
+    height: 370px; 
+    width: 240px;
+  } 
+  #visualization2 {
+    margin-top: 5px;
+    margin-left: -30px; 
+    height: 370px; 
     width: 240px;
   }  
 }
